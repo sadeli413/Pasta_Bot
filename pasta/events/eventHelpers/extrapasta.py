@@ -1,21 +1,29 @@
+"""
+# Title: Copypasta.py
+# Author: Thad Shinno
+# Description: Extra copypastas not triggered by trigger words
+"""
+
+import os
 class Extrapasta:
+	THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
 	# navy seals copypasta
-	sealFile = open("pastas/fuck.txt", "r")
+	sealFile = open(THIS_FOLDER + "/pastas/fuck.txt", "r")
 	SEAL_TEXT_LOWER = sealFile.read().lower()
 	sealFile.close()
 
 	# navy seals response pasta
-	responseFile = open("pastas/extra/navySealResponse.txt", "r")
+	responseFile = open(THIS_FOLDER + "/pastas/extra/navySealResponse.txt", "r")
 	SEAL_RESPONSE = responseFile.read()
 	responseFile.close()
 
 	# too much hentai copypasta
-	tooMuchFile = open("pastas/extra/tooMuchHentai.txt", "r")
+	tooMuchFile = open(THIS_FOLDER + "/pastas/extra/tooMuchHentai.txt", "r")
 	TOOMUCH_TEXT = tooMuchFile.read()
 	tooMuchFile.close()
 
 	# FBI OPEN UP when searching for loli or shota content
-	fbiFile = open("pastas/extra/fbiOpenUp.txt", "r")
+	fbiFile = open(THIS_FOLDER + "/pastas/extra/fbiOpenUp.txt", "r")
 	FBI_TEXT = fbiFile.read()
 	fbiFile.close()
 	
@@ -34,8 +42,3 @@ class Extrapasta:
 			return Extrapasta.SEAL_RESPONSE
 			
 		return ""
-		
-	def owoify(words):
-		return words.replace("r", "w").replace("l", "w").replace("R", "W").replace("L", "W")
-		
-		
