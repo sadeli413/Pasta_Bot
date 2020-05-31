@@ -1,6 +1,4 @@
 class Extrapasta:
-	# for owo
-	last = ""
 	# navy seals copypasta
 	sealFile = open("pastas/fuck.txt", "r")
 	SEAL_TEXT_LOWER = sealFile.read().lower()

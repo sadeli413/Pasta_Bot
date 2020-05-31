@@ -3,10 +3,11 @@
 # Author: Thad Shinno
 # Description: class that returns an array of embeds given a lower case discord message. These embeds are nhentai links.
 """
-
-# 227910 151529 177978 247896 283061  165961  177013  250401   301320  158990  151529  283061  247896  171461
-# 227910 151529 177978 247896 283061  165961  177013  250401   301320  158990  171461
-
+"""
+Test cases
+227910 151529 177978 247896 283061  165961  177013  250401   301320  158990  151529  283061  247896  171461
+227910 151529 177978 247896 283061  165961  177013  250401   301320  158990  171461
+"""
 import discord
 import requests
 
@@ -36,7 +37,7 @@ class Nhentai:
 					embeds.append(embed)
 		return embeds
 
-	# an embed of Title, url, Artists, Numbers, Tags, and Parodies	
+	# an embed of Title, url, Artists, Sauce, Pages, Tags, and Parodies	
 	def getEmbed(html, link, number):
 		tags = Nhentai.getTags(html)
 		embed = discord.Embed(
@@ -59,7 +60,7 @@ class Nhentai:
 		# find the line with the title
 		head = "<meta name=\"twitter:title\" content="
 		line = Nhentai.getLine(html, head)
-		line = line[len(head) + 2 : len(line) - 4]
+		line = line[len(head) + 2 : -4]
 		# make sure the title is a printable character
 		title = ""
 		for char in line:
@@ -76,7 +77,7 @@ class Nhentai:
 		# find the line with the tags
 		head = "<meta name=\"twitter:description\" content="
 		line = Nhentai.getLine(html, head)
-		line = line[len(head) + 2 : len(line) - 4]
+		line = line[len(head) + 2 : -4]
 		
 		tags = line.split(", ")
 		return Nhentai.list2str(tags)
@@ -92,11 +93,11 @@ class Nhentai:
 	def getParodies(html):
 		head = "<span class=\"tags\"><a href=\"/parody/"
 		line = Nhentai.getLine(html, head)
-		# Return nothing if there are no parodies
-		if len(line) < 1:
-			return ""
+		if len(line) > 0:
+			return Nhentai.getSpan(line)
 		
-		return Nhentai.getSpan(line)
+		# Return nothing if there are no parodies
+		return ""
 
 	def getPages(html):
 		tail = "pages</div>"
@@ -110,8 +111,7 @@ class Nhentai:
 		data = []
 		# the necessary data is only found starting on the 4th index every 8 items
 		for i in range(4, len(words), 8):
-			word = words[i]
-			data.append(word[:-1]) # append and remove a space
+			data.append(words[i][:-1]) # append and remove a space
 
 		# last item of parodies is always just an empty string
 		data.pop()
@@ -135,8 +135,7 @@ class Nhentai:
 				words.remove(word)
 
 		# remove duplicates
-		numbers = words
-		numbers = list(dict.fromkeys(numbers))
+		numbers = list(dict.fromkeys(words))
 		
 		# numbers must be only five to seven digits
 		for number in reversed(numbers):
@@ -153,8 +152,7 @@ class Nhentai:
 	def hasNumbers(word):
 		return any(char.isdigit() for char in word)	
 		
-	# converts, a, list, into, a, string, like, this
-	
+	# "converts, a, list, into, a, string, like, this"
 	def list2str(list):
 		out = ""
 		for word in list:

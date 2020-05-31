@@ -13,10 +13,9 @@ from Extrapasta import Extrapasta
 from Token import getToken
 
 from discord.ext import tasks, commands
-from random import randint
 from itertools import cycle
 
-# store the last message as a global variable
+#TODO: make the bot only available on nsfw channels
 def main():
 	TOKEN = getToken()
 	client = commands.Bot(command_prefix = '.')
@@ -75,16 +74,16 @@ def main():
 	# give a warm greeting to the system channel when someone joins
 	@client.event
 	async def on_member_join(member):
-		await member.guild.system_channel.send("Welcome home, {member}! Would you like dinner? A bath? Or maybe... me?".format(member = member.name))
+		await member.guild.system_channel.send("Welcome home, {member}! Would you like dinner? A bath? Or maybe... me?".format(member = member.mention))
 	
-	@client.command()
+	@client.command(aliases=["i"])
 	async def ignore(ctx):
 		return
 	
 	@client.command()
 	async def readme(ctx):
+		await ctx.author.send("Description of Pasta_Bot", file=discord.File("README.txt"))
 		await ctx.send("{member} I sent you a DM".format(member=ctx.author.mention))
-		await ctx.author.send("Description of Pasta_Bot by Thad Shinno @Sadeli#5418", file=discord.File("README.txt"))
 	
 	@client.command()
 	async def triggers(ctx):
@@ -108,7 +107,6 @@ def main():
 		else:
 			# else if members are given, then owoify last messages only from those members
 			allMessages = await ctx.channel.history(limit=200).flatten()
-			lastMessages = []
 			for member in members:
 				await ctx.send(getMessage(allMessages, member))
 	
@@ -116,12 +114,17 @@ def main():
 	async def owo_error(ctx, error):
 		if isinstance(error, commands.BadArgument):
 			await owo(ctx)
-			return
 	
 	@client.command()
+	@commands.has_permissions(manage_messages=True)
 	async def clean(ctx):
 		deleted = await ctx.channel.purge(limit = 200, check=isBot)
 		await ctx.send('Deleted {num} message(s)'.format(num = len(deleted)))
+	
+	@clean.error
+	async def clean_error(ctx, error):
+		if isinstance(error, commands.MissingPermissions):
+			await ctx.send("{member} you do not have permissions to manage messages".format(member=ctx.author.mention))
 	
 	def isBot(message):
 		return message.author == client.user
@@ -131,6 +134,12 @@ def main():
 	async def shutdown(ctx):
 		await ctx.bot.logout()
 	
+	"""
+	@shutdown.error
+	async def shutdown_error(ctx, error):
+		if isinstance(error, commands.MissingPermissions):
+			await ctx.send("Now listen here, you little shit {member} You think you can just .shutdown me? Fuck you. reported. dumbass. useless. bet ur pp hella smol".format(ctx.author.mention))
+	"""
 	# run the bot
 	client.run(TOKEN)
 
@@ -146,7 +155,6 @@ def getMessage(messages, member):
 	if len(userMessages) > 0:		
 		for message in userMessages:
 			if not isCommand(message.content):
-				#await message.channel.send(Extrapasta.owoify(message.content))
 				return Extrapasta.owoify(message.content)
 	
 	return ""
@@ -159,7 +167,7 @@ def Activities():
 	return activities
 
 def isCommand(content):
-	commands = [".ignore", ".owo", ".uwu", ".shutdown", ".clean", ".readme", ".help", ".triggers"]
+	commands = [".ignore", ".owo", ".uwu", ".shutdown", ".clean", ".readme", ".help", ".triggers", ".i"]
 	for command in commands:
 		if content.startswith(command):
 			return True

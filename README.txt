@@ -1,8 +1,10 @@
 README
-Pasta_Bot by Thad Shinno @Sadeli#5418
+Pasta_Bot
+	DESCRIPTION: A NSFW Discord bot made by Thad Shinno.
+	https://github.com/sadeli413/Pasta_Bot.git
 
 *****************************************************************************************************************************************
-Commands
+Commands:
 [] means optional arguments
 
 HELP (NOT YET IMPLEMENTED)
@@ -10,11 +12,11 @@ HELP (NOT YET IMPLEMENTED)
 	USAGE: .help
 	
 TRIGGERS
-	DESCRIPTION: DM a list of all copypasta trigger words
+	DESCRIPTION: DM a message containing all copypasta trigger words
 	USAGE: .triggers
 
 OWO 
-	DESCRIPTION: Without arguments, I will owoify the last non-command message in the channel. Mention users as arguments to owoify their last message.
+	DESCRIPTION: Without arguments, I will owoify the last non Pasta_Bot-command in the channel. Mention one or more users as arguments to owoify their last message.
 	USAGE: .owo [@user_mention @user_mention...]
 
 UWU
@@ -26,7 +28,7 @@ IGNORE
 	USAGE: .ignore [any message here]
 
 CLEAN
-	DESCRIPTION: Of the past 200 messages, delete messages sent by @Pasta_Bot
+	DESCRIPTION: Of the past 200 messages in channel history, delete messages sent by Pasta_Bot
 	USAGE: .clean
 
 README
@@ -48,9 +50,26 @@ HENTAI
 		- Tag(s)
 		- Parodies (if applicable)
 	OTHER FEATURES: I will send a kink shame copypasta if you submit 4 or more sauces in one message.
-					Additionally, I will kink shame you if one of the tags include "loli" or "shota"
+					Additionally, I will kink shame you if one of the tags include *loli* or *shota*
 					No message will be sent if the numbers returns a 404 status code
 	
 COPYPASTA
 	DESCRIPTION: Triggered by the last keyword of a message. Use TRIGGERS command for a list of triggers
 	OTHER FEATURES: I will respond to the Navy Seals copypasta with the response copypasta
+
+*****************************************************************************************************************************************
+Other:
+
+STATUS:
+	DESCRIPTION: Every 5 minutes as a background task, Pasta_Bot will change statuses in between
+		"Watching lots of hentai"
+		"Listening to sad loli asmr"
+
+*****************************************************************************************************************************************
+Citations:
+
+ICON: I do not own the spaghetti-ahegao icon used for Pasta_Bot. The icon was taken from https://knowyourmeme.com/photos/1299418-ostagram-spaghetti-mashups
+COPYPASTAS: I did not create most of these copypastas. Most of the copypastas were taken from https://www.reddit.com/r/copypasta/
+HENTAI: All hentai is taken from https://nhentai.net/
+DISCORD: Made with discord.py, documentation at https://discordpy.readthedocs.io/en/latest/
+GITHUB: I do not want this on my main github so I added this to an alternate github account found at the top of this readme. My main github is at https://github.com/thad-shinno
