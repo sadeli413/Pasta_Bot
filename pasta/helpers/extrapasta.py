@@ -1,7 +1,5 @@
 """
-# Title: Copypasta.py
-# Author: Thad Shinno
-# Description: Extra copypastas not triggered by trigger words
+Description: Extra copypastas not triggered by trigger words
 """
 
 import os

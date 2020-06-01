@@ -10,7 +10,12 @@ Commands:
 HELP (NOT YET IMPLEMENTED)
 	DESCRIPTION: DM a help message
 	USAGE: .help
-	
+
+IGNORE
+	DESCRIPTION: I will NOT read or act on any messages beginning with .ignore
+	USAGE: .ignore [any message here]
+	Alias: .i
+
 TRIGGERS
 	DESCRIPTION: DM a message containing all copypasta trigger words
 	USAGE: .triggers
@@ -18,15 +23,12 @@ TRIGGERS
 OWO 
 	DESCRIPTION: Without arguments, I will owoify the last non Pasta_Bot-command in the channel. Mention one or more users as arguments to owoify their last message.
 	USAGE: .owo [@user_mention @user_mention...]
+	Alias: .uwu
 
-UWU
-	DESCRIPTION: Alias for .owo
-	USAGE: .uwu [@user_mention @user_mention...]
-
-IGNORE
-	DESCRIPTION: I will NOT owoify, will NOT give copypastas, and will NOT give hentai to messages beginning with .ignore
-	USAGE: .ignore [any message here]
-
+SURPRISE
+	DESCRIPTION: Send a random (non-loli and non-shota) nhentai embeded link in the channel.
+	USAGE: .surprise
+	
 CLEAN
 	DESCRIPTION: Of the past 200 messages in channel history, delete messages sent by Pasta_Bot
 	USAGE: .clean
@@ -52,6 +54,7 @@ HENTAI
 	OTHER FEATURES: I will send a kink shame copypasta if you submit 4 or more sauces in one message.
 					Additionally, I will kink shame you if one of the tags include *loli* or *shota*
 					No message will be sent if the numbers returns a 404 status code
+					*Note that this function tends to be slow since it runs a web request*
 	
 COPYPASTA
 	DESCRIPTION: Triggered by the last keyword of a message. Use TRIGGERS command for a list of triggers

@@ -1,16 +1,19 @@
 """
 # Title: pasta_bot.py
 # Author: Thad Shinno
-# Description: main bot method
+# Description: main bot events and commands
 """
 
 import discord
-from pasta.events.events import Events
-from pasta.commands.commands import Commands
-from mytoken import getToken
 
 from discord.ext import tasks, commands
 from itertools import cycle
+
+# custom packages
+from pasta.events import Events
+from pasta.commands import Commands
+from mytoken import getToken
+
 
 TOKEN = getToken()
 client = commands.Bot(command_prefix = '.')
@@ -59,6 +62,10 @@ async def readme(ctx):
 @client.command()
 async def triggers(ctx):
 	await cmd.triggers(ctx)
+
+@client.command()
+async def surprise(ctx):
+	await cmd.surprise(ctx)
 	
 # owoify member's last non-command message in channel
 @client.command(aliases=["uwu"])
@@ -78,10 +85,10 @@ async def clean(ctx):
 	await cmd.clean(ctx)
 
 # handle clean errors	
-#@clean.error
-#async def clean_error(ctx, error):
-#	if isinstance(error, commands.MissingPermissions):
-#		await ctx.send("{member} you do not have permissions to manage messages".format(member=ctx.author.mention))
+@clean.error
+async def clean_error(ctx, error):
+	if isinstance(error, commands.MissingPermissions):
+		await ctx.send("{member} you do not have permissions to manage messages".format(member=ctx.author.mention))
 
 # shutdown
 @client.command()

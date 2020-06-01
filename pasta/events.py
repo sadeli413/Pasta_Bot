@@ -7,9 +7,10 @@ import discord
 
 from discord.ext import tasks, commands
 from itertools import cycle
-from pasta.misc import isCommand
-from .eventHelpers.nhentai import Nhentai
-from .eventHelpers.copypasta import Copypasta
+
+from pasta.helpers.misc import isCommand
+from pasta.helpers.nsfw.nhentai import Nhentai
+from pasta.helpers.copypasta import Copypasta
 
 class Events:
 	def __init__(self, client):
@@ -22,13 +23,11 @@ class Events:
 		# ignore pasta_bot
 		if message.author == self.client.user:
 			return
-		
 		# don't pastafy or hentaify commands
 		if not isCommand(message.content):		
 			# if sauce isn't found, then send copypasta
 			if not await self.nh.fetch(message):
 				await self.cp.fetch(message)
-		
 		# let the bot process commands
 		await self.client.process_commands(message)
 	

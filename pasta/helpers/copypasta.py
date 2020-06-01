@@ -1,13 +1,12 @@
 """
-# Title: Copypasta.py
-# Author: Thad Shinno
-# Description: class that sends a copypasta based on the last keyword in a lowercase discord message. There are some copypasta exceptions
+Class that sends a copypasta based on the last keyword in a lowercase discord message. There are some copypasta exceptions.
 """
 import os
 import discord
-from .extrapasta import Extrapasta
-from pasta.misc import getTriggers
 from re import split
+
+from pasta.helpers.extrapasta import Extrapasta
+from pasta.helpers.misc import getTriggers
 
 class Copypasta:
 	def __init__(self):
