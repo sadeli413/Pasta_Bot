@@ -64,13 +64,19 @@ async def triggers(ctx):
 	await cmd.triggers(ctx)
 
 @client.command()
-async def surprise(ctx):
-	await cmd.surprise(ctx)
-	
+async def random(ctx, *data):
+	await cmd.random(ctx, data)
+
+
+@random.error
+async def random_error(ctx, error):
+	if isinstance(error, commands.BadArgument):
+		await ctx.send("TODO: u need help")
+
 # owoify member's last non-command message in channel
 @client.command(aliases=["uwu"])
 async def owo(ctx, *members : discord.Member):
-	await cmd.owo(ctx, *members)
+	await cmd.owo(ctx, *members) # for some reason the program breaks if I take out the *
 
 # handle owo errors
 @owo.error

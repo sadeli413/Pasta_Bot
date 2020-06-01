@@ -7,7 +7,7 @@
 import discord
 import requests
 # from pasta.helpers.nhentai import Nhentai
-from pasta.helpers.nsfw.doujin import Doujin
+from pasta.helpers.nsfw.hentai.doujin import Doujin
 from re import split
 
 class Sauce:

@@ -1,8 +1,6 @@
 """
 A doujin has a Title, url, html text, Artists, numbers, Pages, Tags, and Parodies
 """
-
-
 from re import split
 
 class Doujin:

@@ -12,7 +12,7 @@ import requests
 
 from re import split
 from pasta.helpers.extrapasta import Extrapasta
-from pasta.helpers.nsfw.sauce import Sauce
+from pasta.helpers.nsfw.hentai.sauce import Sauce
 
 class Nhentai:
 	# illegals is a dictionary containing title:sauce_number
@@ -49,6 +49,7 @@ class Nhentai:
 		if self.hasNumbers(content):
 			numbers = self.getNumbers(content)
 			# for every number in the content, make an embed
+			await message.channel.send("Fetching sauce...")
 			for number in numbers:
 				sauce = Sauce(number)
 				if sauce.doesExist():
@@ -57,7 +58,7 @@ class Nhentai:
 					if sauce.isIllegal():
 						self.illegals[sauce.dj.getTitle()] = number
 				else:
-					await message.channel.send("{number} is invalid sauce.".format(number=number))
+					await message.channel.send("||{number} is invalid sauce (404).||".format(number=number))
 		
 		return embeds
 			

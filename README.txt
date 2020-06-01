@@ -6,13 +6,14 @@ Pasta_Bot
 *****************************************************************************************************************************************
 Commands:
 [] means optional arguments
+<> means required argument
 
 HELP (NOT YET IMPLEMENTED)
 	DESCRIPTION: DM a help message
 	USAGE: .help
 
 IGNORE
-	DESCRIPTION: I will NOT read or act on any messages beginning with .ignore
+	DESCRIPTION: Pasta_Bot will NOT read or act on any messages beginning with .ignore
 	USAGE: .ignore [any message here]
 	Alias: .i
 
@@ -21,20 +22,21 @@ TRIGGERS
 	USAGE: .triggers
 
 OWO 
-	DESCRIPTION: Without arguments, I will owoify the last non Pasta_Bot-command in the channel. Mention one or more users as arguments to owoify their last message.
+	DESCRIPTION: Without arguments, owoify the last message in the channel. Mention one or more users as arguments to owoify their last message.
 	USAGE: .owo [@user_mention @user_mention...]
 	Alias: .uwu
 
-SURPRISE
-	DESCRIPTION: Send a random (non-loli and non-shota) nhentai embeded link in the channel.
-	USAGE: .surprise
+RANDOM
+	DESCRIPTION: Send a random hentai of a keyword in a category. Without arguments, send a random nhentai link.
+	USAGE: .random <category> <keyword>
+	NOTE: This never sends hentai with tags including "loli" or "shota". *Additionally, this command tends to be slow since it involves a web request.*
 	
 CLEAN
 	DESCRIPTION: Of the past 200 messages in channel history, delete messages sent by Pasta_Bot
 	USAGE: .clean
 
 README
-	DESCRIPTION: DM README.txt file for a full description of bot
+	DESCRIPTION: DMs README.txt file for a full description of bot
 	USAGE: .readme
 
 *****************************************************************************************************************************************
@@ -52,9 +54,9 @@ HENTAI
 		- Tag(s)
 		- Parodies (if applicable)
 	OTHER FEATURES: I will send a kink shame copypasta if you submit 4 or more sauces in one message.
-					Additionally, I will kink shame you if one of the tags include *loli* or *shota*
-					No message will be sent if the numbers returns a 404 status code
-					*Note that this function tends to be slow since it runs a web request*
+					Additionally, I will kink shame you if one of the tags include *loli* or *shota*.
+					No embed will be sent if the numbers returns a 404 status code.
+					*Note that this feature tends to be slow since it runs a web request*
 	
 COPYPASTA
 	DESCRIPTION: Triggered by the last keyword of a message. Use TRIGGERS command for a list of triggers
@@ -71,8 +73,8 @@ STATUS:
 *****************************************************************************************************************************************
 Citations:
 
-ICON: I do not own the spaghetti-ahegao icon used for Pasta_Bot. The icon was taken from https://knowyourmeme.com/photos/1299418-ostagram-spaghetti-mashups
-COPYPASTAS: I did not create most of these copypastas. Most of the copypastas were taken from https://www.reddit.com/r/copypasta/
+ICON: I do not own the spaghetti-ahegao photo used for Pasta_Bot icon. The icon was taken from https://knowyourmeme.com/photos/1299418-ostagram-spaghetti-mashups
+COPYPASTAS: I did not create most of these copypastas. Most of these copypastas were taken from https://www.reddit.com/r/copypasta/
 HENTAI: All hentai is taken from https://nhentai.net/
-DISCORD: Made with discord.py, documentation at https://discordpy.readthedocs.io/en/latest/
+DISCORD: Made with discord.py Documentation at https://discordpy.readthedocs.io/en/latest/
 GITHUB: I do not want this on my main github so I added this to an alternate github account found at the top of this readme. My main github is at https://github.com/thad-shinno

@@ -8,9 +8,9 @@ import requests
 from random import randint
 
 # custom packages
-from pasta.helpers.misc import getTriggers#, isCommand
-from pasta.helpers.nsfw.sauce import Sauce
+from pasta.helpers.misc import getTriggers
 from pasta.helpers.owo import Owo
+from pasta.helpers.nsfwl.randomSearch import randomSearch
 
 class Commands:
 	def __init__(self, client):
@@ -32,15 +32,16 @@ class Commands:
 		await ctx.author.send(triggers)
 		await ctx.send("{member} I sent you a DM".format(member=ctx.author.mention))
 	
-	# get a random sauce
-	async def surprise(self, ctx):
-		sauce = Sauce(str(randint(10000, 999999)))
-		# make sure it exists
-		while (not sauce.doesExist()) or sauce.isIllegal():
-			sauce = Sauce(str(randint(10000, 999999)))
-		
-		await ctx.send("Here's your random sauce: ", embed=sauce.getEmbed())
-		
+	# searches top 25 most popular and gives a random one
+	async def random(self, ctx, data):
+		rs = randomSearch()
+		if len(data) < 1:
+			await rs.noArgs(ctx)
+		elif len(data) > 1:
+			await rs.yesArgs(ctx, data)
+		else:
+			raise discord.ext.commands.BadArgument()
+	
 	# owoify member messages
 	async def owo(self, ctx, *members : discord.Member):
 		# if no members are given, then just owoify last valid message
