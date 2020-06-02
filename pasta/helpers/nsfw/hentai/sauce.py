@@ -21,14 +21,19 @@ class Sauce:
 	
 	# an embed of Title, url, Artists, Sauce, Pages, Tags, and Parodies	
 	def getEmbed(self):
+		name = self.dj.getTitle()
 		embed = discord.Embed(
-			title = self.dj.getTitle(),
+			title = "`{name}`".format(name=name) if len(name)>0 else "unreadable title",
 			url = None if self.isIllegal() else self.dj.url
 		)
-		embed.set_author(name = "ARTISTS: " + self.dj.getArtists())
+		# artists
 		embed.add_field(name = "SAUCE: ", value = self.number, inline=False)
 		embed.add_field(name = "PAGES: ", value = self.dj.getPages(), inline=False)
 		embed.add_field(name = "TAGS: ", value = self.dj.getTags(), inline=False)
+		# only atatch artists if they exist
+		artists = self.dj.getArtists()
+		if len(artists) > 0:
+			embed.set_author(name = "ARTISTS: " + artists)
 		# only attach parodies if they exist
 		parodies = self.dj.getParodies()
 		if len(parodies) > 0:

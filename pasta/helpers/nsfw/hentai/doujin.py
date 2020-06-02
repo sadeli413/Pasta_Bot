@@ -22,7 +22,7 @@ class Doujin:
 				title += char
 		# weird ascii code for apostrophe 
 		apostrophe = "&#39;"
-		title = title.replace("&#39;", "\'")
+		title = title.replace("&#39;", "\'").replace("&quot;", "\"")
 		
 		return title
 
@@ -31,32 +31,31 @@ class Doujin:
 		# find the line with the tags
 		head = "<meta name=\"twitter:description\" content="
 		line = self.getLine(head)
-		line = line[len(head) + 2 : -4]
-		
-		tags = line.split(", ")
-		return self.list2str(tags)
+		if len(line) > 0:	
+			line = line[len(head) + 2 : -4]
+			tags = line.split(", ")
+			return self.list2str(tags)
+		return ""
 		
 	# return the authors as a string. note that the authors are NOT found in the metadata	
 	def getArtists(self):
 		head = "<span class=\"tags\"><a href=\"/artist/"
 		line = self.getLine(head)
 		# delete everything before >
-		return self.getSpan(line)
+		return self.getSpan(line) if len(line) > 0 else ""
+		# Return nothing if there are no artists
 
 	# return the authors as a string. note that the parodies are NOT found in the metadata
 	def getParodies(self):
 		head = "<span class=\"tags\"><a href=\"/parody/"
 		line = self.getLine(head)
-		if len(line) > 0:
-			return self.getSpan(line)
 		
-		# Return nothing if there are no parodies
-		return ""
+		return self.getSpan(line) if len(line) > 0 else ""
 
 	def getPages(self):
 		tail = "pages</div>"
 		line = self.getLine(tail)
-		return line[9:-12]
+		return line[9:-12] if len(line) > 0 else ""
 
 	# return the data of a line as a string
 	def getSpan(self, line):

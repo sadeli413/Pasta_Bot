@@ -4,34 +4,61 @@ Categories: tags, artists, characters, parodies
 """
 
 import requests
-from re import search
 from random import choice
 
 from pasta.helpers.nsfw.hentai.sauce import Sauce
 class Search:
-	def __init__(self, category, info):
-		self.info = info.replace(" ", "-")
-		self.category = category.replace(" ", "-")
-		self.url = "https://nhentai.net/{category}/{info}/popular".format(category=self.category, info=self.info)
+	def __init__(self, criteria):
+		# search url
+		self.criteria = criteria.replace(" ", "+").replace(":", "%3A" )+ "+-loli+-shota"
+		self.url = 'https://nhentai.net/search/?q={criteria}&sort=popular'.format(criteria=criteria)
 		self.response = requests.get(self.url)
 	
 	def doesExist(self):
 		return self.response.status_code != 404
 	
-	def getRandSauce(self):
+	# maximum 25
+	def getMultiSauce(self, amount):
+		num = amount
+		embeds = []
 		numbers = self.getNumbers()
-		if len(numbers) > 0:
-			# get a random sauce from numbers
-			rand = choice(numbers)
-			sauce = Sauce(rand)
-			# do NOT submit loli or shota sauce
-			while sauce.isIllegal():
-				numbers.remove(rand)
+		if num > 0:
+			# make sure num is not greater than len(numbers)
+			if num > len(numbers):
+				num = len(numbers)
+			# get num amount of sauces
+			if len(numbers) > 0:
+				for i in range(num):
+					embeds.append(Sauce(numbers[i]).getEmbed())
+		return embeds
+		
+	def getRandSauce(self, amount):
+		num = amount
+		embeds = []
+		numbers = self.getNumbers()
+		if num > 0:
+			# make sure num is not greater than len(numbers)
+			if num > len(numbers):
+				num = len(numbers)
+			# get random sauces: limit is len(numbers) and num amount
+			i = 0
+			while len(numbers) > 0 and i < num:
+				print("fetching...")
+				# get a random sauce from numbers
 				rand = choice(numbers)
 				sauce = Sauce(rand)
-			return sauce.getEmbed()
-		return None
-			
+				# do NOT submit loli or shota sauce
+				while sauce.isIllegal():
+					numbers.remove(rand)
+					rand = choice(numbers)
+					sauce = Sauce(rand)
+				embeds.append(sauce.getEmbed())
+				# make sure there are no duplicates
+				numbers.remove(rand)
+				i += 1
+		return embeds
+	
+	# get all "numbers" on this page
 	def getNumbers(self):
 		head = 	"<a href=\"/g/"
 		tail = "/\" class=\"cover\""

@@ -5,7 +5,7 @@
 """
 """
 Test cases
-176234 151529 158990 185217 152246 284672 301659 165961 612568
+176234 151529 158990 185217 152246 284672 301659 165961 612568 315105
 """
 import discord
 import requests
@@ -31,11 +31,14 @@ class Nhentai:
 				await message.channel.send(embed=sauce)
 			# notify if there are loli or shota tags
 			if len(self.illegals) > 0:
-				fbi = Extrapasta.fbiOpenUp() + "\n"
+				fbi = Extrapasta.fbiOpenUp()
+				""" Haven't decided if I want to keep this section or not. This might be unnecessary
+				fbi += "\nThe following contain *loli* or *shota* tags:\n"
 				for title in self.illegals:
-					fbi += "- *{title}*  ({numbers})\n".format(title=title, numbers = self.illegals.get(title))
+					fbi += "||{title}  ({numbers})||\n".format(title=title, numbers = self.illegals.get(title))
+				"""
 				await message.channel.send(fbi)
-			print("done fetching")
+				print("done")
 			# sauce was found
 			return True
 		# no sauce
@@ -46,24 +49,27 @@ class Nhentai:
 		content = message.content.lower()
 		self.illegals = {}
 		embeds = []
-		if self.hasNumbers(content):
-			numbers = self.getNumbers(content)
+		#if self.hasNumbers(content):
+		numbers = self.getNumbers(content)
+		if len(numbers) > 0:
 			# for every number in the content, make an embed
 			await message.channel.send("Fetching sauce...")
 			for number in numbers:
 				sauce = Sauce(number)
 				if sauce.doesExist():
-					print("fetching " + number)
+					print("fetching...")
 					embeds.append(sauce.getEmbed())
 					if sauce.isIllegal():
 						self.illegals[sauce.dj.getTitle()] = number
 				else:
 					await message.channel.send("||{number} is invalid sauce (404).||".format(number=number))
-		
 		return embeds
 			
 	# gets valid numbers in lowercase content
 	def getNumbers(self, content):
+		if not self.hasNumbers(content):
+			return []
+			
 		# split up numbers in between special characters
 		words = split("[^0-9]", content)
 		# remove items that do not have numbers

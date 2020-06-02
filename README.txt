@@ -17,23 +17,29 @@ IGNORE
 	USAGE: .ignore [any message here]
 	Alias: .i
 
-TRIGGERS
-	DESCRIPTION: DM a message containing all copypasta trigger words
-	USAGE: .triggers
+SEARCH
+	DESCRIPTION: Send the top result of a nhentai link with a given search. Optional: specify an amount of links. 
+	USAGE: .search [amount] <search criteria>
+	NOTES: Links to "loli" or "shota" tags will not be included. 25 MAXIMUM AMOUNT SEARCHED. Any higher amount will automatically default to 25. This command tends to be slow since it involves web get requests.
+
+RANDOM
+	DESCRIPTION: Send a random hentai. If an amount is specified, send that amount (no maximum). If a search criteria is specified, then search under that criteria (maximum amount 25)
+	USAGE: .random [amount] [search criteria]
+	NOTES: This never sends hentai with tags including "loli" or "shota". As a result of the 25 MAXIMUM AMOUNT SEARCHED, fewer doujins may be sent than requested. 
+	* This is the slowest command, since it randomly searches until it finds a doujin that 1) exists and 2) does not contain "loli" or "shota" tags.
 
 OWO 
 	DESCRIPTION: Without arguments, owoify the last message in the channel. Mention one or more users as arguments to owoify their last message.
 	USAGE: .owo [@user_mention @user_mention...]
 	Alias: .uwu
-
-RANDOM
-	DESCRIPTION: Send a random hentai of a keyword in a category. Without arguments, send a random nhentai link.
-	USAGE: .random <category> <keyword>
-	NOTE: This never sends hentai with tags including "loli" or "shota". *Additionally, this command tends to be slow since it involves a web request.*
 	
 CLEAN
 	DESCRIPTION: Of the past 200 messages in channel history, delete messages sent by Pasta_Bot
 	USAGE: .clean
+
+TRIGGERS
+	DESCRIPTION: DM a message containing all copypasta trigger words
+	USAGE: .triggers
 
 README
 	DESCRIPTION: DMs README.txt file for a full description of bot
@@ -56,7 +62,7 @@ HENTAI
 	OTHER FEATURES: I will send a kink shame copypasta if you submit 4 or more sauces in one message.
 					Additionally, I will kink shame you if one of the tags include *loli* or *shota*.
 					No embed will be sent if the numbers returns a 404 status code.
-					*Note that this feature tends to be slow since it runs a web request*
+					Note that this feature tends to be slow since it runs a web request
 	
 COPYPASTA
 	DESCRIPTION: Triggered by the last keyword of a message. Use TRIGGERS command for a list of triggers

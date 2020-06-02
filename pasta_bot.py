@@ -63,15 +63,30 @@ async def readme(ctx):
 async def triggers(ctx):
 	await cmd.triggers(ctx)
 
+"""
+currently broken
+"""
 @client.command()
-async def random(ctx, *data):
-	await cmd.random(ctx, data)
+async def search(ctx, *, criteria):
+	await cmd.search(ctx, criteria)	
 
+@search.error
+async def search_error(ctx, error):
+	if isinstance(error, commands.MissingRequiredArgument):
+		await ctx.send("ur bad, get some .help")
+	else:
+		await ctx.send("||An HTTP Exception occured. Basically, Pasta_Bot runs on Thad's computer and his wifi is garbage. Pls try again.||")
+
+@client.command()
+async def random(ctx, *, criteria):
+	await cmd.random(ctx, criteria)
 
 @random.error
 async def random_error(ctx, error):
-	if isinstance(error, commands.BadArgument):
-		await ctx.send("TODO: u need help")
+	if isinstance(error, commands.MissingRequiredArgument):
+		await cmd.random(ctx, "")
+	else:
+		await ctx.send("||An HTTP Exception occured. Basically, Pasta_Bot runs on Thad's computer and his wifi is garbage||")
 
 # owoify member's last non-command message in channel
 @client.command(aliases=["uwu"])
