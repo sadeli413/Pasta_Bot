@@ -41,12 +41,11 @@ async def on_message(message):
 async def on_member_join(member):
 	await member.guild.system_channel.send("Welcome home, {member}! Would you like dinner? A bath? Or maybe... me?".format(member = member.mention))
 
-"""
 @client.event
 async def on_command_error(ctx, error):
 	if isinstance(error, commands.CommandNotFound):
 		await ctx.send("No such command .{command}\nGet some .help".format(command=ctx.invoked_with))
-"""
+
 # change status every 5 minutes
 @tasks.loop(minutes = 5)
 async def changeStatus():

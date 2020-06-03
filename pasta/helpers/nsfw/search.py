@@ -11,7 +11,7 @@ class Search:
 	def __init__(self, criteria):
 		# search url
 		self.criteria = criteria.replace(" ", "+").replace(":", "%3A" )+ "+-loli+-shota"
-		self.url = 'https://nhentai.net/search/?q={criteria}&sort=popular'.format(criteria=criteria)
+		self.url = 'https://nhentai.net/search/?q={criteria}&sort=popular'.format(criteria=self.criteria)
 		self.response = requests.get(self.url)
 	
 	def doesExist(self):

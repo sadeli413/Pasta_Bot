@@ -47,7 +47,7 @@ RANDOM
 SEARCH
 	DESCRIPTION: Send the top result of a nhentai link with a given search. Optional: specify an amount of links. 
 	USAGE: .search [amount] {search criteria}
-	NOTES: Embedded links to "loli" or "shota" tags will not be included. 25 MAXIMUM AMOUNT SEARCHED. Any higher amount will automatically default to 25.
+	NOTES:  This never sends hentai with tags including "loli" or "shota". 25 MAXIMUM AMOUNT SEARCHED. Any higher amount will automatically default to 25.
 	For search criteria help, visit https://nhentai.net/info/
 	*This command tends to be slow since it involves web get requests.
 
@@ -90,4 +90,9 @@ ICON: I do not own the spaghetti-ahegao photo used for Pasta_Bot icon. The icon 
 COPYPASTAS: I did not create most of these copypastas. Most of these copypastas were taken from https://www.reddit.com/r/copypasta/
 HENTAI: All hentai is taken from https://nhentai.net/
 DISCORD: Made with discord.py Documentation at https://discordpy.readthedocs.io/en/latest/
-GITHUB: I do not want this on my main github so I added this to an alternate github account found at the top of this readme. My main github is at https://github.com/thad-shinno
+
+*****************************************************************************************************************************************
+Notes:
+
+- I do not want this on my main github so I added this to an alternate github account found at the top of this readme. My main github is at https://github.com/thad-shinno
+- I have no idea why anyone would actually use this bot. If you want hentai, just search it up normally. That being said, please use this bot. I worked hard on this bot.

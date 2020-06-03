@@ -62,10 +62,11 @@ class Commands:
 		await ctx.send("{member} I sent you a DM".format(member=ctx.author.mention))
 	
 	# .search [amount] {criteria}
+	# does NOT send minors
 	async def search(self, ctx, criteria):
 		# remove special characters
 		info = criteria.lower()
-		info = sub("[^A-Z^a-z^0-9^:^\"]", "", info)
+		info = self.sanitize(info)
 		if len(info) < 1 or not search("[A-Za-z0-9]", info):
 			await ctx.send(".search [amount] {search criteria}\nGet some .help")
 			return
@@ -85,8 +86,10 @@ class Commands:
 		# search the criteria
 		await ctx.send("Searching for `{info}`...".format(info=info))
 		# kinkshame if searched for lolis
-		if didSearchLoli(ctx, args):
-			return
+		for arg in args:
+			if ("loli" in arg or "shota" in arg) and arg[0] != "-":
+				await ctx.send(Extrapasta.fbiOpenUp())
+				return
 		# send search normally
 		find = Search(info)
 		embeds = find.getMultiSauce(amount)
@@ -97,6 +100,7 @@ class Commands:
 			await("Found no `{info}`".format(info=info))
 	
 	# searches top 25 most popular and gives a random one, or an amount
+	# does NOT send minors
 	async def random(self, ctx, criteria):
 		rs = randomSearch()
 		# no arguments
@@ -116,7 +120,7 @@ class Commands:
 		else:
 			# remove special characters besides :"
 			info = criteria.lower()
-			info = sub("[^A-Z^a-z^0-9^:^\"]", "", info)
+			info = self.sanitize(info)
 			if not search("[A-Za-z0-9]", info):
 				await ctx.send(".random [amount] [search criteria]\nGet some .help")
 				return
@@ -134,8 +138,10 @@ class Commands:
 				
 			await ctx.send("Random search{amount} for `{info}`...".format(amount=" x" + str(amount) if amount > 1 else "", info=info))
 			# kink shame if searched for minors
-			if didSearchLoli(ctx, args):
-				return
+			for arg in args:
+				if ("loli" in arg or "shota" in arg) and not arg[0].startswith("-"):
+					await ctx.send(Extrapasta.fbiOpenUp())
+					return
 				
 			await rs.yesArgs(ctx, amount, info)
 			print("done")
@@ -156,10 +162,9 @@ class Commands:
 	
 	def isBot(self, message):
 		return message.author == self.client.user
-		
-	def didSearchLoli(self, ctx, args):
-		for arg in args:
-			if ("loli" in arg or "shota" in arg) and arg[0] != "-":
-				await ctx.send(Extrapasta.fbiOpenUp())
-				return True
-		return False
+	
+	# remove multiple whitespace and special characters besides :"\s
+	def sanitize(self, word):
+		new = sub("\s+", " ", word)
+		new = sub("[^A-Z^a-z^0-9^\-^:^\"^\s]", "", new)
+		return new
