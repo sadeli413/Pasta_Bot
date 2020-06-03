@@ -1,7 +1,5 @@
 """
-# Title: pasta_bot.py
-# Author: Thad Shinno
-# Description: a single sauce has numbers, a webpage response, and the doujin info
+A single sauce has numbers, a webpage response, and the doujin info
 """
 
 import discord
@@ -22,9 +20,11 @@ class Sauce:
 	# an embed of Title, url, Artists, Sauce, Pages, Tags, and Parodies	
 	def getEmbed(self):
 		name = self.dj.getTitle()
+		bad = self.isIllegal()
 		embed = discord.Embed(
 			title = "`{name}`".format(name=name) if len(name)>0 else "unreadable title",
-			url = None if self.isIllegal() else self.dj.url
+			url = None if bad else self.dj.url,
+			colour = discord.Colour.red() if bad else discord.Colour.blue()
 		)
 		# artists
 		embed.add_field(name = "SAUCE: ", value = self.number, inline=False)

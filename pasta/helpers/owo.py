@@ -5,7 +5,6 @@ import discord
 from pasta.helpers.misc import isCommand
 
 class Owo:
-	
 	def __init__(self):
 		pass
 	
@@ -17,8 +16,10 @@ class Owo:
 			if not isCommand(message.content):
 				owoify = self.owoify(message.content)
 				if len(owoify) > 0:
-					return await ctx.send(owoify)
-	
+					await ctx.send(owoify)
+					return
+		return
+		
 	# owoify the last non-command messages sent by *members in the ctx.channel
 	async def yesMember(self, ctx, *members : discord.Member):
 		# owoify last messages only from members
@@ -27,7 +28,6 @@ class Owo:
 			owoify = self.getMessage(allMessages, member)
 			if len(owoify) > 0:
 				await ctx.send(owoify)
-		return
 	
 	# accepts an array of messages and a member and returns which one belongs to the member. if none, then return ""
 	def getMessage(self, messages, member):

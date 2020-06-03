@@ -1,12 +1,12 @@
 """
-Miscellaneus functions used by commands.py and events.py
+Miscellaneus functions used by many commands and events
 """
 
 import os
 THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
 def isCommand(content):
-	commands = [".ignore", ".readme" ".owo", ".uwu", ".shutdown", ".clean", ".help", ".triggers", ".i", ".random", ".search"]
+	commands = [".help", ".h", ".ignore", ".readme", ".owo", ".uwu", ".shutdown", ".clean", ".triggers", ".trigger", ".i", ".random", ".search"]
 	for command in commands:
 		if content.startswith(command):
 			return True

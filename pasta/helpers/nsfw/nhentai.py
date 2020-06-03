@@ -1,11 +1,9 @@
 """
-# Title: Nhentai.py
-# Author: Thad Shinno
-# Description: Fetches nhentai links
-"""
-"""
+Fetch Nhentai links
+
 Test cases
-176234 151529 158990 185217 152246 284672 301659 165961 612568 315105
+151529 158990 185217 301659 165961 
+176234 152246 284672 612568 315105
 """
 import discord
 import requests
@@ -15,9 +13,9 @@ from pasta.helpers.extrapasta import Extrapasta
 from pasta.helpers.nsfw.hentai.sauce import Sauce
 
 class Nhentai:
-	# illegals is a dictionary containing title:sauce_number
+	# keep track of number of illegals
 	def __init__(self):
-		self.illegals = {}
+		self.illegals = 0
 	
 	async def fetch(self, message):
 		# content = message.content.lower()
@@ -30,13 +28,8 @@ class Nhentai:
 			for sauce in sauces:
 				await message.channel.send(embed=sauce)
 			# notify if there are loli or shota tags
-			if len(self.illegals) > 0:
+			if self.illegals > 0:
 				fbi = Extrapasta.fbiOpenUp()
-				""" Haven't decided if I want to keep this section or not. This might be unnecessary
-				fbi += "\nThe following contain *loli* or *shota* tags:\n"
-				for title in self.illegals:
-					fbi += "||{title}  ({numbers})||\n".format(title=title, numbers = self.illegals.get(title))
-				"""
 				await message.channel.send(fbi)
 				print("done")
 			# sauce was found
@@ -47,7 +40,7 @@ class Nhentai:
 	# return an array of embeds
 	async def getSauces(self, message):
 		content = message.content.lower()
-		self.illegals = {}
+		self.illegals = 0
 		embeds = []
 		#if self.hasNumbers(content):
 		numbers = self.getNumbers(content)
@@ -60,7 +53,7 @@ class Nhentai:
 					print("fetching...")
 					embeds.append(sauce.getEmbed())
 					if sauce.isIllegal():
-						self.illegals[sauce.dj.getTitle()] = number
+						self.illegals += 1
 				else:
 					await message.channel.send("||{number} is invalid sauce (404).||".format(number=number))
 		return embeds

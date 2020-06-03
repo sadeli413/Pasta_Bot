@@ -1,3 +1,6 @@
+"""
+Randomly searches for a doujin. does NOT grab doujins with "loli" or "shota" in the tags
+"""
 import discord
 from random import randint
 
@@ -8,6 +11,7 @@ class randomSearch:
 	def __init__(self):
 		pass
 	
+	# get one random sauce
 	async def noArgs(self, ctx):
 		print("fetching...")
 		sauce = Sauce(str(randint(10000, 999999)))
@@ -16,7 +20,8 @@ class randomSearch:
 			sauce = Sauce(str(randint(10000, 999999)))
 
 		await ctx.send(embed=sauce.getEmbed())
-		
+	
+	# get amount sauce of a search criteria
 	async def yesArgs(self, ctx, amount, criteria):
 		find = Search(criteria)
 		embeds = find.getRandSauce(amount)

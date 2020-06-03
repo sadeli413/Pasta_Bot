@@ -57,7 +57,7 @@ class Search:
 				numbers.remove(rand)
 				i += 1
 		return embeds
-	
+		
 	# get all "numbers" on this page
 	def getNumbers(self):
 		head = 	"<a href=\"/g/"

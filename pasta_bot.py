@@ -20,6 +20,7 @@ client = commands.Bot(command_prefix = '.')
 events = Events(client)
 cmd = Commands(client)
 status = events.getStatus()
+client.remove_command("help")
 
 """
 EVENTS: on_ready, on_message, and on_member_join
@@ -40,32 +41,41 @@ async def on_message(message):
 async def on_member_join(member):
 	await member.guild.system_channel.send("Welcome home, {member}! Would you like dinner? A bath? Or maybe... me?".format(member = member.mention))
 
+"""
+@client.event
+async def on_command_error(ctx, error):
+	if isinstance(error, commands.CommandNotFound):
+		await ctx.send("No such command .{command}\nGet some .help".format(command=ctx.invoked_with))
+"""
 # change status every 5 minutes
 @tasks.loop(minutes = 5)
 async def changeStatus():
 	await client.change_presence(activity = next(status))
 
 """
-COMMANDS: ignore, readme, triggers, owo, clean, shutdown
+COMMANDS: help, ignore, readme, owo, shutdown, clean, triggers, random, search
 """
-# pasta_bot will ignore messages beginning with .ignore
+# .help [command] (send help message)
+@client.command(aliases=["h"])
+async def help(ctx, spec=""):
+	await cmd.help(ctx, spec)
+
+# .ignore [any message here] (pasta bot ignores these)
 @client.command(aliases=["i"])
 async def ignore(ctx):
 	return
 
-# DM readme.txt
+# .readme (DMs README.txt)
 @client.command()
 async def readme(ctx):
 	await cmd.readme(ctx)
 
-# DM a list of trigger words
-@client.command()
+# .triggers (DMs a list of trigger words)
+@client.command(aliases=["trigger"])
 async def triggers(ctx):
 	await cmd.triggers(ctx)
 
-"""
-currently broken
-"""
+# .search [amount] {search criteria} (search top hentai results)
 @client.command()
 async def search(ctx, *, criteria):
 	await cmd.search(ctx, criteria)	
@@ -73,39 +83,36 @@ async def search(ctx, *, criteria):
 @search.error
 async def search_error(ctx, error):
 	if isinstance(error, commands.MissingRequiredArgument):
-		await ctx.send("ur bad, get some .help")
+		await ctx.send("USAGE: .search [amount] <search criteria>\nYou need some .help")
 	else:
-		await ctx.send("||An HTTP Exception occured. Basically, Pasta_Bot runs on Thad's computer and his wifi is garbage. Pls try again.||")
+		await ctx.send("||An HTTP Exception occured.  Basically, the computer this program runs on has garbage wifi. Pls try again.||")
 
+# .random [amount] [search criteria] (get random hentai)
 @client.command()
-async def random(ctx, *, criteria):
+async def random(ctx, *, criteria=""):
 	await cmd.random(ctx, criteria)
 
 @random.error
 async def random_error(ctx, error):
-	if isinstance(error, commands.MissingRequiredArgument):
-		await cmd.random(ctx, "")
-	else:
-		await ctx.send("||An HTTP Exception occured. Basically, Pasta_Bot runs on Thad's computer and his wifi is garbage||")
+	await ctx.send("||An HTTP Exception occured. Basically, the computer this program runs on has garbage wifi. Pls try again.||")
 
-# owoify member's last non-command message in channel
+# .owo [@user_mention] [@user_mention] [...] (owoify messages)
 @client.command(aliases=["uwu"])
 async def owo(ctx, *members : discord.Member):
 	await cmd.owo(ctx, *members) # for some reason the program breaks if I take out the *
 
-# handle owo errors
+# If you get bad arguments, just owoify the last message
 @owo.error
 async def owo_error(ctx, error):
 	if isinstance(error, commands.BadArgument):
 		await owo(ctx)
 
-# delete messages by pasta_bot
+# .clean (delete messages by pasta_bot)
 @client.command()
 @commands.has_permissions(manage_messages=True)
 async def clean(ctx):
 	await cmd.clean(ctx)
 
-# handle clean errors	
 @clean.error
 async def clean_error(ctx, error):
 	if isinstance(error, commands.MissingPermissions):
