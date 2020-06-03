@@ -82,7 +82,7 @@ async def search(ctx, *, criteria):
 
 @search.error
 async def search_error(ctx, error):
-	await ctx.send("Something bad happened. Either my wifi is garbage and can't grab HTTP, or you need some `.help` Pls try again")
+	await ctx.send("My wifi is garbage and can't run HTTP get requests. Pls try again")
 
 # .random [amount] [search criteria] (get random hentai)
 @client.command()
@@ -91,7 +91,7 @@ async def random(ctx, *, criteria=""):
 
 @random.error
 async def random_error(ctx, error):
-	await ctx.send("Something bad happened. Either my wifi is garbage and can't grab HTTP, or you need some `.help` Pls try again")
+	await ctx.send("My wifi is garbage and can't run HTTP get requests. Pls try again")
 	
 # .owo [@user_mention] [@user_mention] [...] (owoify messages)
 @client.command(aliases=["uwu"])

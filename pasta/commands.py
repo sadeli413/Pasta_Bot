@@ -63,11 +63,14 @@ class Commands:
 	
 	# .search [amount] {criteria}
 	async def search(self, ctx, criteria):
-		# get amount
+		# remove special characters
 		info = criteria.lower()
 		info = sub("[^A-Z^a-z^0-9^:^\"]", "", info)
 		if len(info) < 1 or not search("[A-Za-z0-9]", info):
-			raise Exception()				
+			await ctx.send(".search [amount] {search criteria}\nGet some .help")
+			return
+		
+		# get amount
 		args = info.split(" ")
 		first = args[0]
 		# if there's only a number search that or If there's no number, amount is 1
@@ -82,9 +85,9 @@ class Commands:
 		# search the criteria
 		await ctx.send("Searching for `{info}`...".format(info=info))
 		# kinkshame if searched for lolis
-		for arg in args:
-				if ("loli" in arg or "shota" in arg) and arg[0] != "-":
-					await ctx.send(Extrapasta.fbiOpenUp())
+		if didSearchLoli(ctx, args):
+			return
+		# send search normally
 		find = Search(info)
 		embeds = find.getMultiSauce(amount)
 		if len(embeds) > 0:
@@ -111,11 +114,13 @@ class Commands:
 				print("done")
 		# [amount] {criteria} args
 		else:
-			# check for amount
+			# remove special characters besides :"
 			info = criteria.lower()
 			info = sub("[^A-Z^a-z^0-9^:^\"]", "", info)
 			if not search("[A-Za-z0-9]", info):
-				raise Exception()
+				await ctx.send(".random [amount] [search criteria]\nGet some .help")
+				return
+			# check for amount
 			args = info.split(" ")
 			first = args[0]
 			if first.isnumeric():
@@ -129,9 +134,9 @@ class Commands:
 				
 			await ctx.send("Random search{amount} for `{info}`...".format(amount=" x" + str(amount) if amount > 1 else "", info=info))
 			# kink shame if searched for minors
-			for arg in args:
-				if ("loli" in arg or "shota" in arg) and arg[0] != "-":
-					await ctx.send(Extrapasta.fbiOpenUp())
+			if didSearchLoli(ctx, args):
+				return
+				
 			await rs.yesArgs(ctx, amount, info)
 			print("done")
 					
@@ -151,3 +156,10 @@ class Commands:
 	
 	def isBot(self, message):
 		return message.author == self.client.user
+		
+	def didSearchLoli(self, ctx, args):
+		for arg in args:
+			if ("loli" in arg or "shota" in arg) and arg[0] != "-":
+				await ctx.send(Extrapasta.fbiOpenUp())
+				return True
+		return False
