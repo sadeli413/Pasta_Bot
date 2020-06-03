@@ -5,6 +5,7 @@ Commands: help, ignore, readme, owo, shutdown, clean, triggers, random, search
 import discord
 import os
 import requests
+from re import sub, search
 from random import randint
 
 # custom packages
@@ -64,6 +65,9 @@ class Commands:
 	async def search(self, ctx, criteria):
 		# get amount
 		info = criteria.lower()
+		info = sub("[^A-Z^a-z^0-9^:^\"]", "", info)
+		if len(info) < 1 or not search("[A-Za-z0-9]", info):
+			raise Exception()				
 		args = info.split(" ")
 		first = args[0]
 		# if there's only a number search that or If there's no number, amount is 1
@@ -100,14 +104,19 @@ class Commands:
 		# a single number argument
 		elif criteria.isnumeric():
 			amount = abs(int(criteria))
-			await ctx.send("Fetching random sauce{amount}...".format(amount=" "+str(amount) if amount > 1 else ""))
-			for i in range(amount):
-				await rs.noArgs(ctx)
-			print("done")
+			if amount > 0:
+				await ctx.send("Fetching random sauce{amount}...".format(amount=" x"+str(amount) if amount > 1 else ""))
+				for i in range(amount):
+					await rs.noArgs(ctx)
+				print("done")
 		# [amount] <criteria> args
 		else:
+			print("flag")
 			# check for amount
 			info = criteria.lower()
+			info = sub("[^A-Z^a-z^0-9^:^\"]", "", info)
+			if not search("[A-Za-z0-9]", info):
+				raise Exception()
 			args = info.split(" ")
 			first = args[0]
 			if first.isnumeric():
@@ -119,7 +128,7 @@ class Commands:
 			else:
 				amount = 1
 				
-			await ctx.send("Random search{amount} for `{info}`...".format(amount=" " + str(amount) if amount > 1 else "", info=info))
+			await ctx.send("Random search{amount} for `{info}`...".format(amount=" x" + str(amount) if amount > 1 else "", info=info))
 			# kink shame if searched for minors
 			for arg in args:
 				if ("loli" in arg or "shota" in arg) and arg[0] != "-":
