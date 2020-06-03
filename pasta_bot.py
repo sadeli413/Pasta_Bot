@@ -80,27 +80,19 @@ async def triggers(ctx):
 async def search(ctx, *, criteria):
 	await cmd.search(ctx, criteria)	
 
-
 @search.error
 async def search_error(ctx, error):
-	if isinstance(error, commands.CommandInvokeError) or isinstance(error, discord.errors.HTTPException):
-		await ctx.send("||An HTTP Exception occured. Basically, the computer this program runs on has garbage wifi. Pls try again.||")
-	else:
-		await ctx.send("USAGE: .search [amount] {search criteria}\nYou need some .help")
+	await ctx.send("Something bad happened. Either my wifi is garbage and can't grab HTTP, or you need some `.help` Pls try again")
 
 # .random [amount] [search criteria] (get random hentai)
 @client.command()
 async def random(ctx, *, criteria=""):
 	await cmd.random(ctx, criteria)
 
-
 @random.error
 async def random_error(ctx, error):
-	if isinstance(error, commands.CommandInvokeError) or isinstance(error, discord.errors.HTTPException):
-		await ctx.send("||An HTTP Exception occured. Basically, the computer this program runs on has garbage wifi. Pls try again.||")
-	else:
-		await ctx.send("USAGE: .random [amount] {search criteria}\nYou need some .help")
-
+	await ctx.send("Something bad happened. Either my wifi is garbage and can't grab HTTP, or you need some `.help` Pls try again")
+	
 # .owo [@user_mention] [@user_mention] [...] (owoify messages)
 @client.command(aliases=["uwu"])
 async def owo(ctx, *members : discord.Member):

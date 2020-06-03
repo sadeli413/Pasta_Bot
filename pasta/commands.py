@@ -109,9 +109,8 @@ class Commands:
 				for i in range(amount):
 					await rs.noArgs(ctx)
 				print("done")
-		# [amount] <criteria> args
+		# [amount] {criteria} args
 		else:
-			print("flag")
 			# check for amount
 			info = criteria.lower()
 			info = sub("[^A-Z^a-z^0-9^:^\"]", "", info)
