@@ -15,7 +15,7 @@ class Search:
 		self.response = requests.get(self.url)
 	
 	def doesExist(self):
-		return self.response.status_code != 404
+		return self.response.status_code == 200
 	
 	# maximum 25
 	def getMultiSauce(self, amount):

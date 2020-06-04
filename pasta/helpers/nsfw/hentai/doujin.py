@@ -20,9 +20,8 @@ class Doujin:
 		for char in line:
 			if " " <= char and char <= "~":
 				title += char
-		# weird ascii code for apostrophe 
-		apostrophe = "&#39;"
-		title = title.replace("&#39;", "\'").replace("&quot;", "\"")
+		# weird ascii codes
+		title = title.replace("&#39;", "\'").replace("&quot;", "\"").replace("&lt;", "<").replace("&gt;", ">")
 		
 		return title
 

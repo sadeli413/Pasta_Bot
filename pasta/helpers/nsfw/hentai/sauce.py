@@ -15,7 +15,7 @@ class Sauce:
 		self.dj = (Doujin(number, self.response.text))
 	
 	def doesExist(self):
-		return self.response.status_code != 404
+		return self.response.status_code == 200
 	
 	# an embed of Title, url, Artists, Sauce, Pages, Tags, and Parodies	
 	def getEmbed(self):

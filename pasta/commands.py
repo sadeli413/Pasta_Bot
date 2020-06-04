@@ -69,28 +69,19 @@ class Commands:
 		if len(info) < 1 or not search("[A-Za-z0-9]", info):
 			await ctx.send(".search [amount] {search criteria}\nGet some .help")
 			return
-		
-		# get amount
-		args = info.split(" ")
-		first = args[0]
-		# if there's only a number search that or If there's no number, amount is 1
-		if info.isnumeric() or not first.isnumeric():
-			amount = 1
-		# set amount, and remove it from info
-		else:
-			amount = abs(int(first))
-			args.pop(0)
-			info = "".join(i + " " for i in args)[:-1] # delete the space at the end
-		
+	
+		aAndC = self.amountAndCriteria(info)
+		amount = aAndC["amount"]
+		info = aAndC["criteria"]
 		# search the criteria
 		if amount > 0:
 			# kinkshame if searched for lolis
-			for arg in args:
+			for arg in info.split(" "):
 				if ("loli" in arg or "shota" in arg) and arg[0] != "-":
 					await ctx.send(Extrapasta.fbiOpenUp())
 					return
-
-			await ctx.send("Searching for `{info}`...".format(info=info))
+			
+			await ctx.send("Searching{amount} for `{info}`...".format(amount = " x" + str(amount) if amount > 1 else "", info=info))
 			# send search normally
 			find = Search(info)
 			embeds = find.getMultiSauce(amount)
@@ -109,9 +100,17 @@ class Commands:
 			await ctx.send("Fetching random sauce...")
 			await rs.noArgs(ctx)
 			print("done")
+			return
+		
+		info = criteria.lower()
+		info = self.sanitize(info)
+		if not search("[A-Za-z0-9]", info):
+			await ctx.send(".random [amount] [search criteria]\nGet some .help")
+			return
+		
 		# a single number argument
-		elif criteria.isnumeric():
-			amount = abs(int(criteria))
+		if info.strip().isnumeric():
+			amount = abs(int(info))
 			if amount > 0:
 				await ctx.send("Fetching random sauce{amount}...".format(amount=" x"+str(amount) if amount > 1 else ""))
 				for i in range(amount):
@@ -120,32 +119,18 @@ class Commands:
 		
 		# [amount] {criteria} args
 		else:
-			# remove special characters besides :"
-			info = criteria.lower()
-			info = self.sanitize(info)
-			if not search("[A-Za-z0-9]", info):
-				await ctx.send(".random [amount] [search criteria]\nGet some .help")
-				return
-			# check for amount
-			args = info.split(" ")
-			first = args[0]
-			if first.isnumeric():
-				# set amount, and remove it from info
-				amount = abs(int(first))
-				args.pop(0)
-				info = "".join(i + " " for i in args)[:-1] # delete the last space
-			# if there's no amount, then set default 1
-			else:
-				amount = 1
+			aAndC = self.amountAndCriteria(info)
+			amount = aAndC["amount"]
+			info = aAndC["criteria"]
 			
 			if amount > 0:
 				# kink shame if searched for minors
-				for arg in args:
+				for arg in info.split(" "):
 					if ("loli" in arg or "shota" in arg) and not arg[0].startswith("-"):
 						await ctx.send(Extrapasta.fbiOpenUp())
 						return
-					
-				await ctx.send("Random search{amount}{extra}...".format(amount=" x" + str(amount) if amount > 1 else "", extra =" for " + info if len(info) > 0 else ""))
+						
+				await ctx.send("Random search{amount}{extra}...".format(amount=" x" + str(amount) if amount > 1 else "", extra =" for `" + info + "`" if len(info) > 0 else ""))
 				await rs.yesArgs(ctx, amount, info)
 				print("done")
 					
@@ -165,6 +150,25 @@ class Commands:
 	
 	def isBot(self, message):
 		return message.author == self.client.user
+	
+	# info is already lowered and sanitized
+	def amountAndCriteria(self, info):
+		# get amount
+		crit = info.strip()
+		args = crit.split(" ")
+		first = args[0]
+		# if there's only a number search that or If there's no number, amount is 1
+		if crit.isnumeric() or not first.isnumeric():
+			amount = 1
+		# set amount, and remove it from info
+		else:
+			amount = abs(int(first))
+			args.pop(0)
+			crit = "".join(i + " " for i in args)[:-1] # delete the space at the end
+		return {
+			"amount":amount,
+			"criteria":crit
+		}
 	
 	# remove multiple whitespace and special characters besides :"\s
 	def sanitize(self, word):

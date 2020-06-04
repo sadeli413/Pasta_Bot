@@ -40,7 +40,7 @@ TRIGGERS
 RANDOM
 	DESCRIPTION: Send a random hentai. If an amount is specified, send that amount (no maximum). If a search criteria is specified, then search under that criteria (maximum amount 25)
 	USAGE: .random [amount] [search criteria]
-	NOTES: This never sends hentai with tags including "loli" or "shota". As a result of the 25 MAXIMUM AMOUNT SEARCHED, fewer doujins may be sent than requested. 
+	NOTES: This searches the 25 most popular search results and ONLY grabs NON loli/shota. As a result, fewer doujins may be sent than requested.
 	For search criteria help, visit https://nhentai.net/info/
 	*This is the slowest command, since it randomly searches until it finds a doujin that 1) exists and 2) does not contain "loli" or "shota" tags.
 	

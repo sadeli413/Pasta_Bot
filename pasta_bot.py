@@ -46,11 +46,12 @@ async def on_member_join(member):
 async def on_command_error(ctx, error):
 	if isinstance(error, commands.CommandNotFound):
 		await ctx.send("No such command .{command}\nGet some .help".format(command=ctx.invoked_with))
-	else:
+	elif ((not isinstance(error, commands.MissingPermissions)) and (not isinstance(error, commands.BadArgument))) and (not isinstance(error, commands.MissingRequiredArgument)):
 		err = "<@{id}> ```css\nA command error has occured in {channel} from:\n{message}```".format(id=OWNER_ID, channel=ctx.message.guild.name, message=ctx.message.content)
 		await ctx.send(err)
 		OWNER = client.get_user(OWNER_ID)
 		await OWNER.send(err)
+
 # change status every 5 minutes
 @tasks.loop(minutes = 5)
 async def changeStatus():
@@ -86,17 +87,21 @@ async def search(ctx, *, criteria):
 
 @search.error
 async def search_error(ctx, error):
-	await ctx.send("My wifi is garbage and can't run HTTP get requests. Pls try again")
+	if isinstance(error, commands.MissingRequiredArgument):
+		await ctx.send(".search [amount] {search criteria}\nGet some .help")
+	else:
+		await ctx.send("My wifi is garbage and can't run HTTP get requests. Pls try again")
 
 # .random [amount] [search criteria] (get random hentai)
 @client.command()
 async def random(ctx, *, criteria=""):
 	await cmd.random(ctx, criteria)
 
+
 @random.error
 async def random_error(ctx, error):
 	await ctx.send("My wifi is garbage and can't run HTTP get requests. Pls try again")
-	
+
 # .owo [@user_mention] [@user_mention] [...] (owoify messages)
 @client.command(aliases=["uwu"])
 async def owo(ctx, *members : discord.Member):
