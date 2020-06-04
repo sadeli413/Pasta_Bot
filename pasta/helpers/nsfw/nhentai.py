@@ -53,6 +53,7 @@ class Nhentai:
 					print("fetching...")
 					embeds.append(sauce.getEmbed())
 					if sauce.isIllegal():
+						# print("illegal")
 						self.illegals += 1
 				else:
 					await message.channel.send("||{number} is invalid sauce (404).||".format(number=number))

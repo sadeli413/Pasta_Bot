@@ -1,7 +1,6 @@
 """
 Commands: help, ignore, readme, owo, shutdown, clean, triggers, random, search
 """
-
 import discord
 import os
 import requests
@@ -77,27 +76,29 @@ class Commands:
 		# if there's only a number search that or If there's no number, amount is 1
 		if criteria.isnumeric() or not first.isnumeric():
 			amount = 1
-		# # set amount, and remove it from info
+		# set amount, and remove it from info
 		else:
 			amount = abs(int(first))
 			args.pop(0)
 			info = "".join(i + " " for i in args)[:-1] # delete the space at the end
 		
 		# search the criteria
-		await ctx.send("Searching for `{info}`...".format(info=info))
-		# kinkshame if searched for lolis
-		for arg in args:
-			if ("loli" in arg or "shota" in arg) and arg[0] != "-":
-				await ctx.send(Extrapasta.fbiOpenUp())
-				return
-		# send search normally
-		find = Search(info)
-		embeds = find.getMultiSauce(amount)
-		if len(embeds) > 0:
-			for embed in embeds:
-				await ctx.send(embed=embed)
-		else:
-			await("Found no `{info}`".format(info=info))
+		if amount > 0:
+			# kinkshame if searched for lolis
+			for arg in args:
+				if ("loli" in arg or "shota" in arg) and arg[0] != "-":
+					await ctx.send(Extrapasta.fbiOpenUp())
+					return
+
+			await ctx.send("Searching for `{info}`...".format(info=info))
+			# send search normally
+			find = Search(info)
+			embeds = find.getMultiSauce(amount)
+			if len(embeds) > 0:
+				for embed in embeds:
+					await ctx.send(embed=embed)
+			else:
+				await ctx.send("Found no `{info}` ||Or it's all loli/shota||".format(info=info))
 	
 	# searches top 25 most popular and gives a random one, or an amount
 	# does NOT send minors
@@ -116,6 +117,7 @@ class Commands:
 				for i in range(amount):
 					await rs.noArgs(ctx)
 				print("done")
+		
 		# [amount] {criteria} args
 		else:
 			# remove special characters besides :"
@@ -135,16 +137,17 @@ class Commands:
 			# if there's no amount, then set default 1
 			else:
 				amount = 1
-				
-			await ctx.send("Random search{amount} for `{info}`...".format(amount=" x" + str(amount) if amount > 1 else "", info=info))
-			# kink shame if searched for minors
-			for arg in args:
-				if ("loli" in arg or "shota" in arg) and not arg[0].startswith("-"):
-					await ctx.send(Extrapasta.fbiOpenUp())
-					return
-				
-			await rs.yesArgs(ctx, amount, info)
-			print("done")
+			
+			if amount > 0:
+				# kink shame if searched for minors
+				for arg in args:
+					if ("loli" in arg or "shota" in arg) and not arg[0].startswith("-"):
+						await ctx.send(Extrapasta.fbiOpenUp())
+						return
+					
+				await ctx.send("Random search{amount}{extra}...".format(amount=" x" + str(amount) if amount > 1 else "", extra =" for " + info if len(info) > 0 else ""))
+				await rs.yesArgs(ctx, amount, info)
+				print("done")
 					
 	# owoify member messages
 	async def owo(self, ctx, *members : discord.Member):

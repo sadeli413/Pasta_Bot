@@ -40,12 +40,12 @@ async def on_message(message):
 @client.event
 async def on_member_join(member):
 	await member.guild.system_channel.send("Welcome home, {member}! Would you like dinner? A bath? Or maybe... me?".format(member = member.mention))
-
+"""
 @client.event
 async def on_command_error(ctx, error):
 	if isinstance(error, commands.CommandNotFound):
 		await ctx.send("No such command .{command}\nGet some .help".format(command=ctx.invoked_with))
-
+"""
 # change status every 5 minutes
 @tasks.loop(minutes = 5)
 async def changeStatus():
@@ -78,19 +78,21 @@ async def triggers(ctx):
 @client.command()
 async def search(ctx, *, criteria):
 	await cmd.search(ctx, criteria)	
-
+"""
 @search.error
 async def search_error(ctx, error):
 	await ctx.send("My wifi is garbage and can't run HTTP get requests. Pls try again")
-
+"""	
 # .random [amount] [search criteria] (get random hentai)
 @client.command()
 async def random(ctx, *, criteria=""):
 	await cmd.random(ctx, criteria)
 
+"""
 @random.error
 async def random_error(ctx, error):
 	await ctx.send("My wifi is garbage and can't run HTTP get requests. Pls try again")
+"""
 	
 # .owo [@user_mention] [@user_mention] [...] (owoify messages)
 @client.command(aliases=["uwu"])

@@ -34,6 +34,14 @@ class Events:
 	# get a cycle of pasta_bot statuses
 	def getStatus(self):
 		activities = []
+		activities.append(discord.Activity(name = ".help", type = discord.ActivityType.playing))
 		activities.append(discord.Activity(name = "lots of hentai.", type = discord.ActivityType.watching))
+		activities.append(discord.Activity(name = ".help", type = discord.ActivityType.playing))
 		activities.append(discord.Activity(name = "sad loli asmr.", type = discord.ActivityType.listening))
+		activities.append(discord.Activity(name = ".help", type = discord.ActivityType.playing))
+		activities.append(discord.Activity(name = "your local preschool.", type = discord.ActivityType.watching))
 		return cycle(activities)
+		
+		
+		
+		
