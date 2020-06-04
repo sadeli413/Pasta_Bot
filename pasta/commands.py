@@ -74,7 +74,7 @@ class Commands:
 		args = info.split(" ")
 		first = args[0]
 		# if there's only a number search that or If there's no number, amount is 1
-		if criteria.isnumeric() or not first.isnumeric():
+		if info.isnumeric() or not first.isnumeric():
 			amount = 1
 		# set amount, and remove it from info
 		else:
