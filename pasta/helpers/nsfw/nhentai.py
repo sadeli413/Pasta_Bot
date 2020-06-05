@@ -18,7 +18,6 @@ class Nhentai:
 		self.illegals = 0
 	
 	async def fetch(self, message):
-		# content = message.content.lower()
 		sauces = await self.getSauces(message)
 		if len(sauces) > 0:
 			# if there's more than 3, then tell them thats a lot
@@ -31,7 +30,7 @@ class Nhentai:
 			if self.illegals > 0:
 				fbi = Extrapasta.fbiOpenUp()
 				await message.channel.send(fbi)
-				print("done")
+			print("done")
 			# sauce was found
 			return True
 		# no sauce

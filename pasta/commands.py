@@ -63,11 +63,15 @@ class Commands:
 	# .search [amount] {criteria}
 	# does NOT send minors
 	async def search(self, ctx, criteria):
+		if not ctx.channel.is_nsfw():
+			await ctx.send("```css\n.search only works in nsfw channels```")
+			return
+		
 		# remove special characters
 		info = criteria.lower()
 		info = self.sanitize(info)
 		if len(info) < 1 or not search("[A-Za-z0-9]", info):
-			await ctx.send(".search [amount] {search criteria}\nGet some .help")
+			await ctx.send("```css\n.search [amount] {search criteria}\nGet some .help```")
 			return
 	
 		aAndC = self.amountAndCriteria(info)
@@ -94,6 +98,10 @@ class Commands:
 	# searches top 25 most popular and gives a random one, or an amount
 	# does NOT send minors
 	async def random(self, ctx, criteria):
+		if not ctx.channel.is_nsfw():
+			await ctx.send("```css\n.random only works in nsfw channels```")
+			return
+			
 		rs = randomSearch()
 		# no arguments
 		if len(criteria) < 1:
@@ -105,7 +113,7 @@ class Commands:
 		info = criteria.lower()
 		info = self.sanitize(info)
 		if not search("[A-Za-z0-9]", info):
-			await ctx.send(".random [amount] [search criteria]\nGet some .help")
+			await ctx.send("```css\n.random [amount] [search criteria]\nGet some .help```")
 			return
 		
 		# a single number argument
@@ -173,5 +181,8 @@ class Commands:
 	# remove multiple whitespace and special characters besides :"\s
 	def sanitize(self, word):
 		new = sub("\s+", " ", word)
+		new = sub(":+", ":", new)
+		new = sub("\"+", "\"", new)
+		new = sub("-+", "-", new)
 		new = sub("[^A-Z^a-z^0-9^\-^:^\"^\s]", "", new)
 		return new

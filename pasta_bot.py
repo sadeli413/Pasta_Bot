@@ -81,6 +81,7 @@ async def triggers(ctx):
 	await cmd.triggers(ctx)
 
 # .search [amount] {search criteria} (search top hentai results)
+# only works in nsfw channels
 @client.command()
 async def search(ctx, *, criteria):
 	await cmd.search(ctx, criteria)	
@@ -93,6 +94,7 @@ async def search_error(ctx, error):
 		await ctx.send("My wifi is garbage and can't run HTTP get requests. Pls try again")
 
 # .random [amount] [search criteria] (get random hentai)
+# only works in nsfw channels
 @client.command()
 async def random(ctx, *, criteria=""):
 	await cmd.random(ctx, criteria)

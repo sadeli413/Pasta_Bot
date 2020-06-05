@@ -25,9 +25,10 @@ class Events:
 			return
 		# don't pastafy or hentaify commands
 		if not isCommand(message.content):		
-			# if sauce isn't found, then send copypasta
-			if not await self.nh.fetch(message):
+			# Only check sauce in nsfw channel. if sauce not found, then send copypasta
+			if not (message.channel.is_nsfw() and await self.nh.fetch(message)):
 				await self.cp.fetch(message)
+				
 		# let the bot process commands
 		await self.client.process_commands(message)
 	
