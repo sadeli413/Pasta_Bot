@@ -63,9 +63,10 @@ class Commands:
 	# .search [amount] {criteria}
 	# does NOT send minors
 	async def search(self, ctx, criteria):
-		if not ctx.channel.is_nsfw():
-			await ctx.send("```css\n.search only works in nsfw channels```")
-			return
+		if (not isinstance(ctx.channel, discord.DMChannel)):
+			if not ctx.channel.is_nsfw():
+				await ctx.send("```css\n.search only works in nsfw channels```")
+				return
 		
 		# remove special characters
 		info = criteria.lower()
@@ -98,9 +99,10 @@ class Commands:
 	# searches top 25 most popular and gives a random one, or an amount
 	# does NOT send minors
 	async def random(self, ctx, criteria):
-		if not ctx.channel.is_nsfw():
-			await ctx.send("```css\n.random only works in nsfw channels```")
-			return
+		if (not isinstance(ctx.channel, discord.DMChannel)):
+			if not ctx.channel.is_nsfw():
+				await ctx.send("```css\n.random only works in nsfw channels```")
+				return
 			
 		rs = randomSearch()
 		# no arguments

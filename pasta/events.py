@@ -26,7 +26,7 @@ class Events:
 		# don't pastafy or hentaify commands
 		if not isCommand(message.content):		
 			# Only check sauce in nsfw channel. if sauce not found, then send copypasta
-			if not (message.channel.is_nsfw() and await self.nh.fetch(message)):
+			if not ((isinstance(message.channel, discord.DMChannel) or (message.channel.is_nsfw())) and await self.nh.fetch(message)):
 				await self.cp.fetch(message)
 				
 		# let the bot process commands
