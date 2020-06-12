@@ -16,8 +16,8 @@ import discord
 import requests
 from re import split
 #custom packages
-from pasta.helpers.extrapasta import Extrapasta
-from pasta.helpers.nsfw.hentai.sauce import Sauce
+from application.helpers.extrapasta import Extrapasta
+from application.helpers.nsfw.hentai.sauce import Sauce
 
 class Nhentai:
 	# keep track of number of illegals

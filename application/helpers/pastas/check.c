@@ -16,6 +16,6 @@ int main(int argc, char *argv[]) {
 		}
 		c = fgetc(document);
 	}
-	printf("\n\n%i found", i);
+	printf("\n\n%i found\n", i);
 	fclose(document);
 }

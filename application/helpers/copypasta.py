@@ -5,8 +5,8 @@ import os
 import discord
 from re import split
 
-from pasta.helpers.extrapasta import Extrapasta
-from pasta.helpers.misc import getTriggers
+from application.helpers.extrapasta import Extrapasta
+from application.helpers.misc import getTriggers
 
 class Copypasta:
 	def __init__(self):

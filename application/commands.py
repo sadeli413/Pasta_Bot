@@ -6,12 +6,12 @@ import os
 import requests
 from re import sub, search
 # custom packages
-from pasta.helpers.misc import getTriggers, isCommand
-from pasta.helpers.owo import Owo
-from pasta.helpers.nsfw.randomSearch import randomSearch
-from pasta.helpers.nsfw.search import Search
-from pasta.helpers.extrapasta import Extrapasta
-from pasta.helpers.help import Help
+from application.helpers.misc import getTriggers, isCommand
+from application.helpers.owo import Owo
+from application.helpers.nsfw.randomSearch import randomSearch
+from application.helpers.nsfw.search import Search
+from application.helpers.extrapasta import Extrapasta
+from application.helpers.help import Help
 
 class Commands:
 	def __init__(self, client):

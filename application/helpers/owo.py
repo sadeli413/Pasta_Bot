@@ -3,7 +3,7 @@ Owo command helpers
 """
 import discord
 # custom package
-from pasta.helpers.misc import isCommand
+from application.helpers.misc import isCommand
 
 class Owo:
 	def __init__(self):

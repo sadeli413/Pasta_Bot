@@ -4,8 +4,8 @@ Randomly searches for a doujin. does NOT grab doujins with "loli" or "shota" in 
 import discord
 from random import randint
 # custom packages
-from pasta.helpers.nsfw.hentai.sauce import Sauce
-from pasta.helpers.nsfw.search import Search
+from application.helpers.nsfw.hentai.sauce import Sauce
+from application.helpers.nsfw.search import Search
 
 class randomSearch:
 	def __init__(self):

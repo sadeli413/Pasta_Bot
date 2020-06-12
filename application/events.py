@@ -7,9 +7,9 @@ import discord
 from discord.ext import tasks, commands
 from itertools import cycle
 # custom packages
-from pasta.helpers.misc import isCommand
-from pasta.helpers.nsfw.nhentai import Nhentai
-from pasta.helpers.copypasta import Copypasta
+from application.helpers.misc import isCommand
+from application.helpers.nsfw.nhentai import Nhentai
+from application.helpers.copypasta import Copypasta
 
 class Events:
 	def __init__(self, client):

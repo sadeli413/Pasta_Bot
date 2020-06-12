@@ -18,8 +18,8 @@ TODO Long term:
 import discord
 from discord.ext import tasks, commands
 # custom packages
-from pasta.events import Events
-from pasta.commands import Commands
+from application.events import Events
+from application.commands import Commands
 from private import getToken, getID
 
 # tools
