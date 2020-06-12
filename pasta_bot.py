@@ -4,17 +4,25 @@
 # Description: main bot events and commands
 """
 
+"""
+TODO asap:
+	- move search.getRandSauce(amount) into randomSearch.py
+	- encapsulate commands.random(ctx, criteria) into randomSearch.py
+	- encapsulate commands.search(ctx, criteria) into specificSearch.py
+	
+TODO Long term:
+	- Use SQL to track user doujin history and make recommendations
+		- return doujin.getTags() as a list instead of a string to keep track in SQL db
+		- return doujin.getArtists() as a list instead of a string to keep track in SQL db
+"""
 import discord
-
 from discord.ext import tasks, commands
-from itertools import cycle
-
 # custom packages
 from pasta.events import Events
 from pasta.commands import Commands
 from private import getToken, getID
 
-
+# tools
 client = commands.Bot(command_prefix = '.')
 TOKEN = getToken()
 OWNER_ID = getID()
@@ -42,10 +50,12 @@ async def on_message(message):
 async def on_member_join(member):
 	await member.guild.system_channel.send("Welcome home, {member}! Would you like dinner? A bath? Or maybe... me?".format(member = member.mention))
 
+# command not found error, and misc erorr
 @client.event
 async def on_command_error(ctx, error):
 	if isinstance(error, commands.CommandNotFound):
 		await ctx.send("No such command .{command}\nGet some .help".format(command=ctx.invoked_with))
+	# not MissingPermissions, BadArgument, or MissingRequiredArgument
 	elif ((not isinstance(error, commands.MissingPermissions)) and (not isinstance(error, commands.BadArgument))) and (not isinstance(error, commands.MissingRequiredArgument)):
 		err = "<@{id}> ```css\nA command error has occured in {channel} from:\n{message}```".format(id=OWNER_ID, channel=ctx.message.guild.name, message=ctx.message.content)
 		await ctx.send(err)
@@ -86,6 +96,8 @@ async def triggers(ctx):
 async def search(ctx, *, criteria):
 	await cmd.search(ctx, criteria)	
 
+
+# error handling
 @search.error
 async def search_error(ctx, error):
 	if isinstance(error, commands.MissingRequiredArgument):
@@ -99,7 +111,7 @@ async def search_error(ctx, error):
 async def random(ctx, *, criteria=""):
 	await cmd.random(ctx, criteria)
 
-
+# error handling
 @random.error
 async def random_error(ctx, error):
 	await ctx.send("My wifi is garbage and can't run HTTP get requests. Pls try again")
@@ -121,6 +133,7 @@ async def owo_error(ctx, error):
 async def clean(ctx):
 	await cmd.clean(ctx)
 
+# MissingPermissions error
 @clean.error
 async def clean_error(ctx, error):
 	if isinstance(error, commands.MissingPermissions):

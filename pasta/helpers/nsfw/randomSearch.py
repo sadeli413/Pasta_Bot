@@ -3,7 +3,7 @@ Randomly searches for a doujin. does NOT grab doujins with "loli" or "shota" in 
 """
 import discord
 from random import randint
-
+# custom packages
 from pasta.helpers.nsfw.hentai.sauce import Sauce
 from pasta.helpers.nsfw.search import Search
 

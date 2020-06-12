@@ -2,6 +2,7 @@
 Owo command helpers
 """
 import discord
+# custom package
 from pasta.helpers.misc import isCommand
 
 class Owo:
@@ -18,7 +19,6 @@ class Owo:
 				if len(owoify) > 0:
 					await ctx.send(owoify)
 					return
-		return
 		
 	# owoify the last non-command messages sent by *members in the ctx.channel
 	async def yesMember(self, ctx, *members : discord.Member):

@@ -5,11 +5,8 @@ import discord
 import os
 import requests
 from re import sub, search
-from random import randint
-
 # custom packages
-from pasta.helpers.misc import getTriggers
-from pasta.helpers.misc import isCommand
+from pasta.helpers.misc import getTriggers, isCommand
 from pasta.helpers.owo import Owo
 from pasta.helpers.nsfw.randomSearch import randomSearch
 from pasta.helpers.nsfw.search import Search
@@ -34,16 +31,21 @@ class Commands:
 			await ctx.author.send(self.hp.msg)
 		else:
 			# transform aliases
-			if arg == ".i":
-				arg = ".ignore"
-			elif arg == ".h":
-				arg = ".help"
-			elif arg == ".trigger":
-				arg = ".triggers"
-			elif arg == ".uwu":
-				arg = ".owo"
+			arg = self.alias(arg)
 			await ctx.author.send(embed = self.hp.botDictionary[arg].embed)
 		await ctx.send("{author} I sent you a DM".format(author=ctx.author.mention))
+	
+	def alias(self, arg):
+		if arg == ".i":
+			return ".ignore"
+		elif arg == ".h":
+			return ".help"
+		elif arg == ".trigger":
+			return ".triggers"
+		elif arg == ".uwu":
+			return ".owo"
+		else:
+			return arg
 	
 	# DM README.txt
 	async def readme(self, ctx):
@@ -63,6 +65,7 @@ class Commands:
 	# .search [amount] {criteria}
 	# does NOT send minors
 	async def search(self, ctx, criteria):
+		# search only works in DMChannels and NSFW channels
 		if (not isinstance(ctx.channel, discord.DMChannel)):
 			if not ctx.channel.is_nsfw():
 				await ctx.send("```css\n.search only works in nsfw channels```")
@@ -81,10 +84,9 @@ class Commands:
 		# search the criteria
 		if amount > 0:
 			# kinkshame if searched for lolis
-			for arg in info.split(" "):
-				if ("loli" in arg or "shota" in arg) and arg[0] != "-":
-					await ctx.send(Extrapasta.fbiOpenUp())
-					return
+			if self.isKinkshame(ctx, info):
+				await ctx.send(Extrapasta.fbiOpenUp())
+				return
 			
 			await ctx.send("Searching{amount} for `{info}`...".format(amount = " x" + str(amount) if amount > 1 else "", info=info))
 			# send search normally
@@ -99,6 +101,7 @@ class Commands:
 	# searches top 25 most popular and gives a random one, or an amount
 	# does NOT send minors
 	async def random(self, ctx, criteria):
+		# only works in DMChannels and NSFW channels
 		if (not isinstance(ctx.channel, discord.DMChannel)):
 			if not ctx.channel.is_nsfw():
 				await ctx.send("```css\n.random only works in nsfw channels```")
@@ -112,6 +115,7 @@ class Commands:
 			print("done")
 			return
 		
+		# remove special characters
 		info = criteria.lower()
 		info = self.sanitize(info)
 		if not search("[A-Za-z0-9]", info):
@@ -135,10 +139,9 @@ class Commands:
 			
 			if amount > 0:
 				# kink shame if searched for minors
-				for arg in info.split(" "):
-					if ("loli" in arg or "shota" in arg) and not arg[0].startswith("-"):
-						await ctx.send(Extrapasta.fbiOpenUp())
-						return
+				if self.isKinkshame(ctx, info):
+					await ctx.send(Extrapasta.fbiOpenUp())
+					return
 						
 				await ctx.send("Random search{amount}{extra}...".format(amount=" x" + str(amount) if amount > 1 else "", extra =" for `" + info + "`" if len(info) > 0 else ""))
 				await rs.yesArgs(ctx, amount, info)
@@ -180,6 +183,12 @@ class Commands:
 			"criteria":crit
 		}
 	
+	def isKinkshame(self, ctx, info):
+		for arg in info.split(" "):
+			if ("loli" in arg or "shota" in arg) and not arg[0].startswith("-"):
+				return True
+		return False
+		
 	# remove multiple whitespace and special characters besides :"\s
 	def sanitize(self, word):
 		new = sub("\s+", " ", word)
