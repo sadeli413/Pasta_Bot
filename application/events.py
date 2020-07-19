@@ -23,11 +23,13 @@ class Events:
 		if message.author == self.client.user:
 			return
 		# don't pastafy or hentaify commands
-		if not isCommand(message.content):		
+		if not isCommand(message.content):
+			"""		
 			# NSFW works in DMChannels and nsfw channels
 			doesNSFWWork = isinstance(message.channel, discord.DMChannel) or message.channel.is_nsfw()
+			"""
 			# if you don't find hentai, then send copypasta
-			if not (doesNSFWWork and await self.nh.fetch(message)):
+			if not (await self.nh.fetch(message)):
 				await self.cp.fetch(message)
 				
 		# let the bot process commands

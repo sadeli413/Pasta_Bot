@@ -65,12 +65,13 @@ class Commands:
 	# .search [amount] {criteria}
 	# does NOT send minors
 	async def search(self, ctx, criteria):
+		"""
 		# search only works in DMChannels and NSFW channels
 		if (not isinstance(ctx.channel, discord.DMChannel)):
 			if not ctx.channel.is_nsfw():
 				await ctx.send("```css\n.search only works in nsfw channels```")
 				return
-		
+		"""
 		# remove special characters
 		info = criteria.lower()
 		info = self.sanitize(info)
@@ -99,14 +100,14 @@ class Commands:
 				await ctx.send("Found no `{info}` ||Or it's all loli/shota||".format(info=info))
 	
 	# searches top 25 most popular and gives a random one, or an amount
-	# does NOT send minors
 	async def random(self, ctx, criteria):
+		"""
 		# only works in DMChannels and NSFW channels
 		if (not isinstance(ctx.channel, discord.DMChannel)):
 			if not ctx.channel.is_nsfw():
 				await ctx.send("```css\n.random only works in nsfw channels```")
 				return
-			
+		"""	
 		rs = randomSearch()
 		# no arguments
 		if len(criteria) < 1:
@@ -156,6 +157,10 @@ class Commands:
 		else:
 			await self.owoifier.yesMember(ctx, *members)
 
+
+	"""
+	The rest are helper funcitons
+	"""
 	# of the past 200 messages, delete those sent by Pasta_Bot
 	async def clean(self, ctx):
 		deleted = await ctx.channel.purge(limit = 200, check=self.isBot)

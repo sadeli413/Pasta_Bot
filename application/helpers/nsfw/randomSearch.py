@@ -3,6 +3,7 @@ Randomly searches for a doujin. does NOT grab doujins with "loli" or "shota" in 
 """
 import discord
 from random import randint
+from random import choice
 # custom packages
 from application.helpers.nsfw.hentai.sauce import Sauce
 from application.helpers.nsfw.search import Search
@@ -16,7 +17,7 @@ class randomSearch:
 		print("fetching...")
 		sauce = Sauce(str(randint(10000, 999999)))
 		# make sure it exists
-		while (not sauce.doesExist()) or sauce.isIllegal():
+		while (not sauce.doesExist()):
 			sauce = Sauce(str(randint(10000, 999999)))
 
 		await ctx.send(embed=sauce.getEmbed())
@@ -24,12 +25,37 @@ class randomSearch:
 	# get amount sauce of a search criteria
 	async def yesArgs(self, ctx, amount, criteria):
 		find = Search(criteria)
-		embeds = find.getRandSauce(amount)
+		embeds = self.getRandSauce(amount, find.getNumbers())
 		# make sure the embed will be valid
 		if find.doesExist() and len(embeds) > 0:
 			for embed in embeds:
 				await ctx.send(embed=embed)
-		elif find.doesExist() and len(embeds) < amount:
-			await ctx.send("||Unfortunately, {rm} doujin(s) have been removed from your request because too many lolis/shotas (see .readme for more)||".format(rm=amount-len(embeds)))
 		else:
-			await ctx.send("Found no `{criteria}` ||Or it's all loli/shota||".format(criteria=criteria))
+			await ctx.send("Found no `{criteria}`".format(criteria=criteria))
+
+	def getRandSauce(self, amount, numbers):
+		num = amount
+		embeds = []
+		if num > 0:
+			# make sure num is not greater than len(numbers)
+			if num > len(numbers):
+				num = len(numbers)
+			# get random sauces: limit is len(numbers) and num amount
+			i = 0
+			while len(numbers) > 0 and i < num:
+				print("fetching...")
+				# get a random sauce from numbers
+				rand = choice(numbers)
+				sauce = Sauce(rand)
+				"""
+				# do NOT submit loli or shota sauce
+				while sauce.isIllegal():
+					numbers.remove(rand)
+					rand = choice(numbers)
+					sauce = Sauce(rand)
+				"""
+				embeds.append(sauce.getEmbed())
+				# make sure there are no duplicates
+				numbers.remove(rand)
+				i += 1
+		return embeds

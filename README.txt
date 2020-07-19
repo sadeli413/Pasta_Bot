@@ -38,16 +38,16 @@ TRIGGERS
 	Alias: .trigger
 
 RANDOM
-	DESCRIPTION: Only works in NSFW channels. Send a random hentai. If an amount is specified, send that amount (no maximum). If a search criteria is specified, then search under that criteria (maximum amount 25)
+	DESCRIPTION: Send a random hentai. If an amount is specified, send that amount (no maximum). If a search criteria is specified, then search under that criteria (maximum amount 25)
 	USAGE: .random [amount] [search criteria]
-	NOTES: This searches the 25 most popular search results and ONLY grabs NON loli/shota. As a result, fewer doujins may be sent than requested.
+	NOTES: This searches the 25 most popular search results
 	For search criteria help, visit https://nhentai.net/info/
-	*This is the slowest command, since it randomly searches until it finds a doujin that 1) exists and 2) does not contain "loli" or "shota" tags.
+	*This is the slowest command, since it randomly searches until it finds a doujin that exists
 	
 SEARCH
-	DESCRIPTION: Only works in NSFW channels. Send the top result of a nhentai link with a given search. Optional: specify an amount of links. 
+	DESCRIPTION: Send the top result of a nhentai link with a given search. Optional: specify an amount of links. 
 	USAGE: .search [amount] {search criteria}
-	NOTES:  This never sends hentai with tags including "loli" or "shota". 25 MAXIMUM AMOUNT SEARCHED. Any higher amount will automatically default to 25.
+	NOTES: 25 MAXIMUM AMOUNT SEARCHED. Any higher amount will automatically default to 25.
 	For search criteria help, visit https://nhentai.net/info/
 	*This command tends to be slow since it involves web get requests.
 
@@ -57,7 +57,7 @@ If triggered, give hentai.
 If no hentai is triggered, then give a copypasta based on a copypasta trigger
 
 HENTAI
-	DESCRIPTION: Only works in NSFW channels. Triggered by five or six digit numbers in a message. Provides the following:
+	DESCRIPTION: Triggered by five or six digit numbers in a message. Provides the following:
 		- Artist(s) (if applicable)
 		- Title
 		- Link to nhentai page (omit link and make the embed red if the tags include "loli" or "shota")

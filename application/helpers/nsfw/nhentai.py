@@ -1,8 +1,11 @@
 """
 Fetch Nhentai links
+api guide
+https://edgyboi2414.github.io/nhentai-api
 
 "Test cases"
-185217 301659 165961 262340 250750 298547 287158 235879
+185217 301659 165961 262340 250750 298547 287158 235879 296426
+274555 306617
 151529 161727 158990
 276728 280751
 80759 104248
@@ -57,10 +60,11 @@ class Nhentai:
 				if sauce.doesExist():
 					print("fetching...")
 					embeds.append(sauce.getEmbed())
-					if sauce.isIllegal():
+					if sauce.isIllegal:
 						self.illegals += 1
 				else:
 					await message.channel.send("||{number} is invalid sauce (404).||".format(number=number))
+		
 		return embeds
 			
 	# gets valid numbers in lowercase content

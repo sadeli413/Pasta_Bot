@@ -11,9 +11,10 @@ from application.helpers.nsfw.hentai.sauce import Sauce
 class Search:
 	def __init__(self, criteria):
 		# search url
-		self.criteria = criteria.replace(" ", "+").replace(":", "%3A" )+ "+-loli+-shota"
-		self.url = "https://nhentai.net/search/?q={criteria}&sort=popular".format(criteria=self.criteria)
+		self.criteria = criteria.replace(" ", "+").replace(":", "%3A" )
+		self.url = "https://nhentai.net//api/galleries/search?query={criteria}&sort=popular".format(criteria=self.criteria)
 		self.response = requests.get(self.url)
+		self.data = self.response.json()
 	
 	def doesExist(self):
 		return self.response.status_code == 200
@@ -22,7 +23,7 @@ class Search:
 	def getMultiSauce(self, amount):
 		num = amount
 		embeds = []
-		numbers = self.getNumbers()
+		numbers = getNumbers()
 		if num > 0:
 			# make sure num is not greater than len(numbers)
 			if num > len(numbers):
@@ -33,50 +34,9 @@ class Search:
 					embeds.append(Sauce(numbers[i]).getEmbed())
 		return embeds
 		
-	def getRandSauce(self, amount):
-		num = amount
-		embeds = []
-		numbers = self.getNumbers()
-		if num > 0:
-			# make sure num is not greater than len(numbers)
-			if num > len(numbers):
-				num = len(numbers)
-			# get random sauces: limit is len(numbers) and num amount
-			i = 0
-			while len(numbers) > 0 and i < num:
-				print("fetching...")
-				# get a random sauce from numbers
-				rand = choice(numbers)
-				sauce = Sauce(rand)
-				# do NOT submit loli or shota sauce
-				while sauce.isIllegal():
-					numbers.remove(rand)
-					rand = choice(numbers)
-					sauce = Sauce(rand)
-				embeds.append(sauce.getEmbed())
-				# make sure there are no duplicates
-				numbers.remove(rand)
-				i += 1
-		return embeds
-		
 	# get all "numbers" on this page
 	def getNumbers(self):
-		head = 	"<a href=\"/g/"
-		tail = "/\" class=\"cover\""
-		lines = self.getLines(head)
 		numbers = []
-		if len(lines) > 0:		
-			for line in lines:
-				# cool little solution to find in between head and tail
-				number = line[line.find(head)+len(head):line.rfind(tail)]
-				numbers.append(number)
+		for key in self.data["result"]:
+			numbers.append(str(key["id"]))
 		return numbers
-	
-	# looks for a head in a line of html
-	def getLines(self, head):
-		lines = []
-		html = self.response.text
-		for line in html.split('\n'):
-			if head in line:
-				lines.append(line)
-		return lines

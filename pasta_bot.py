@@ -50,6 +50,7 @@ async def on_message(message):
 async def on_member_join(member):
 	await member.guild.system_channel.send("Welcome home, {member}! Would you like dinner? A bath? Or maybe... me?".format(member = member.mention))
 
+"""
 # command not found error, and misc erorr
 @client.event
 async def on_command_error(ctx, error):
@@ -61,6 +62,7 @@ async def on_command_error(ctx, error):
 		await ctx.send(err)
 		OWNER = client.get_user(OWNER_ID)
 		await OWNER.send(err)
+"""
 
 # change status every 5 minutes
 @tasks.loop(minutes = 5)
@@ -96,7 +98,7 @@ async def triggers(ctx):
 async def search(ctx, *, criteria):
 	await cmd.search(ctx, criteria)	
 
-
+"""
 # error handling
 @search.error
 async def search_error(ctx, error):
@@ -104,6 +106,7 @@ async def search_error(ctx, error):
 		await ctx.send(".search [amount] {search criteria}\nGet some .help")
 	else:
 		await ctx.send("My wifi is garbage and can't run HTTP get requests. Pls try again")
+"""
 
 # .random [amount] [search criteria] (get random hentai)
 # only works in nsfw channels
@@ -111,10 +114,12 @@ async def search_error(ctx, error):
 async def random(ctx, *, criteria=""):
 	await cmd.random(ctx, criteria)
 
+"""
 # error handling
 @random.error
 async def random_error(ctx, error):
 	await ctx.send("My wifi is garbage and can't run HTTP get requests. Pls try again")
+"""
 
 # .owo [@user_mention] [@user_mention] [...] (owoify messages)
 @client.command(aliases=["uwu"])
