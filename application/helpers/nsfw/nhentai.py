@@ -20,7 +20,7 @@ import requests
 from re import split
 #custom packages
 from application.helpers.extrapasta import Extrapasta
-from application.helpers.nsfw.hentai.sauce import Sauce
+from application.helpers.nsfw.sauce import Sauce
 
 class Nhentai:
 	# keep track of number of illegals
@@ -81,12 +81,7 @@ class Nhentai:
 				words.remove(word)
 		# remove duplicates
 		numbers = list(dict.fromkeys(words))
-		"""
-		# numbers must be only five to seven digits
-		for number in reversed(numbers):
-			if len(number) < 5 or len(number) > 7:
-				numbers.remove(number)
-		"""
+
 		return numbers
 				
 	def hasNumbers(self, word):

@@ -5,7 +5,7 @@ import discord
 from random import randint
 from random import choice
 # custom packages
-from application.helpers.nsfw.hentai.sauce import Sauce
+from application.helpers.nsfw.sauce import Sauce
 from application.helpers.nsfw.search import Search
 
 class randomSearch:
@@ -19,7 +19,8 @@ class randomSearch:
 		# make sure it exists
 		while (not sauce.doesExist()):
 			sauce = Sauce(str(randint(10000, 999999)))
-
+		
+		print(sauce.number)
 		await ctx.send(embed=sauce.getEmbed())
 	
 	# get amount sauce of a search criteria

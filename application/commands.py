@@ -36,16 +36,13 @@ class Commands:
 		await ctx.send("{author} I sent you a DM".format(author=ctx.author.mention))
 	
 	def alias(self, arg):
-		if arg == ".i":
-			return ".ignore"
-		elif arg == ".h":
-			return ".help"
-		elif arg == ".trigger":
-			return ".triggers"
-		elif arg == ".uwu":
-			return ".owo"
-		else:
-			return arg
+		aliases = {
+			".i": ".ignore",
+			".h": ".help",
+			".trigger": ".triggers",
+			".uwu": ".owo"
+		}
+		return aliases.get(arg, arg)
 	
 	# DM README.txt
 	async def readme(self, ctx):
@@ -97,7 +94,7 @@ class Commands:
 				for embed in embeds:
 					await ctx.send(embed=embed)
 			else:
-				await ctx.send("Found no `{info}` ||Or it's all loli/shota||".format(info=info))
+				await ctx.send("Found no `{info}`".format(info=info))
 	
 	# searches top 25 most popular and gives a random one, or an amount
 	async def random(self, ctx, criteria):

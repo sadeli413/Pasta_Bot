@@ -4,9 +4,8 @@ Categories: tags, artists, characters, parodies
 """
 
 import requests
-from random import choice
 # custom package
-from application.helpers.nsfw.hentai.sauce import Sauce
+from application.helpers.nsfw.sauce import Sauce
 
 class Search:
 	def __init__(self, criteria):
