@@ -5,15 +5,27 @@
 """
 
 """
+TODO asap:
+	- Change nhentai.fetch(message) command so that it sends one at a time instead of all at once
+	- Remove README.txt into README.md
+	- .help to send github page with README.md
+	- .commands to send command help
 TODO Long term:
+	- Implement a log for troubleshooting.
 	- Use SQL/json to track user's favorite doujin and make recommendations
 		.save {numbers} [numbers] ...
 		.library
+			- this will present a table
 		.recommend [amount]
+	- Implement "jail" to punish users for searching loli/shota
+		- Three strikes and then they're sent to a group Horny_Jail
+		- Will recieve a random bible verse once a day for 7 days
+		- Extra strikes during jailtime will add an extra day to jailtime
 """
 
 import discord
 from discord.ext import tasks, commands
+from random import choice
 # custom packages
 from application.events import Events
 from application.commands import Commands
@@ -45,7 +57,12 @@ async def on_message(message):
 # give a warm greeting to the system channel when someone joins
 @client.event
 async def on_member_join(member):
-	await member.guild.system_channel.send("Welcome home, {member}! Would you like dinner? A bath? Or maybe... me?".format(member = member.mention))
+	greetings = [
+		"Welcome home, {member}! Would you like dinner? A bath? Or maybe... me?".format(member = member.mention),
+		"Welcome to the guild, {member}! Don't worry, I'm not a pervert, or anyone suspicious. No suspicious people here. None at all.".format(member = member.mention),
+		"Hello, {member}. My name is Pasta_Bot. My favorite food is sauce. Please don't forget me.".format(member = member.mention)
+	]
+	await member.guild.system_channel.send(choice(greetings))
 
 # command not found error, and misc erorr
 @client.event

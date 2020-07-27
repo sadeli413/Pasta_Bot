@@ -12,7 +12,8 @@ class Sauce:
 		self.response = requests.get("https://nhentai.net/api/gallery/" + self.number)
 		self.data = self.response.json()
 		self.isIllegal = False
-		self.doujin = self.getDoujin()
+		if self.doesExist():
+			self.doujin = self.getDoujin()
 	
 	def doesExist(self):
 		return self.response.status_code == 200

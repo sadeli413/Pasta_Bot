@@ -15,10 +15,14 @@ class randomSearch:
 	# get one random sauce
 	async def noArgs(self, ctx):
 		print("fetching...")
-		sauce = Sauce(str(randint(10000, 999999)))
+		rand = randint(10000, 999999)
+		print(rand)
+		sauce = Sauce(str(rand))
 		# make sure it exists
 		while (not sauce.doesExist()):
-			sauce = Sauce(str(randint(10000, 999999)))
+			print(rand)
+			rand = randint(10000, 999999)
+			sauce = Sauce(str(rand))
 		
 		print(sauce.number)
 		await ctx.send(embed=sauce.getEmbed())

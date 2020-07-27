@@ -22,7 +22,7 @@ class Search:
 	def getMultiSauce(self, amount):
 		num = amount
 		embeds = []
-		numbers = getNumbers()
+		numbers = self.getNumbers()
 		if num > 0:
 			# make sure num is not greater than len(numbers)
 			if num > len(numbers):
