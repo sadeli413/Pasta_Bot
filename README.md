@@ -1,111 +1,132 @@
 # Pasta_Bot
-	DESCRIPTION: A NSFW Discord bot made by Sadeli.
-	https://github.com/sadeli413/Pasta_Bot.git
+- A NSFW Discord bot made by Sadeli.
+- Pasta bot is free and open source https://github.com/sadeli413/Pasta_Bot.git
+- [Invite Pasta_Bot to your server](https://discord.com/api/oauth2/authorize?client_id=715018649588727859&permissions=8&scope=bot)
 
-=================================================
+---
+## Table of Contents
+- [Commands](#commands)
+- [On Message Event](#on-message-event) 
+---
 
-*Commands:
-[] means optional arguments
-{} means required argument*
+## Commands
+- [] means optional arguments\
+- {} means required argument
 
-##HELP
-	DESCRIPTION: DM a help message
-	USAGE: ```.help [command]```
-	Alias: .h
+### HELP
+- DESCRIPTION: DM a help message
+- USAGE: ```.help [command]```
+- Alias: ```.h```
 
-##IGNORE
-	DESCRIPTION: Pasta_Bot will NOT read or act on any messages beginning with .ignore
-	USAGE: ```.ignore [any message here]```
-	Alias: .i
+### IGNORE
+- DESCRIPTION: Pasta_Bot will NOT read or act on any messages beginning with .ignore
+- USAGE: ```.ignore [any message here]```
+- Alias: ```.i```
 	
-##README
-	DESCRIPTION: DMs README.txt file for a full description of bot
-	USAGE: ```.readme```
+### README
+- DESCRIPTION: DMs README.txt file for a full description of bot
+- USAGE: ```.readme```
 
-##OWO 
-	DESCRIPTION: Without arguments, owoify the last message in the channel. Mention one or more users as arguments to owoify their last message.
-	USAGE: ```.owo [@user_mention] [@user_mention] [...]```
-	Alias: .uwu
+### OWO 
+- DESCRIPTION: Without arguments, owoify the last message in the channel. Mention one or more users as arguments to owoify their last message.
+- USAGE: ```.owo [@user_mention] [@user_mention] [...]```
+- Alias: ```.uwu```
 
-##CLEAN
-	DESCRIPTION: Of the past 200 messages in channel history, delete messages sent by Pasta_Bot
-	USAGE: ```.clean```
-	NOTES: Can only be used by users Manage Messages permissions
+### CLEAN
+- DESCRIPTION: Of the past 200 messages in channel history, delete messages sent by Pasta_Bot
+- USAGE: ```.clean```
+- NOTES: Can only be used by users Manage Messages permissions
 
-##TRIGGERS
-	DESCRIPTION: DM a message containing all copypasta trigger words
-	USAGE: ```.triggers```
-	Alias: .trigger
+### TRIGGERS
+- DESCRIPTION: DM a message containing all copypasta trigger words
+- USAGE: ```.triggers```
+- Alias: ```.trigger```
 
-##RANDOM
-	DESCRIPTION: Send a random hentai. If an amount is specified, send that amount (no maximum). If a search criteria is specified, then search under that criteria (maximum amount 25)
-	USAGE: ```.random [amount] [search criteria]```
-	NOTES: This searches the 25 most popular search results
-	For search criteria help, visit https://nhentai.net/info/
-	*This is the slowest command, since it randomly searches until it finds a doujin that exists
+### RANDOM
+- DESCRIPTION: Send a random hentai. If an amount is specified, send that amount (no maximum). If a search criteria is specified, then search under that criteria (maximum amount 25)
+- USAGE: ```.random [amount] [search criteria]```
+- NOTES: This searches the 25 most popular search results. For search criteria help, visit https://nhentai.net/info/ *This is the slowest command, since it randomly searches until it finds a doujin that exists*.
 	
-##SEARCH
-	DESCRIPTION: Send the top result of a nhentai link with a given search. Optional: specify an amount of links. 
-	USAGE: ```.search [amount] {search criteria}```
-	NOTES: 25 MAXIMUM AMOUNT SEARCHED. Any higher amount will automatically default to 25.
-	For search criteria help, visit https://nhentai.net/info/
-	*This command tends to be slow since it involves web get requests.
+### SEARCH
+- DESCRIPTION: Send the top result of a nhentai link with a given search. Optional: specify an amount of links. 
+- USAGE: ```.search [amount] {search criteria}```
+- NOTES: 25 maximum amount searched. Any higher amount will automatically default to 25.
+For search criteria help, visit https://nhentai.net/info/
+*This command tends to be slow since it involves web get requests.*
 
 
-=================================================
+---
 
-##On message event:
+## On message event
 If triggered, give hentai.
 If no hentai is triggered, then give a copypasta based on a copypasta trigger
 
-##HENTAI
-	DESCRIPTION: Triggered by five or six digit numbers in a message. Provides the following:
-		- Artist(s) (if applicable)
-		- Title
-		- Link to nhentai page (omit link and make the embed red if the tags include "loli" or "shota")
-		- Sauce provided in message (the triggering five or six digit numbers)
-		- Number of Pages
-		- Tag(s)
-		- Parodies (if applicable)
-	OTHER FEATURES: I will send a kink shame copypasta if you submit 4 or more sauces in one message.
-					Additionally, I will kink shame you if one of the tags include *loli* or *shota*.
-					No embed will be sent if the numbers returns a 404 status code.
-					Unlike .search or .random, this feature sends the message AFTER all hentai is found, whereas .search and .random search and send hentai one at a time
-					*This feature tends to be slow since it runs a web request
+### HENTAI
+- DESCRIPTION: Triggered by five or six digit numbers in a message. Provides the following:
+	- Artist(s) (if applicable)
+	- Title
+	- Link to nhentai page (omit link and make the embed red if the tags include "loli" or "shota")
+	- Sauce provided in message (the triggering five or six digit numbers)
+	- Number of Pages
+	- Tag(s)
+	- Parodies (if applicable)
+
+OTHER FEATURES: Pasta_Bot will send a kink shame copypasta if you submit 4 or more sauces in one message. Additionally, Pasta_Bot will kink shame you if one of the tags include *loli* or *shota*.
+No embed will be sent if the numbers returns a 404 status code. Unlike .search or .random, this feature sends the message AFTER all hentai is found, whereas .search and .random search and send hentai one at a time *This feature tends to be slow since it runs a web request.*
 	
-##COPYPASTA
-	DESCRIPTION: Triggered by the last keyword of a message. Use TRIGGERS command for a list of triggers
-	OTHER FEATURES: I will respond to the Navy Seals copypasta with the response copypasta
+### COPYPASTA
+- DESCRIPTION: Triggered by the last keyword of a message. Use TRIGGERS command for a list of triggers
+- OTHER FEATURES: I will respond to the Navy Seals copypasta with the response copypasta
 
-=================================================
+---
 
-*Other*:
+## Other
 
-##STATUS:
-	DESCRIPTION: Every 5 minutes as a background task, Pasta_Bot will change statuses in between
-		"Watching lots of hentai"
-		"Listening to sad loli asmr"
+### STATUS
+- DESCRIPTION: Every 5 minutes as a background task, Pasta_Bot will change statuses.
 
-=================================================
+---
 
-*Citations*:
+## Citations
 
-##ICON:
-  I do not own the spaghetti-ahegao photo used for Pasta_Bot icon. The icon was taken from https://knowyourmeme.com/photos/1299418-ostagram-spaghetti-mashups
+### ICON
+I do not own the spaghetti-ahegao photo used for Pasta_Bot icon. The icon was taken from https://knowyourmeme.com/photos/1299418-ostagram-spaghetti-mashups
 
-##COPYPASTAS:
-  I did not create most of these copypastas. Most of these copypastas were taken from https://www.reddit.com/r/copypasta/
+### COPYPASTAS
+I did not create most of these copypastas. Most of these copypastas were taken from https://www.reddit.com/r/copypasta/
 
-##HENTAI:
-  All hentai is taken from https://nhentai.net and their glorious api
+### HENTAI
+All hentai is taken from https://nhentai.net and their glorious api.
 
-##DISCORD:
-  Made with discord.py with documentation at https://discordpy.readthedocs.io/en/latest/
+### DISCORD
+Made with [discord.py](https://discordpy.readthedocs.io/en/latest/)
 
-=================================================
+---
 
-*Notes from Sadeli*:
+## How to port Pasta_Bot
+Download [discord.py](https://discordpy.readthedocs.io/en/latest/intro.html) and clone this repository with 
+```bash
+git clone https://github.com/sadeli413/Pasta_Bot.git
+```
+1. Outside of the Pasta_Bot folder, create a text file ID.txt and TOKEN.txt
+2. Put your discord ID inside of ID.txt and your bot token inside of TOKEN.txt
 
-I do not want this on my main github so I added this to an alternate github account found at the top of this readme. My main github is at https://github.com/thad-shinno
+Your tree should look something like this:
+```
+|ID.txt
+|TOKEN.txt
+|Pasta_Bot/
+|___application/
+|___pasta_bot.py
+|___private.py
+|___README.md
+```
+---
+
+## Notes from Sadeli:
+
+I do not want this on my main github, so sadeli413 is my alternate github account. Come check out my [main github](https://github.com/thad-shinno)
 
 I have no idea why anyone would actually use this bot. If you want hentai, just search it up normally. That being said, please use this bot. I worked hard on this bot.
+
+Thank you for using Pasta_Bot
