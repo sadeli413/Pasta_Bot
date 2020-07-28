@@ -1,3 +1,5 @@
+# @author Sadeli
+
 def getToken():
 	file = open("../TOKEN.txt")
 	token = file.read()

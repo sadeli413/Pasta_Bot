@@ -1,3 +1,4 @@
+# @author Sadeli
 """
 Description: Extra copypastas not triggered by trigger words
 """

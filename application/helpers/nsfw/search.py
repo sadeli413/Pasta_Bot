@@ -1,3 +1,4 @@
+# @author Sadeli
 """
 Note that Search arguments will be called with .lower() in commands.py, so there's no need to .lower() here
 Categories: tags, artists, characters, parodies

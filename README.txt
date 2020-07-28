@@ -1,6 +1,5 @@
-README
-Pasta_Bot
-	DESCRIPTION: A NSFW Discord bot made by Thad Shinno.
+# Pasta_Bot
+	DESCRIPTION: A NSFW Discord bot made by Sadeli.
 	https://github.com/sadeli413/Pasta_Bot.git
 
 *****************************************************************************************************************************************

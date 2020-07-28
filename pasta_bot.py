@@ -1,7 +1,6 @@
 """
-# Title: pasta_bot.py
-# Author: Thad Shinno
-# Description: main bot events and commands
+@author Thad Shinno @Sadeli
+main method for pasta_bot, containing events and commands
 """
 
 """

@@ -1,3 +1,4 @@
+# @author Sadeli
 """
 Owo command helpers
 """

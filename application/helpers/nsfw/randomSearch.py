@@ -1,3 +1,4 @@
+# @author Sadeli
 """
 Randomly searches for a doujin. does NOT grab doujins with "loli" or "shota" in the tags
 """

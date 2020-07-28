@@ -1,3 +1,4 @@
+# @author Sadeli
 """
 Miscellaneus functions used by many commands and events
 """

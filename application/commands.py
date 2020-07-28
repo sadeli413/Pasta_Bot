@@ -1,3 +1,4 @@
+# @author Sadeli
 """
 Commands: help, ignore, readme, owo, shutdown, clean, triggers, random, search
 """

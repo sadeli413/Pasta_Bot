@@ -1,3 +1,4 @@
+# @author Sadeli
 """
 A single sauce has numbers, a webpage response, and the doujin info
 """

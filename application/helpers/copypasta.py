@@ -1,3 +1,4 @@
+# @author Sadeli
 """
 Class that sends a copypasta based on the last keyword in a lowercase discord message. There are some copypasta exceptions.
 """

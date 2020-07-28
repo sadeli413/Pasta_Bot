@@ -1,3 +1,4 @@
+# @author Sadeli
 """
 Fetch Nhentai links
 api guide
