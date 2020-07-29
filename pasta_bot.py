@@ -1,9 +1,11 @@
+# @author Thad Shinno (Sadeli)
 """
-@author Thad Shinno @Sadeli
 main method for pasta_bot, containing events and commands
 """
 
 """
+TODO asap:
+	- Implement a contact bot owner to report bugs 
 TODO Long term:
 	- Implement a log for troubleshooting.
 	- Use SQL/json to track user's favorite doujin and make recommendations
@@ -26,13 +28,13 @@ from application.commands import Commands
 from private import getToken, getID
 
 # tools
-client = commands.Bot(command_prefix = '.')
-TOKEN = getToken()
-OWNER_ID = getID()
-events = Events(client)
-cmd = Commands(client)
-status = events.getStatus()
-client.remove_command("help")
+client = commands.Bot(command_prefix = '.') # the bot itself
+TOKEN = getToken() # bot token
+OWNER_ID = getID() # owner's discord id
+events = Events(client) # on message events
+cmd = Commands(client) # bot commands
+status = events.getStatus() # bot statuses
+client.remove_command("help") # remove default help command. I replaced it with a custom one.
 
 """
 EVENTS: on_ready, on_message, and on_member_join
