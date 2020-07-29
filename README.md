@@ -16,6 +16,7 @@ A NSFW Discord bot made by Sadeli.
 - [On Message Event](#on-message-event) 
 	- [hentai](#hentai)
 	- [copypasta](#copypasta)
+- [Owner Commands](#owner-commands)
 - [Other](#other)
 - [Citations](#citations)
 - [Porting Pasta_Bot](#how-to-port-pasta_bot)
@@ -89,7 +90,7 @@ No embed will be sent if the numbers returns a 404 status code. Unlike .search o
 
 ---
 
-## Owner commands
+## Owner Commands
 These Pasta_Bot commands are only allowed to be executed by the bot owner.
 
 ### BROADCAST
@@ -132,9 +133,7 @@ Made with [discord.py](https://discordpy.readthedocs.io/en/latest/)
 ## How to port Pasta_Bot
 **PYTHON 3 IS REQUIRED**\
 Download [discord.py](https://discordpy.readthedocs.io/en/latest/intro.html) and clone this repository with:
-```bash
-git clone https://github.com/sadeli413/Pasta_Bot.git
-```
+```git clone https://github.com/sadeli413/Pasta_Bot.git```
 1. Outside of the Pasta_Bot/ folder, create a text file _**ID.txt**_ and **TOKEN.txt**
 2. Put your discord ID inside of **ID.txt** and your bot token inside of **TOKEN.txt**
 
@@ -150,13 +149,9 @@ Your tree should look something like this:
 ```
 
 Go into Pasta_Bot/ folder Run Pasta_Bot with:
-```bash
-python3 pasta_bot.py
-```
+```python3 pasta_bot.py```
 On Windows it would be
-```
-python pasta_bot.py
-```
+```python pasta_bot.py```
 ---
 
 ## Notes from Sadeli:
