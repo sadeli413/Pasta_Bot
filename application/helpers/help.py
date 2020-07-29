@@ -46,6 +46,7 @@ class Help:
 		# all help message
 		self.msg = self.sendMessage()
 	
+	# construct the help message
 	def sendMessage(self):
 		msg = "Pasta_Bot is free and open source. View documentation and source code at:\n https://github.com/sadeli413/Pasta_Bot.git\n\n"
 		msg += "Add Pasta_Bot to your server:\n https://discord.com/api/oauth2/authorize?client_id=715018649588727859&permissions=8&scope=bot\n\n"
@@ -57,13 +58,26 @@ class Help:
 		msg += "```"
 		return msg
 
+# a help message shows command name, a description, an example, and links to github
 class message:
 	def __init__(self, usage, description, example):
 		self.usage = usage
 		self.description = description
 		self.example = example
-		# individual help message
-		self.embed = discord.Embed(title = self.usage, colour = discord.Colour.green())
-		self.embed.add_field(name = "DESCRIPTION", value = self.description, inline=False)
+		self.embed = self.makeEmbed()
+
+	# individual help message
+	def makeEmbed(self):
+		# add title and link to github
+		embed = discord.Embed(
+			title = "Pasta_Bot help:\n" + self.usage,
+			url = "https://github.com/sadeli413/Pasta_Bot.git",
+			colour = discord.Colour.green()
+		)
+		# add description
+		embed.add_field(name = "DESCRIPTION", value = self.description, inline=False)
+		# add example if it exists
 		if len(self.example) > 0:
-			self.embed.add_field(name = "EXAMPLES", value = self.example, inline=False)
+			embed.add_field(name = "EXAMPLES", value = self.example, inline=False)
+
+		return embed

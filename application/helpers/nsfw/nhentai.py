@@ -54,7 +54,7 @@ class Nhentai:
 		#if self.hasNumbers(content):
 		numbers = self.getNumbers(content)
 		if len(numbers) > 0:
-			# for every number in the content, make an embed
+			# for every number in the content, make an embed if it's not 404
 			await message.channel.send("Fetching sauce...")
 			for number in numbers:
 				sauce = Sauce(number)

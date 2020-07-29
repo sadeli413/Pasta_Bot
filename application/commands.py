@@ -36,6 +36,7 @@ class Commands:
 			await ctx.author.send(embed = self.hp.botDictionary[arg].embed)
 		await ctx.send("{author} I sent you a DM".format(author=ctx.author.mention))
 	
+	# command aliases
 	def alias(self, arg):
 		aliases = {
 			".i": ".ignore",
@@ -47,11 +48,13 @@ class Commands:
 	
 	# DM a list of triggers
 	async def triggers(self, ctx):
+		# create trigger message
 		triggerList = getTriggers()
 		triggers = "```bash\nThese are the working trigger words\n"
 		for i in range(len(triggerList)):
 			triggers += "{num}) \"{trigger}\"\n".format(num=i+1, trigger=triggerList[i])
 		triggers += "```"
+		# send DM notice to channel and DM the trigger message 
 		await ctx.author.send(triggers)
 		await ctx.send("{member} I sent you a DM".format(member=ctx.author.mention))
 	
@@ -71,10 +74,12 @@ class Commands:
 		if len(info) < 1 or not search("[A-Za-z0-9]", info):
 			await ctx.send("```css\n.search [amount] {search criteria}\nGet some .help```")
 			return
-	
+
+		# get amount and criteria
 		aAndC = self.amountAndCriteria(info)
 		amount = aAndC["amount"]
 		info = aAndC["criteria"]
+
 		# search the criteria
 		if amount > 0:
 			# kinkshame if searched for lolis
@@ -125,7 +130,7 @@ class Commands:
 					await rs.noArgs(ctx)
 				print("done")
 		
-		# [amount] {criteria} args
+		# [amount] [criteria] args
 		else:
 			aAndC = self.amountAndCriteria(info)
 			amount = aAndC["amount"]
@@ -181,7 +186,9 @@ class Commands:
 			"criteria":crit
 		}
 	
+	# check if the user searched for loli or shota
 	def isKinkshame(self, ctx, info):
+		# ensure that removal tags like -tag:loli does NOT get kinkshamed
 		for arg in info.split(" "):
 			if ("loli" in arg or "shota" in arg) and not arg[0].startswith("-"):
 				return True

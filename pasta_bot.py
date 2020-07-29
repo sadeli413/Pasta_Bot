@@ -57,11 +57,11 @@ async def on_message(message):
 @client.event
 async def on_member_join(member):
 	greetings = [
-		"Welcome home, {member}! Would you like dinner? A bath? Or maybe... me?".format(member = member.mention),
-		"Welcome to the guild, {member}! Don't worry, I'm not a pervert, or anyone suspicious. No suspicious people here. None at all.".format(member = member.mention),
-		"Hello, {member}. My name is Pasta_Bot. My favorite food is sauce. Please don't forget me.".format(member = member.mention)
+		"Welcome home, {member}! Would you like dinner? A bath? Or maybe... me?",
+		"Welcome to the guild, {member}! Don't worry, I'm not a pervert, or anyone suspicious. No suspicious people here. None at all.",
+		"Hello, {member}. My name is Pasta_Bot. My favorite food is sauce. Please don't forget me."
 	]
-	await member.guild.system_channel.send(choice(greetings))
+	await member.guild.system_channel.send(choice(greetings).format(member = member.mention))
 
 # command not found error, and misc erorr
 @client.event

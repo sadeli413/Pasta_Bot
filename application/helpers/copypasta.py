@@ -14,7 +14,7 @@ class Copypasta:
 		self.THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
 	
 	async def fetch(self, message):
-		# is it the navy seals copypasta?
+		# is the message the navy seals copypasta?
 		response = Extrapasta.sealResponse(message.content.lower())
 		if len(response) > 0:
 			await message.channel.send(response)
@@ -27,23 +27,23 @@ class Copypasta:
 	# return a string copypasta based on a full message content
 	def getPasta(self, message):
 		content = message.content.lower()
-		# an array of triggers. check for new content each time.
-		TRIGGERS = getTriggers()
+		TRIGGERS = getTriggers() # you can actually edit the triggers while the bot is running
 		# copypasta the last trigger word in the content
 		reversedContent = reversed(split("[^a-z^A-Z^0-9]", content))
 		for word in reversedContent:
 			for trigger in TRIGGERS:
 				if trigger in word:
-					# sand exception
-					#if trigger == "sand":
 					return self.file2pasta(trigger).replace("{username}", message.author.mention)
 				
 		# if there's no copypasta, then return an empty string
 		return ""
 	
+	# return the copypasta from a file
 	def file2pasta(self, trigger):
+		# get the file
 		filename = "{this}/pastas/{trigger}.txt".format(this=self.THIS_FOLDER, trigger=trigger)
 		file = open(filename, "r")
+		# read and return text
 		text = file.read()
 		file.close()
 		return text

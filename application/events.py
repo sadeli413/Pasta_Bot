@@ -1,9 +1,6 @@
 # @author Sadeli
-"""
-# Title: pasta_bot.py
-# Author: Thad Shinno
+
 # Description: contains on_message event. Encapsulate nhentai.py and copypasta.py
-"""
 import discord
 from discord.ext import tasks, commands
 from itertools import cycle

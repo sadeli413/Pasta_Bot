@@ -38,5 +38,5 @@ class Search:
 	def getNumbers(self):
 		numbers = []
 		for key in self.data["result"]:
-			numbers.append(str(key["id"]))
+			numbers.append(str(key["id"])) # id is something like 177013
 		return numbers

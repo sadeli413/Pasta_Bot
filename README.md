@@ -1,6 +1,6 @@
 # Pasta_Bot
 A NSFW Discord bot made by Sadeli.
-- Pasta bot is free and open source https://github.com/sadeli413/Pasta_Bot.git
+- Pasta_Bot is free and open source https://github.com/sadeli413/Pasta_Bot.git
 - [Add Pasta_Bot to your server](https://discord.com/api/oauth2/authorize?client_id=715018649588727859&permissions=8&scope=bot)
 
 ---
@@ -82,7 +82,7 @@ If no hentai is triggered, then give a copypasta based on a copypasta trigger
 	- Parodies (if applicable)
 
 OTHER FEATURES: Pasta_Bot will send a kink shame copypasta if you submit 4 or more sauces in one message. Additionally, Pasta_Bot will kink shame you if one of the tags include *loli* or *shota*.
-No embed will be sent if the numbers returns a 404 status code. Unlike .search or .random, this feature sends the message AFTER all hentai is found, whereas .search and .random search and send hentai one at a time *This feature tends to be slow since it runs a web request.*
+No embed will be sent if the numbers returns a 404 status code. Unlike .search or .random, this feature sends the message AFTER all hentai is found, whereas .search and .random search and send hentai one at a time. *This feature tends to be slow since it runs a web request.*
 	
 ### COPYPASTA
 - DESCRIPTION: Triggered by the last keyword of a message. Use TRIGGERS command for a list of triggers
@@ -114,12 +114,13 @@ Made with [discord.py](https://discordpy.readthedocs.io/en/latest/)
 ---
 
 ## How to port Pasta_Bot
-Download [discord.py](https://discordpy.readthedocs.io/en/latest/intro.html) and clone this repository with 
+**PYTHON 3 IS REQUIRED**\
+Download [discord.py](https://discordpy.readthedocs.io/en/latest/intro.html) and clone this repository with:
 ```bash
 git clone https://github.com/sadeli413/Pasta_Bot.git
 ```
-1. Outside of the Pasta_Bot folder, create a text file ID.txt and TOKEN.txt
-2. Put your discord ID inside of ID.txt and your bot token inside of TOKEN.txt
+1. Outside of the Pasta_Bot/ folder, create a text file _**ID.txt**_ and **TOKEN.txt**
+2. Put your discord ID inside of **ID.txt** and your bot token inside of **TOKEN.txt**
 
 Your tree should look something like this:
 ```
@@ -131,12 +132,24 @@ Your tree should look something like this:
 |___private.py
 |___README.md
 ```
+
+Go into Pasta_Bot/ folder Run Pasta_Bot with:
+```bash
+python3 pasta_bot.py
+```
+On Windows it would be
+```
+python pasta_bot.py
+```
 ---
 
 ## Notes from Sadeli:
 
-I do not want this on my main github, so sadeli413 is my alternate github account. Come check out my [main github](https://github.com/thad-shinno)
+I do not want this on my main github, so sadeli413 is my alternate github account. Come check out my main github: https://github.com/thad-shinno
 
-I have no idea why anyone would actually use this bot. If you want hentai, just search it up normally. That being said, please use this bot. I worked hard on this bot.
+Although this is kind of a useless bot, please give it lots of headpats and invite it to lots of servers.
 
-Thank you for using Pasta_Bot
+Pasta_Bot is FOSS. Feel free to port it.
+
+Thank you for using Pasta_Bot.\
+\- by Thad Shinno (Sadeli)

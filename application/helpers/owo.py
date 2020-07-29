@@ -26,7 +26,7 @@ class Owo:
 		# owoify last messages only from members
 		allMessages = await ctx.channel.history(limit=200).flatten()
 		for member in members:
-			owoify = self.getMessage(allMessages, member)
+			owoify = self.getMessage(allMessages, member) # get user's last message and owoify it
 			if len(owoify) > 0:
 				await ctx.send(owoify)
 	
@@ -46,5 +46,6 @@ class Owo:
 		
 		return ""
 	
+	# cursed
 	def owoify(self, words):
 		return words.replace("r", "w").replace("l", "w").replace("R", "W").replace("L", "W")

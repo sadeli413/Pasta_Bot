@@ -15,7 +15,7 @@ class randomSearch:
 	
 	# get one random sauce
 	async def noArgs(self, ctx):
-		print("fetching...")
+		print("fetching random...")
 		rand = randint(10000, 999999)
 		print(rand)
 		sauce = Sauce(str(rand))
@@ -25,13 +25,13 @@ class randomSearch:
 			rand = randint(10000, 999999)
 			sauce = Sauce(str(rand))
 		
-		print(sauce.number)
+		print("gave random: " + sauce.number)
 		await ctx.send(embed=sauce.getEmbed())
 	
 	# get amount sauce of a search criteria
 	async def yesArgs(self, ctx, amount, criteria):
-		find = Search(criteria)
-		embeds = self.getRandSauce(amount, find.getNumbers())
+		find = Search(criteria)	# get criteria search query
+		embeds = self.getRandSauce(amount, find.getNumbers()) # get amount number of numbers given by criteria
 		# make sure the embed will be valid
 		if find.doesExist() and len(embeds) > 0:
 			for embed in embeds:
@@ -43,7 +43,7 @@ class randomSearch:
 		num = amount
 		embeds = []
 		if num > 0:
-			# make sure num is not greater than len(numbers)
+			# make sure num is not greater than how many numbers there are
 			if num > len(numbers):
 				num = len(numbers)
 			# get random sauces: limit is len(numbers) and num amount

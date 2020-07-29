@@ -9,7 +9,6 @@ import requests
 class Sauce:
 	def __init__(self, number):
 		self.number = number
-		# self.response = requests.get("https://nhentai.net/g/" + self.number)
 		self.response = requests.get("https://nhentai.net/api/gallery/" + self.number)
 		self.data = self.response.json()
 		self.isIllegal = False
@@ -21,18 +20,20 @@ class Sauce:
 	
 	# an embed of Title, url, Artists, Sauce, Pages, Tags, and Parodies	
 	def getEmbed(self):
-		self.checkIllegal(self.list2str(self.doujin["tags"]))
+		self.checkIllegal(self.list2str(self.doujin["tags"])) # check if tags have loli or shota
+		# embed the title and url
 		embed = discord.Embed(
 			title = "`{name}`".format(name=self.doujin["title"]),
 			url = None if self.isIllegal else "https://nhentai.net/g/" + self.number,
-			colour = discord.Colour.red() if self.isIllegal else discord.Colour.blue()
+			colour = discord.Colour.red() if self.isIllegal else discord.Colour.blue() # doujins are blue. illegal doujins are red
 		)
-		
-		# sauce-numbers, pages, and tags
 		embed.add_field(name = "SAUCE: ", value = self.number, inline=False)
-		embed.add_field(name = "PAGES: ", value = self.doujin["pages"], inline=False)
 		
-		#only attatch tags if they exist
+		# only attatch num pages if they exist
+		if self.doujin["pages"] > 0:
+			embed.add_field(name = "PAGES: ", value = self.doujin["pages"], inline=False)
+		
+		# only attatch tags if they exist
 		if len(self.doujin["tags"]) > 0:
 			embed.add_field(name = "TAGS: ", value = self.list2str(self.doujin["tags"]), inline=False)
 		
@@ -59,8 +60,10 @@ class Sauce:
 		}
 		# types into dictionary	
 		validtypes = ["tag", "artist", "parody"]
+		# filter json to get data I actually want
 		for key in self.data["tags"]:
 			if key["type"] in validtypes:
+				# add name and count to appropriate dictionary key
 				out = "{name} ({count})".format(name=key["name"], count=key["count"])
 				doujin[key["type"] + "s"].append(out)
 		

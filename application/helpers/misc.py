@@ -6,13 +6,15 @@ Miscellaneus functions used by many commands and events
 import os
 THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
+# list of all commands
 def isCommand(content):
 	commands = [".help", ".h", ".ignore", ".i", ".triggers", ".trigger", ".search", ".random", ".owo", ".uwu", ".clean", ".shutdown"]
 	for command in commands:
 		if content.startswith(command):
 			return True
 	return False
-	
+
+# get list of trigger words for copypasta	
 def getTriggers():
 	lines = []
 	file = open("{this}/triggers.txt".format(this=THIS_FOLDER), "r")
