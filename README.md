@@ -45,7 +45,7 @@ A NSFW Discord bot made by Sadeli.
 ### CLEAN
 - DESCRIPTION: Of the past 200 messages in channel history, delete messages sent by Pasta_Bot
 - USAGE: ```.clean```
-- NOTES: Can only be used by users Manage Messages permissions
+- NOTES: Can only be used by users with Manage Messages permissions
 
 ### TRIGGERS
 - DESCRIPTION: DM a message containing all copypasta trigger words
@@ -63,7 +63,6 @@ A NSFW Discord bot made by Sadeli.
 - NOTES: 25 maximum amount searched. Any higher amount will automatically default to 25.
 For search criteria help, visit https://nhentai.net/info/
 *This command tends to be slow since it involves web get requests.*
-
 
 ---
 
@@ -87,6 +86,23 @@ No embed will be sent if the numbers returns a 404 status code. Unlike .search o
 ### COPYPASTA
 - DESCRIPTION: Triggered by the last keyword of a message. Use TRIGGERS command for a list of triggers
 - OTHER FEATURES: I will respond to the Navy Seals copypasta with the response copypasta
+
+---
+
+## Owner commands
+These Pasta_Bot commands are only allowed to be executed by the bot owner.
+
+### BROADCAST
+- DESCRIPTION: Send a message to EVERY GUILD the bot is a member of.
+- USAGE: ```.broadcast [any message here]```
+
+### LOG
+- DESCRIPTION: DMs the owner a list of all guilds Pasta_Bot is a member of.
+- USAGE: ```.log```
+
+### SHUTDOWN
+- DESCRIPTION: Logs out the bot and terminates the program.
+- USAGE: ```.shutdown```
 
 ---
 

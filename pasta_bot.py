@@ -4,11 +4,6 @@ main method for pasta_bot, containing events and commands
 """
 
 """
-TODO asap:
-	- Change nhentai.fetch(message) command so that it sends one at a time instead of all at once
-	- Remove README.txt into README.md
-	- .help to send github page with README.md
-	- .commands to send command help
 TODO Long term:
 	- Implement a log for troubleshooting.
 	- Use SQL/json to track user's favorite doujin and make recommendations
@@ -61,7 +56,7 @@ async def on_member_join(member):
 		"Welcome to the guild, {member}! Don't worry, I'm not a pervert, or anyone suspicious. No suspicious people here. None at all.",
 		"Hello, {member}. My name is Pasta_Bot. My favorite food is sauce. Please don't forget me."
 	]
-	await member.guild.system_channel.send(choice(greetings).format(member = member.mention))
+	await member.guild.system_channel.send(choice(greetings).format(member = member.name))
 
 # command not found error, and misc erorr
 @client.event
@@ -70,8 +65,12 @@ async def on_command_error(ctx, error):
 		await ctx.send("No such command .{command}\nGet some .help".format(command=ctx.invoked_with))
 	# not MissingPermissions, BadArgument, or MissingRequiredArgument
 	elif ((not isinstance(error, commands.MissingPermissions)) and (not isinstance(error, commands.BadArgument))) and (not isinstance(error, commands.MissingRequiredArgument)):
-		err = "<@{id}> ```css\nA command error has occured in {channel} from:\n{message}```".format(id=OWNER_ID, channel=ctx.message.guild.name, message=ctx.message.content)
-		await ctx.send(err)
+		if isinstance(ctx.channel, discord.DMChannel):
+			channel = ctx.author.name + "'s DM channel."
+		else:
+			channel = ctx.message.guild.name
+			
+		err = "```css\nA command error has occured in {channel} from:\n{message}```".format(channel=channel, message=ctx.message.content)
 		OWNER = client.get_user(OWNER_ID)
 		await OWNER.send(err)
 
@@ -145,6 +144,22 @@ async def clean(ctx):
 async def clean_error(ctx, error):
 	if isinstance(error, commands.MissingPermissions):
 		await ctx.send("{member} you do not have permissions to manage messages".format(member=ctx.author.mention))
+
+# broadcast to all servers
+@client.command()
+@commands.is_owner()
+async def broadcast(ctx, *, announcement):
+	await cmd.broadcast(announcement)
+
+# implement basic log
+@client.command()
+@commands.is_owner()
+async def log(ctx):
+	OWNER = client.get_user(OWNER_ID)
+	logfile = []
+	for guild in client.guilds:
+		logfile.append(guild.name)
+	await OWNER.send(", ".join(logfile))
 
 # shutdown
 @client.command()

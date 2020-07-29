@@ -8,7 +8,7 @@ THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
 # list of all commands
 def isCommand(content):
-	commands = [".help", ".h", ".ignore", ".i", ".triggers", ".trigger", ".search", ".random", ".owo", ".uwu", ".clean", ".shutdown"]
+	commands = [".help", ".h", ".ignore", ".i", ".triggers", ".trigger", ".search", ".random", ".owo", ".uwu", ".clean", ".broadcast", ".log", ".shutdown"]
 	for command in commands:
 		if content.startswith(command):
 			return True

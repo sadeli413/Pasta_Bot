@@ -68,6 +68,7 @@ class Commands:
 				await ctx.send("```css\n.search only works in nsfw channels```")
 				return
 		"""
+		
 		# remove special characters
 		info = criteria.lower()
 		info = self.sanitize(info)
@@ -155,6 +156,10 @@ class Commands:
 		else:
 			await self.owoifier.yesMember(ctx, *members)
 
+	# send a broadcast message to all servers
+	async def broadcast(self, announcement):
+		for guild in self.client.guilds:
+			await guild.system_channel.send(announcement)
 
 	"""
 	The rest are helper funcitons
