@@ -1,16 +1,30 @@
 # Pasta_Bot
-- A NSFW Discord bot made by Sadeli.
+A NSFW Discord bot made by Sadeli.
 - Pasta bot is free and open source https://github.com/sadeli413/Pasta_Bot.git
 - [Invite Pasta_Bot to your server](https://discord.com/api/oauth2/authorize?client_id=715018649588727859&permissions=8&scope=bot)
 
 ---
 ## Table of Contents
 - [Commands](#commands)
+	- [.help](#help)
+	- [.ignore](#ignore)
+	- [.owo](#owo)
+	- [.clean](#clean)
+	- [.triggers](#triggers)
+	- [.random](#random)
+	- [.search](#search)
 - [On Message Event](#on-message-event) 
+	- [hentai](#hentai)
+	- [copypasta](#copypasta)
+- [Other](#other)
+- [Citations](#citations)
+- [Porting Pasta_Bot](#how-to-port-pasta_bot)
+- [Notes](#notes-from-sadeli)
+
 ---
 
 ## Commands
-- [] means optional arguments\
+- [] means optional arguments
 - {} means required argument
 
 ### HELP
@@ -22,10 +36,6 @@
 - DESCRIPTION: Pasta_Bot will NOT read or act on any messages beginning with .ignore
 - USAGE: ```.ignore [any message here]```
 - Alias: ```.i```
-	
-### README
-- DESCRIPTION: DMs README.txt file for a full description of bot
-- USAGE: ```.readme```
 
 ### OWO 
 - DESCRIPTION: Without arguments, owoify the last message in the channel. Mention one or more users as arguments to owoify their last message.

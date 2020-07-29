@@ -81,7 +81,7 @@ async def changeStatus():
 	await client.change_presence(activity = next(status))
 
 """
-COMMANDS: help, ignore, readme, owo, shutdown, clean, triggers, random, search
+COMMANDS: help, ignore, owo, shutdown, clean, triggers, random, search
 """
 # .help [command] (send help message)
 @client.command(aliases=["h"])
@@ -92,11 +92,6 @@ async def help(ctx, spec=""):
 @client.command(aliases=["i"])
 async def ignore(ctx):
 	return
-
-# .readme (DMs README.txt)
-@client.command()
-async def readme(ctx):
-	await cmd.readme(ctx)
 
 # .triggers (DMs a list of trigger words)
 @client.command(aliases=["trigger"])

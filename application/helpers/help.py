@@ -10,10 +10,6 @@ class Help:
 			".help [command]",
 			"DM a help message",
 			"")
-		self.readme = message(
-			".readme",
-			"DMs README txt file for a full description of bot",
-			"")
 		self.ignore = message(
 			".ignore",
 			"Pasta_Bot will ignore messages beginning with .ignore or .i",
@@ -40,7 +36,6 @@ class Help:
 			"\n__.search artist:hiten nakadashi paizuri -rape__ \n*(gets the top result for artist hiten and tags paizuri and nakadashi without rape)*\n\n__.search 2 artist:shindol__\n*(gets top 2 results for artist shindol)*")
 		self.botDictionary = {
 			".help": self.help,
-			".readme": self.readme,
 			".ignore": self.ignore,
 			".owo": self.owo,
 			".clean": self.clean,

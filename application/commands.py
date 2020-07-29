@@ -1,6 +1,6 @@
 # @author Sadeli
 """
-Commands: help, ignore, readme, owo, shutdown, clean, triggers, random, search
+Commands: help, ignore, owo, shutdown, clean, triggers, random, search
 """
 import discord
 import os
@@ -44,11 +44,6 @@ class Commands:
 			".uwu": ".owo"
 		}
 		return aliases.get(arg, arg)
-	
-	# DM README.txt
-	async def readme(self, ctx):
-		await ctx.author.send("`Description of Pasta_Bot`", file=discord.File(self.THIS_FOLDER + "../../README.txt"))
-		await ctx.send("{member} I sent you a DM".format(member=ctx.author.mention))
 	
 	# DM a list of triggers
 	async def triggers(self, ctx):
