@@ -133,7 +133,9 @@ Made with [discord.py](https://discordpy.readthedocs.io/en/latest/)
 ## How to port Pasta_Bot
 **PYTHON 3 IS REQUIRED**\
 Download [discord.py](https://discordpy.readthedocs.io/en/latest/intro.html) and clone this repository with:
-```git clone https://github.com/sadeli413/Pasta_Bot.git```
+```
+git clone https://github.com/sadeli413/Pasta_Bot.git
+```
 1. Outside of the Pasta_Bot/ folder, create a text file **ID.txt** and **TOKEN.txt**
 2. Put your discord ID inside of **ID.txt** and your bot token inside of **TOKEN.txt**
 
@@ -148,20 +150,31 @@ Your tree should look something like this:
 |___README.md
 ```
 
-Go into Pasta_Bot/ folder Run Pasta_Bot with:
-```python3 pasta_bot.py```
+Go into Pasta_Bot/ folder and run Pasta_Bot with:
+```
+python3 pasta_bot.py
+```
 On Windows it would be
-```python pasta_bot.py```
+```
+python pasta_bot.py
+```
 
 ---
 
 ## Notes from Sadeli:
 
-I do not want this on my main github, so sadeli413 is my alternate github account. Come check out my main github: https://github.com/thad-shinno
+- I do not want this on my main github, so sadeli413 is my alternate github account. Come check out my main github at: https://github.com/thad-shinno
 
-Although this is kind of a useless bot, please give it lots of headpats and invite it to lots of servers.
+- Although this is kind of a useless bot, please give it lots of headpats and [invite it to lots of servers](https://discord.com/api/oauth2/authorize?client_id=715018649588727859&permissions=8&scope=bot). It's a very lewd bot. If it's too annoying, have your admin remove it's priveleges in select channels.
 
-Pasta_Bot is FOSS. Feel free to port it.
+- Pasta_Bot is FOSS. Feel free to port it, or copy and use the code. It would be cool if you credited me.
 
-Thank you for using Pasta_Bot.\
+- Pasta_Bot is not licensed, but that's subject to change. If anything, it'll be a basic MIT license.
+
+- This is a hobby project to improve my coding skills. I'm not super good at coding yet and if you see terrible code or bugs in Pasta_Bot please let me know.
+
+- I know, I know. I should implement cogs. When I find more time, I'll do that. It *does* seem like it would make the bot more organized.
+
+Thank you for using Pasta_Bot.
+
 \- by Thad Shinno (Sadeli)
