@@ -134,7 +134,7 @@ Made with [discord.py](https://discordpy.readthedocs.io/en/latest/)
 **PYTHON 3 IS REQUIRED**\
 Download [discord.py](https://discordpy.readthedocs.io/en/latest/intro.html) and clone this repository with:
 ```git clone https://github.com/sadeli413/Pasta_Bot.git```
-1. Outside of the Pasta_Bot/ folder, create a text file _**ID.txt**_ and **TOKEN.txt**
+1. Outside of the Pasta_Bot/ folder, create a text file **ID.txt** and **TOKEN.txt**
 2. Put your discord ID inside of **ID.txt** and your bot token inside of **TOKEN.txt**
 
 Your tree should look something like this:
@@ -152,6 +152,7 @@ Go into Pasta_Bot/ folder Run Pasta_Bot with:
 ```python3 pasta_bot.py```
 On Windows it would be
 ```python pasta_bot.py```
+
 ---
 
 ## Notes from Sadeli:
