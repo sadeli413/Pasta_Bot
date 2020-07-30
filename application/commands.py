@@ -158,8 +158,9 @@ class Commands:
 
 	# send a broadcast message to all servers
 	async def broadcast(self, announcement):
-		for guild in self.client.guilds:
-			await guild.system_channel.send(announcement)
+		if len(announcement) > 0:
+			for guild in self.client.guilds:
+				await guild.system_channel.send(announcement)
 
 	"""
 	The rest are helper funcitons

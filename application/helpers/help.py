@@ -29,11 +29,11 @@ class Help:
 		self.random = message(
 			".random [amount] [search criteria]",
 			"Send a random hentai with optional criteria",
-			"\n__.random 3__\n*(gets 3 random hentai)*\n\n__.random 2 character:\"momo velia deviluke\" stockings -rape__\n*(gets 2 random doujins with character momo and tags stockings without rape)*")
+			"\n.random 3\n*(gets 3 random hentai)*\n\n.random 2 character:\"momo velia deviluke\" stockings -rape\n*(gets 2 random doujins with character momo and tags stockings without rape)*")
 		self.search = message(
 			".search [amount] {search criteria}",
 			"Send the top results for a hentai search criteria",
-			"\n__.search artist:hiten nakadashi paizuri -rape__ \n*(gets the top result for artist hiten and tags paizuri and nakadashi without rape)*\n\n__.search 2 artist:shindol__\n*(gets top 2 results for artist shindol)*")
+			"\n.search artist:hiten nakadashi paizuri -rape\n*(gets the top result for artist hiten and tags paizuri and nakadashi without rape)*\n\n.search 2 artist:shindol\n*(gets top 2 results for artist shindol)*")
 		self.botDictionary = {
 			".help": self.help,
 			".ignore": self.ignore,
