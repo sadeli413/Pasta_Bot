@@ -49,7 +49,7 @@ class Help:
 	# construct the help message
 	def sendMessage(self):
 		msg = "Pasta_Bot is free and open source. View documentation and source code at:\n https://github.com/sadeli413/Pasta_Bot.git\n\n"
-		msg += "Add Pasta_Bot to your server:\n https://discord.com/api/oauth2/authorize?client_id=715018649588727859&permissions=8&scope=bot\n\n"
+		msg += "Add Pasta_Bot to your server:\n https://discord.com/api/oauth2/authorize?client_id=715018649588727859&permissions=2147483383&scope=bot\n\n"
 		msg += "```css\nPasta_Bot\nCommands [optional] {required}\n\n"
 		for cmd in self.botDictionary.values():
 			msg += cmd.usage+"\n"

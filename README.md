@@ -1,7 +1,7 @@
 # Pasta_Bot
 A NSFW Discord bot made by Sadeli.
 - Pasta_Bot is free and open source https://github.com/sadeli413/Pasta_Bot.git
-- [Add Pasta_Bot to your server](https://discord.com/api/oauth2/authorize?client_id=715018649588727859&permissions=8&scope=bot)
+- [Add Pasta_Bot to your server](https://discord.com/api/oauth2/authorize?client_id=715018649588727859&permissions=2147483383&scope=bot)
 
 ---
 ## Table of Contents
@@ -167,7 +167,7 @@ python pasta_bot.py
 
 - I do not want this on my main github, so sadeli413 is my alternate github account. Come check out my main github at: https://github.com/thad-shinno
 
-- Although this is kind of a useless bot, please give it lots of headpats and [invite it to lots of servers](https://discord.com/api/oauth2/authorize?client_id=715018649588727859&permissions=8&scope=bot). It's a very lewd bot. If it's too annoying, have your admin remove it's priveleges in select channels.
+- Although this is kind of a useless bot, please give it lots of headpats and [invite it to lots of servers](https://discord.com/api/oauth2/authorize?client_id=715018649588727859&permissions=2147483383&scope=bot). It's a very lewd bot. If it's too annoying, have your admin remove it's priveleges in select channels.
 
 - Pasta_Bot is FOSS. Feel free to port it, or copy and use the code. It would be cool if you credited me.
 
