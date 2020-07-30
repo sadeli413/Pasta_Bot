@@ -70,12 +70,12 @@ class message:
 	def makeEmbed(self):
 		# add title and link to github
 		embed = discord.Embed(
-			title = "Pasta_Bot help:\n" + self.usage,
+			title = "Pasta_Bot help:\n",
 			url = "https://github.com/sadeli413/Pasta_Bot.git",
 			colour = discord.Colour.green()
 		)
 		# add description
-		embed.add_field(name = "DESCRIPTION", value = self.description, inline=False)
+		embed.add_field(name = self.usage, value = self.description, inline=False)
 		# add example if it exists
 		if len(self.example) > 0:
 			embed.add_field(name = "EXAMPLES", value = self.example, inline=False)

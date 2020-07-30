@@ -30,12 +30,12 @@ class Commands:
 		# if there's no argument or no real command	
 		if len(spec) < 1 or not isCommand(arg):
 			await ctx.author.send(self.hp.msg)
+			await ctx.send("{author}, I sent you a DM".format(author=ctx.author.name))
 		else:
 			# transform aliases
 			arg = self.alias(arg)
-			await ctx.author.send(embed = self.hp.botDictionary[arg].embed)
-		await ctx.send("{author} I sent you a DM".format(author=ctx.author.mention))
-	
+			await ctx.send(embed = self.hp.botDictionary[arg].embed)
+			
 	# command aliases
 	def alias(self, arg):
 		aliases = {
