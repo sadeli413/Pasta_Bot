@@ -4,6 +4,7 @@ Miscellaneus functions used by many commands and events
 """
 
 import os
+import datetime
 THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
 # list of all commands
@@ -25,3 +26,8 @@ def getTriggers():
 	
 	file.close()
 	return lines
+
+def timestamp():
+	now = datetime.datetime.now()
+	print("timestamp: " + now.strftime("%Y-%m-%d %H:%M:%S"))
+	print()

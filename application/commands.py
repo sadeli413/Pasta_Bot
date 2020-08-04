@@ -5,9 +5,10 @@ Commands: help, ignore, owo, shutdown, clean, triggers, random, search
 import discord
 import os
 import requests
+import datetime
 from re import sub, search
 # custom packages
-from application.helpers.misc import getTriggers, isCommand
+from application.helpers.misc import getTriggers, isCommand, timestamp
 from application.helpers.owo import Owo
 from application.helpers.nsfw.randomSearch import randomSearch
 from application.helpers.nsfw.search import Search
@@ -61,6 +62,7 @@ class Commands:
 	# .search [amount] {criteria}
 	# does NOT send minors
 	async def search(self, ctx, criteria):
+		print(ctx.message.content, end = " ... ")
 		"""
 		# search only works in DMChannels and NSFW channels
 		if (not isinstance(ctx.channel, discord.DMChannel)):
@@ -96,10 +98,13 @@ class Commands:
 				for embed in embeds:
 					await ctx.send(embed=embed)
 			else:
+				print("found none")
 				await ctx.send("Found no `{info}`".format(info=info))
+			timestamp()
 	
 	# searches top 25 most popular and gives a random one, or an amount
 	async def random(self, ctx, criteria):
+		print(ctx.message.content, end = " ... ")
 		"""
 		# only works in DMChannels and NSFW channels
 		if (not isinstance(ctx.channel, discord.DMChannel)):
@@ -112,7 +117,7 @@ class Commands:
 		if len(criteria) < 1:
 			await ctx.send("Fetching random sauce...")
 			await rs.noArgs(ctx)
-			print("done")
+			timestamp()
 			return
 		
 		# remove special characters
@@ -129,8 +134,6 @@ class Commands:
 				await ctx.send("Fetching random sauce{amount}...".format(amount=" x"+str(amount) if amount > 1 else ""))
 				for i in range(amount):
 					await rs.noArgs(ctx)
-				print("done")
-		
 		# [amount] [criteria] args
 		else:
 			aAndC = self.amountAndCriteria(info)
@@ -145,7 +148,7 @@ class Commands:
 						
 				await ctx.send("Random search{amount}{extra}...".format(amount=" x" + str(amount) if amount > 1 else "", extra =" for `" + info + "`" if len(info) > 0 else ""))
 				await rs.yesArgs(ctx, amount, info)
-				print("done")
+		timestamp()
 					
 	# owoify member messages
 	async def owo(self, ctx, *members : discord.Member):

@@ -22,6 +22,7 @@ from re import split
 #custom packages
 from application.helpers.extrapasta import Extrapasta
 from application.helpers.nsfw.sauce import Sauce
+from application.helpers.misc import timestamp
 
 class Nhentai:
 	# keep track of number of illegals
@@ -40,7 +41,6 @@ class Nhentai:
 			# notify if there are loli or shota tags
 			if self.illegals > 0:
 				await message.channel.send(Extrapasta.fbiOpenUp())
-			print("done")
 			# sauce was found
 			return True
 		# no sauce
@@ -56,16 +56,19 @@ class Nhentai:
 		if len(numbers) > 0:
 			# for every number in the content, make an embed if it's not 404
 			await message.channel.send("Fetching sauce...")
+			print("message event...", end = " ")
 			for number in numbers:
 				sauce = Sauce(number)
 				if sauce.doesExist():
-					print("fetching...")
+					print(number, end = " ")
 					embeds.append(sauce.getEmbed())
 					if sauce.isIllegal:
 						self.illegals += 1
 				else:
+					print("_404_" + number, end = " ")
 					await message.channel.send("||{number} is invalid sauce (404).||".format(number=number))
-		
+			print()
+			timestamp()
 		return embeds
 			
 	# gets valid numbers in lowercase content

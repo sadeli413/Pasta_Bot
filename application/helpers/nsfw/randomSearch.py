@@ -15,29 +15,32 @@ class randomSearch:
 	
 	# get one random sauce
 	async def noArgs(self, ctx):
-		print("fetching random...")
+		
 		rand = randint(10000, 999999)
-		print(rand)
+		print(rand, end = " ")
 		sauce = Sauce(str(rand))
 		# make sure it exists
 		while (not sauce.doesExist()):
-			print(rand)
+			print(rand, end = " ")
 			rand = randint(10000, 999999)
 			sauce = Sauce(str(rand))
 		
-		print("gave random: " + sauce.number)
+		print("GAVE: " + sauce.number)
 		await ctx.send(embed=sauce.getEmbed())
 	
 	# get amount sauce of a search criteria
 	async def yesArgs(self, ctx, amount, criteria):
+		# print(ctx.message.content, end = " ")
 		find = Search(criteria)	# get criteria search query
+		if not find.doesExist():
+			await ctx.send("Found no `{criteria}`".format(criteria=criteria))
+			return
 		embeds = self.getRandSauce(amount, find.getNumbers()) # get amount number of numbers given by criteria
 		# make sure the embed will be valid
-		if find.doesExist() and len(embeds) > 0:
+		if len(embeds) > 0:
 			for embed in embeds:
 				await ctx.send(embed=embed)
-		else:
-			await ctx.send("Found no `{criteria}`".format(criteria=criteria))
+			
 
 	def getRandSauce(self, amount, numbers):
 		num = amount
@@ -49,9 +52,9 @@ class randomSearch:
 			# get random sauces: limit is len(numbers) and num amount
 			i = 0
 			while len(numbers) > 0 and i < num:
-				print("fetching...")
 				# get a random sauce from numbers
 				rand = choice(numbers)
+				print(rand, end = " ")
 				sauce = Sauce(rand)
 				"""
 				# do NOT submit loli or shota sauce
@@ -64,4 +67,5 @@ class randomSearch:
 				# make sure there are no duplicates
 				numbers.remove(rand)
 				i += 1
+			print()
 		return embeds

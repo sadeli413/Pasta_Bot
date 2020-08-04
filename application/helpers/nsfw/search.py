@@ -14,7 +14,8 @@ class Search:
 		self.criteria = criteria.replace(" ", "+").replace(":", "%3A" )
 		self.url = "https://nhentai.net//api/galleries/search?query={criteria}&sort=popular".format(criteria=self.criteria)
 		self.response = requests.get(self.url)
-		self.data = self.response.json()
+		if self.doesExist():
+			self.data = self.response.json()
 	
 	def doesExist(self):
 		return self.response.status_code == 200
@@ -31,7 +32,9 @@ class Search:
 			# get num amount of sauces
 			if len(numbers) > 0:
 				for i in range(num):
+					print(numbers[i], end = " ")
 					embeds.append(Sauce(numbers[i]).getEmbed())
+				print()
 		return embeds
 		
 	# get all "numbers" on this page

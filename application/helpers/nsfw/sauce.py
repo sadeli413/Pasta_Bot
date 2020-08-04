@@ -22,8 +22,9 @@ class Sauce:
 	def getEmbed(self):
 		self.checkIllegal(self.list2str(self.doujin["tags"])) # check if tags have loli or shota
 		# embed the title and url
+		title = self.doujin["title"] if len(self.doujin["title"]) <= 256 else self.doujin["title"][:253] + "..." # title has max length 256
 		embed = discord.Embed(
-			title = "`{name}`".format(name=self.doujin["title"]),
+			title = "`{name}`".format(name=title),
 			url = None if self.isIllegal else "https://nhentai.net/g/" + self.number,
 			colour = discord.Colour.red() if self.isIllegal else discord.Colour.blue() # doujins are blue. illegal doujins are red
 		)
@@ -35,15 +36,18 @@ class Sauce:
 		
 		# only attatch tags if they exist
 		if len(self.doujin["tags"]) > 0:
-			embed.add_field(name = "TAGS: ", value = self.list2str(self.doujin["tags"]), inline=False)
+			tags = self.ensureLen(self.doujin["tags"], 1018) # 1024 - 6 = 1018
+			embed.add_field(name = "TAGS: ", value = tags, inline=False)
 		
-		# only atatch artists if they exist
+		# only attatch artists if they exist
 		if len(self.doujin["artists"]) > 0:
-			embed.set_author(name = "ARTISTS: " + self.list2str(self.doujin["artists"]))
+			artists = self.ensureLen(self.doujin["artists"], 247) # 256 - 9
+			embed.set_author(name = "ARTISTS: " + artists)
 
 		# only attach parodies if they exist
 		if len(self.doujin["parodies"]) > 0:
-			embed.add_field(name = "PARODIES: ", value = self.list2str(self.doujin["parodies"]), inline=False)
+			parodies = self.ensureLen(self.doujin["parodies"], 1014) # 1024 - 10
+			embed.add_field(name = "PARODIES: ", value = parodies, inline=False)
 
 		return embed
 		
@@ -71,6 +75,27 @@ class Sauce:
 		doujin["parodies"] = doujin.pop("parodys")
 
 		return doujin 
-	
-	def list2str(self, arr):
-		return ", ".join(arr)
+
+	# ensure a maximum length
+	def ensureLen(self, array, max):
+		arr = array # can't change params, so make a copy
+		string = self.list2str(arr)
+		if (len(string) >= max - 5):
+			while (len(string) >= max - 5): # -5 for ", etc"
+				arr.pop()
+				string = self.list2str(arr)
+			string += ", etc"
+		return string
+
+	def list2str(self, array):
+		return ", ".join(array)
+		
+		"""
+# ensure maximum length 256
+			artists = self.list2str(self.doujin["artists"])
+			# max length 242 to include len 14 "ARTISTS: " and ", etc"
+			while (len(artists) >= 242): # total number of characters
+				self.doujin["artists"].pop()
+				artists = self.list2str(self.doujin["artists"])
+			artists += ", etc"
+		"""

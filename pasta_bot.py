@@ -112,6 +112,9 @@ async def search_error(ctx, error):
 		await ctx.send(".search [amount] {search criteria}\nGet some .help")
 	else:
 		await ctx.send("My wifi is garbage and can't run HTTP get requests. Pls try again")
+		err = "```css\nAn http .search error has occured in {channel} from:\n{message}```".format(channel=channel, message=ctx.message.content)
+		OWNER = client.get_user(OWNER_ID)
+		await OWNER.send(err)
 
 # .random [amount] [search criteria] (get random hentai)
 # only works in nsfw channels
@@ -123,6 +126,9 @@ async def random(ctx, *, criteria=""):
 @random.error
 async def random_error(ctx, error):
 	await ctx.send("My wifi is garbage and can't run HTTP get requests. Pls try again")
+	err = "```css\nAn http .random error has occured in {channel} from:\n{message}```".format(channel=channel, message=ctx.message.content)
+	OWNER = client.get_user(OWNER_ID)
+	await OWNER.send(err)
 
 # .owo [@user_mention] [@user_mention] [...] (owoify messages)
 @client.command(aliases=["uwu"])
