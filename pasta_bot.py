@@ -5,7 +5,9 @@ main method for pasta_bot, containing events and commands
 
 """
 TODO asap:
-	- Implement a contact bot owner to report bugs 
+	- make a pasta_bot server to report bugs
+	- file i/o error handling
+	- BotMissingPermissions error handling
 TODO Long term:
 	- Implement a log for troubleshooting.
 	- Use SQL/json to track user's favorite doujin and make recommendations
@@ -64,15 +66,19 @@ async def on_member_join(member):
 @client.event
 async def on_command_error(ctx, error):
 	if isinstance(error, commands.CommandNotFound):
-		await ctx.send("No such command .{command}\nGet some .help".format(command=ctx.invoked_with))
+		return
 	# not MissingPermissions, BadArgument, or MissingRequiredArgument
-	elif ((not isinstance(error, commands.MissingPermissions)) and (not isinstance(error, commands.BadArgument))) and (not isinstance(error, commands.MissingRequiredArgument)):
+	elif (isinstance(error, commands.BotMissingPermissions)):
+		await ctx.send("Sorry, Pasta_Bot is missing misc. permisisons")
+	elif ((not isinstance(error, commands.MissingPermissions)) and (not isinstance(error, commands.BadArgument)) and (not isinstance(error, commands.MissingRequiredArgument))):
 		if isinstance(ctx.channel, discord.DMChannel):
-			channel = ctx.author.name + "'s DM channel."
+			guild = ctx.author.name + "'s DM channel."
+			channel = ""
 		else:
-			channel = ctx.message.guild.name
+			guild = ctx.message.guild.name
+			channel = ctx.channel.name
 			
-		err = "```css\nA command error has occured in {channel} from:\n{message}```".format(channel=channel, message=ctx.message.content)
+		err = "```css\nA misc command error has occured in guild {guild} in channel {channel} from:\n{message}```".format(guild=guild, channel=channel, message=ctx.message.content)
 		OWNER = client.get_user(OWNER_ID)
 		await OWNER.send(err)
 
@@ -87,7 +93,10 @@ COMMANDS: help, ignore, owo, shutdown, clean, triggers, random, search
 # .help [command] (send help message)
 @client.command(aliases=["h"])
 async def help(ctx, spec=""):
-	await cmd.help(ctx, spec)
+	try:
+		await cmd.help(ctx, spec)
+	except discord.Forbidden:
+		await ctx.send("Sorry, Pasta_Bot is missing some permissions in this channel.")
 
 # .ignore [any message here] (pasta bot ignores these)
 @client.command(aliases=["i"])
@@ -97,13 +106,21 @@ async def ignore(ctx):
 # .triggers (DMs a list of trigger words)
 @client.command(aliases=["trigger"])
 async def triggers(ctx):
-	await cmd.triggers(ctx)
+	try:
+		await cmd.triggers(ctx)
+	except discord.Forbidden:
+		await ctx.send("Sorry, Pasta_Bot is missing some permissions in this channel.")
 
 # .search [amount] {search criteria} (search top hentai results)
 # only works in nsfw channels
 @client.command()
 async def search(ctx, *, criteria):
-	await cmd.search(ctx, criteria)	
+	try:
+		await cmd.search(ctx, criteria)	
+	except discord.Forbidden:
+		await ctx.send("Sorry, Pasta_Bot is missing some permissions in this channel.")
+	except discord.HTTPException:
+		await ctx.send("My wifi is garbage and can't run HTTP get requests. Pls try again")
 
 # error handling
 @search.error
@@ -111,47 +128,82 @@ async def search_error(ctx, error):
 	if isinstance(error, commands.MissingRequiredArgument):
 		await ctx.send(".search [amount] {search criteria}\nGet some .help")
 	else:
-		await ctx.send("My wifi is garbage and can't run HTTP get requests. Pls try again")
-		err = "```css\nAn http .search error has occured in {channel} from:\n{message}```".format(channel=channel, message=ctx.message.content)
+		# send a guild message
+		message = "uwu I'm sorry senpai... something has gone terribly wrong\n"
+		message += "Pwease contact Sadeli to fix a possible bug"
+		await ctx.send(message)
+		# send the owner a message
+		err = "```An error has occured at Guild ```{guild}``` in Channel ```{channel}``` from:\n```css\n{message}```"
 		OWNER = client.get_user(OWNER_ID)
-		await OWNER.send(err)
+		await OWNER.send(err.format(guild=ctx.guild.name, channel=ctx.channel.name, message=ctx.message.content))
 
 # .random [amount] [search criteria] (get random hentai)
 # only works in nsfw channels
 @client.command()
 async def random(ctx, *, criteria=""):
-	await cmd.random(ctx, criteria)
+	try:
+		await cmd.random(ctx, criteria)
+	except discord.Forbidden:
+		await ctx.send("Sorry, Pasta_Bot is missing some permissions in this channel.")
+	except discord.HTTPException:
+		await ctx.send("My wifi is garbage and can't run HTTP get requests. Pls try again")
 
-# error handling
 @random.error
 async def random_error(ctx, error):
-	await ctx.send("My wifi is garbage and can't run HTTP get requests. Pls try again")
-	err = "```css\nAn http .random error has occured in {channel} from:\n{message}```".format(channel=channel, message=ctx.message.content)
+	# send message to guild
+	message = "uwu I'm sorry senpai... something has gone terribly wrong\n"
+	message += "Pwease contact Sadeli to fix a possible bug"
+	await ctx.send(message)
+	# send message to owner
+	err = "```An error has occured at Guild ```{guild}``` in Channel ```{channel}``` from:\n```css\n{message}```"
 	OWNER = client.get_user(OWNER_ID)
-	await OWNER.send(err)
+	await OWNER.send(err.format(guild=ctx.guild.name, channel=ctx.channel.name, message=ctx.message.content))
 
 # .owo [@user_mention] [@user_mention] [...] (owoify messages)
 @client.command(aliases=["uwu"])
 async def owo(ctx, *members : discord.Member):
-	await cmd.owo(ctx, *members) # for some reason the program breaks if I take out the *
+	try:
+		await cmd.owo(ctx, *members) # for some reason the program breaks if I take out the *
+	except discord.Forbidden:
+		await ctx.send("Sorry, Pasta_Bot is missing some permissions in this channel")
 
 # If you get bad arguments, just owoify the last message
 @owo.error
 async def owo_error(ctx, error):
 	if isinstance(error, commands.BadArgument):
 		await owo(ctx)
+	else:
+		print(error)
+		message = "uwu I'm sorry senpai... something has gone terribly wrong\n"
+		message += "Pwease contact Sadeli to fix a possible bug"
+		await ctx.send(message)
+		# send message to owner
+		err = "```An error has occured at Guild ```{guild}``` in Channel ```{channel}``` from:\n```css\n{message}```"
+		OWNER = client.get_user(OWNER_ID)
+		await OWNER.send(err.format(guild=ctx.guild.name, channel=ctx.channel.name, message=ctx.message.content))
 
 # .clean (delete messages by pasta_bot)
 @client.command()
 @commands.has_permissions(manage_messages=True)
 async def clean(ctx):
-	await cmd.clean(ctx)
+	try:
+		await cmd.clean(ctx)
+	except discord.Forbidden:
+		await ctx.send("Sorry, Pasta_Bot is missing permissions for this action")
 
 # MissingPermissions error
 @clean.error
 async def clean_error(ctx, error):
-	if isinstance(error, commands.MissingPermissions):
-		await ctx.send("{member} you do not have permissions to manage messages".format(member=ctx.author.mention))
+	if (isinstance(error, commands.MissingPermissions)):
+		await ctx.send("{member} you do not have permissions to manage messages".format(member=ctx.author.name))
+	else:
+		message = "uwu I'm sorry senpai... something has gone terribly wrong\n"
+		message += "Pwease contact Sadeli to fix a possible bug"
+		await ctx.send(message)
+		# send message to owner
+		err = "```An error has occured at Guild ```{guild}``` in Channel ```{channel}``` from:\n```css\n{message}```"
+		OWNER = client.get_user(OWNER_ID)
+		await OWNER.send(err.format(guild=ctx.guild.name, channel=ctx.channel.name, message=ctx.message.content))
 
 # broadcast to all servers
 @client.command()
