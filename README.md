@@ -131,15 +131,15 @@ Made with [discord.py](https://discordpy.readthedocs.io/en/latest/)
 ---
 
 ## How to port Pasta_Bot
-**PYTHON 3 IS REQUIRED**\
+**PYTHON 3 IS REQUIRED**
 1. [Create a bot account](https://discordpy.readthedocs.io/en/latest/discord.html) and get your bot token.
-1. Download [discord.py](https://discordpy.readthedocs.io/en/latest/intro.html)
-2. clone this repository with:
+2. Download [discord.py](https://discordpy.readthedocs.io/en/latest/intro.html)
+3. clone this repository with:
 ```
 git clone https://github.com/sadeli413/Pasta_Bot.git
 ```
-3. Outside of the Pasta_Bot/ folder, create a text file **ID.txt** and **TOKEN.txt**
-4. Put your discord ID inside of **ID.txt** and your bot token inside of **TOKEN.txt**
+4. Outside of the Pasta_Bot/ folder, create a text file **ID.txt** and **TOKEN.txt**
+5. Put your discord ID inside of **ID.txt** and your bot token inside of **TOKEN.txt**
 
 Your tree should look something like this:
 ```
@@ -152,7 +152,7 @@ Your tree should look something like this:
 |___README.md
 ```
 
-Go into Pasta_Bot/ folder and run Pasta_Bot with:
+6. Go into Pasta_Bot/ folder and run Pasta_Bot with:
 ```
 python3 pasta_bot.py
 ```
@@ -173,7 +173,7 @@ python pasta_bot.py
 
 - Pasta_Bot is not licensed, but that's subject to change.
 
-- This is a hobby project to improve my coding skills. I'm not super good at coding yet and if you see terrible code or bugs in Pasta_Bot, please let me know.
+- This is a hobby project to improve my coding skills. If you see terrible code or bugs in Pasta_Bot, please let me know.
 
 - I know, I know. I should implement cogs. When I find more time, I'll do that. It *does* seem like it would make the bot more organized.
 
