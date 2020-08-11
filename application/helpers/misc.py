@@ -17,15 +17,19 @@ def isCommand(content):
 
 # get list of trigger words for copypasta	
 def getTriggers():
-	lines = []
-	file = open("{this}/triggers.txt".format(this=THIS_FOLDER), "r")
-	for line in file:
-		# remove '\n'
-		line = line[:-1]
-		lines.append(line)
-	
-	file.close()
-	return lines
+	try:
+		lines = []
+		file = open("{this}/triggers.txt".format(this=THIS_FOLDER), "r")
+		for line in file:
+			# remove '\n'
+			line = line[:-1]
+			lines.append(line)
+		
+		file.close()
+		return lines
+	except:
+		print("triggers.txt not found")
+		exit(1)
 
 def timestamp():
 	now = datetime.datetime.now()

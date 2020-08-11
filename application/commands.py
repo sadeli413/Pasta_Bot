@@ -163,7 +163,31 @@ class Commands:
 	async def broadcast(self, announcement):
 		if len(announcement) > 0:
 			for guild in self.client.guilds:
-				await guild.system_channel.send(announcement)
+				try: 
+					await guild.system_channel.send(announcement)
+				except discord.Forbidden:
+					pass
+				
+	async def giveError(self, ctx, error, OWNER_ID):
+		print()
+		print("******")
+		print(error)
+		timestamp()
+		print("******")
+		print()
+		message = "uwu I'm sorry senpai... something has gone terribly wrong\n"
+		message += "Pwease contact Sadeli to fix a possible bug"
+		await ctx.send(message)
+		# send message to owner
+		if isinstance(ctx.channel, discord.DMChannel):
+			guild = ctx.author.name + "'s DM channel."
+			channel = ""
+		else:
+			guild = ctx.message.guild.name
+			channel = ctx.channel.name
+		err = "```An error has occured at Guild ```{guild}``` in Channel ```{channel}``` from:\n```css\n{message}```"
+		OWNER = self.client.get_user(OWNER_ID)
+		await OWNER.send(err.format(guild=guild, channel=channel, message=ctx.message.content))
 
 	"""
 	The rest are helper funcitons

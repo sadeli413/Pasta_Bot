@@ -41,9 +41,13 @@ class Copypasta:
 	# return the copypasta from a file
 	def file2pasta(self, trigger):
 		# get the file
-		filename = "{this}/pastas/{trigger}.txt".format(this=self.THIS_FOLDER, trigger=trigger)
-		file = open(filename, "r")
-		# read and return text
-		text = file.read()
-		file.close()
-		return text
+		try:
+			filename = "{this}/pastas/{trigger}.txt".format(this=self.THIS_FOLDER, trigger=trigger)
+			file = open(filename, "r")
+			# read and return text
+			text = file.read()
+			file.close()
+			return text
+		except:
+			print("could not open copypasta file")
+			exit(1)

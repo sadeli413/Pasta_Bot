@@ -2,14 +2,22 @@
 
 # get bot token
 def getToken():
-	file = open("../TOKEN.txt")
-	token = file.read()
-	file.close()
-	return token
+	try:
+		file = open("../TOKEN.txt")
+		token = file.read()
+		file.close()
+		return token
+	except:
+		print("TOKEN.txt not found")
+		exit(1)
 
 # get bot owner's discord ID
 def getID():
-	file = open("../ID.txt")
-	id = file.read()
-	file.close()
-	return int(id)
+	try:
+		file = open("../ID.txt")
+		id = file.read()
+		file.close()
+		return int(id)
+	except:	
+		print("ID.txt not found")
+		exit(1)
