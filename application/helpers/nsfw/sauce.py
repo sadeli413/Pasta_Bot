@@ -89,13 +89,3 @@ class Sauce:
 
 	def list2str(self, array):
 		return ", ".join(array)
-		
-		"""
-# ensure maximum length 256
-			artists = self.list2str(self.doujin["artists"])
-			# max length 242 to include len 14 "ARTISTS: " and ", etc"
-			while (len(artists) >= 242): # total number of characters
-				self.doujin["artists"].pop()
-				artists = self.list2str(self.doujin["artists"])
-			artists += ", etc"
-		"""

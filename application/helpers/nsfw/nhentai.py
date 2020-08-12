@@ -20,7 +20,7 @@ import discord
 import requests
 from re import split
 #custom packages
-from application.helpers.extrapasta import Extrapasta
+import application.helpers.extrapasta as Extrapasta
 from application.helpers.nsfw.sauce import Sauce
 from application.helpers.misc import timestamp
 

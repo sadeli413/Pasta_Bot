@@ -132,7 +132,7 @@ async def search_error(ctx, error):
 	if isinstance(error, commands.MissingRequiredArgument):
 		await ctx.send(".search [amount] {search criteria}\nGet some .help")
 	else:
-		cmd.giveError(ctx, OWNER_ID)
+		await cmd.giveError(ctx, OWNER_ID)
 
 # .random [amount] [search criteria] (get random hentai)
 # only works in nsfw channels
@@ -147,7 +147,7 @@ async def random(ctx, *, criteria=""):
 
 @random.error
 async def random_error(ctx, error):
-	cmd.giveError(ctx, error, OWNER_ID)
+	await cmd.giveError(ctx, error, OWNER_ID)
 
 # .owo [@user_mention] [@user_mention] [...] (owoify messages)
 @client.command(aliases=["uwu"])
@@ -163,7 +163,7 @@ async def owo_error(ctx, error):
 	if isinstance(error, commands.BadArgument):
 		await owo(ctx)
 	else:
-		giveError(ctx, error, OWNER_ID)
+		await cmd.giveError(ctx, error, OWNER_ID)
 
 # .clean (delete messages by pasta_bot)
 @client.command()
@@ -180,7 +180,7 @@ async def clean_error(ctx, error):
 	if (isinstance(error, commands.MissingPermissions)):
 		await ctx.send("{member} you do not have permissions to manage messages".format(member=ctx.author.name))
 	else:
-		giveError(ctx, error, OWNER_ID)
+		await giveError(ctx, error, OWNER_ID)
 
 # broadcast to all servers
 @client.command()

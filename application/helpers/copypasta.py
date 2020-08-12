@@ -6,7 +6,7 @@ import os
 import discord
 from re import split
 
-from application.helpers.extrapasta import Extrapasta
+import application.helpers.extrapasta as Extrapasta
 from application.helpers.misc import getTriggers
 
 class Copypasta:

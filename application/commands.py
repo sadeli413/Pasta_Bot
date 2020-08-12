@@ -8,18 +8,18 @@ import requests
 import datetime
 from re import sub, search
 # custom packages
+import application.helpers.owo as Owoifier
+import application.helpers.extrapasta as Extrapasta
+import application.helpers.nsfw.randomSearch as Rs
 from application.helpers.misc import getTriggers, isCommand, timestamp
-from application.helpers.owo import Owo
-from application.helpers.nsfw.randomSearch import randomSearch
 from application.helpers.nsfw.search import Search
-from application.helpers.extrapasta import Extrapasta
 from application.helpers.help import Help
 
 class Commands:
 	def __init__(self, client):
 		self.client = client
 		self.THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
-		self.owoifier = Owo()
+		# self.owoifier = Owo()
 		self.hp = Help()
 	
 	# send help
@@ -112,11 +112,10 @@ class Commands:
 				await ctx.send("```css\n.random only works in nsfw channels```")
 				return
 		"""	
-		rs = randomSearch()
 		# no arguments
 		if len(criteria) < 1:
 			await ctx.send("Fetching random sauce...")
-			await rs.noArgs(ctx)
+			await Rs.noArgs(ctx)
 			timestamp()
 			return
 		
@@ -133,7 +132,7 @@ class Commands:
 			if amount > 0:
 				await ctx.send("Fetching random sauce{amount}...".format(amount=" x"+str(amount) if amount > 1 else ""))
 				for i in range(amount):
-					await rs.noArgs(ctx)
+					await Rs.noArgs(ctx)
 		# [amount] [criteria] args
 		else:
 			aAndC = self.amountAndCriteria(info)
@@ -147,17 +146,17 @@ class Commands:
 					return
 						
 				await ctx.send("Random search{amount}{extra}...".format(amount=" x" + str(amount) if amount > 1 else "", extra =" for `" + info + "`" if len(info) > 0 else ""))
-				await rs.yesArgs(ctx, amount, info)
+				await Rs.yesArgs(ctx, amount, info)
 		timestamp()
 					
 	# owoify member messages
 	async def owo(self, ctx, *members : discord.Member):
 		# if no members are given, then just owoify last valid message
 		if len(members) < 1:
-			await self.owoifier.noMember(ctx)
+			await Owoifier.noMember(ctx)
 		# if there are members, then owoify just their messages
 		else:
-			await self.owoifier.yesMember(ctx, *members)
+			await Owoifier.yesMember(ctx, *members)
 
 	# send a broadcast message to all servers
 	async def broadcast(self, announcement):
@@ -185,7 +184,7 @@ class Commands:
 		else:
 			guild = ctx.message.guild.name
 			channel = ctx.channel.name
-		err = "```An error has occured at Guild ```{guild}``` in Channel ```{channel}``` from:\n```css\n{message}```"
+		err = "An error has occured at Guild **{guild}** in Channel **{channel}** from:```css\n{message}```"
 		OWNER = self.client.get_user(OWNER_ID)
 		await OWNER.send(err.format(guild=guild, channel=channel, message=ctx.message.content))
 
