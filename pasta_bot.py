@@ -30,12 +30,11 @@ from random import choice
 from application.events import Events
 from application.commands import Commands
 from application.helpers.misc import timestamp
-from private import getToken, getID
+from private import getToken, getID, getBroadcastID
 
 # tools
 client = commands.Bot(command_prefix = '.') # the bot itself
 TOKEN = getToken() # bot token
-OWNER_ID = getID() # owner's discord id
 events = Events(client) # on message events
 cmd = Commands(client) # bot commands
 status = events.getStatus() # bot statuses
@@ -44,12 +43,19 @@ client.remove_command("help") # remove default help command. I replaced it with 
 """
 EVENTS: on_ready, on_message, and on_member_join
 """
+
 # when the bot starts, change statuses every 5 minutes
 @client.event
 async def on_ready():
 	print("Pasta_Bot version 0.0.0 by Sadeli")
 	timestamp()
 	changeStatus.start()
+	# get bot Owner
+	global OWNER
+	OWNER = client.get_user(getID())
+	# get broadcast channel
+	global BROADCAST_CHANNEL
+	BROADCAST_CHANNEL = client.get_channel(getBroadcastID())
 
 # the meat of the program. Send sauce or a copypasta
 @client.event
@@ -82,8 +88,7 @@ async def on_command_error(ctx, error):
 			guild = ctx.message.guild.name
 			channel = ctx.channel.name
 			
-		err = "```css\nA misc command error has occured in guild {guild} in channel {channel} from:\n{message}```".format(guild=guild, channel=channel, message=ctx.message.content)
-		OWNER = client.get_user(OWNER_ID)
+		err = "A misc command error has occured in Guild **{guild}** in Channel **{channel}** from:```css\n{message}```".format(guild=guild, channel=channel, message=ctx.message.content)
 		await OWNER.send(err)
 
 # change status every 5 minutes
@@ -132,7 +137,7 @@ async def search_error(ctx, error):
 	if isinstance(error, commands.MissingRequiredArgument):
 		await ctx.send(".search [amount] {search criteria}\nGet some .help")
 	else:
-		await cmd.giveError(ctx, OWNER_ID)
+		await cmd.giveError(ctx, error, OWNER)
 
 # .random [amount] [search criteria] (get random hentai)
 # only works in nsfw channels
@@ -147,7 +152,7 @@ async def random(ctx, *, criteria=""):
 
 @random.error
 async def random_error(ctx, error):
-	await cmd.giveError(ctx, error, OWNER_ID)
+	await cmd.giveError(ctx, error, OWNER)
 
 # .owo [@user_mention] [@user_mention] [...] (owoify messages)
 @client.command(aliases=["uwu"])
@@ -163,7 +168,7 @@ async def owo_error(ctx, error):
 	if isinstance(error, commands.BadArgument):
 		await owo(ctx)
 	else:
-		await cmd.giveError(ctx, error, OWNER_ID)
+		await cmd.giveError(ctx, error, OWNER)
 
 # .clean (delete messages by pasta_bot)
 @client.command()
@@ -180,19 +185,23 @@ async def clean_error(ctx, error):
 	if (isinstance(error, commands.MissingPermissions)):
 		await ctx.send("{member} you do not have permissions to manage messages".format(member=ctx.author.name))
 	else:
-		await giveError(ctx, error, OWNER_ID)
+		await giveError(ctx, error, OWNER)
 
 # broadcast to all servers
 @client.command()
 @commands.is_owner()
 async def broadcast(ctx, *, announcement):
-	await cmd.broadcast(announcement)
+	# broadcast_channel = client.get_channel(getBroadcastID())
+	if BROADCAST_CHANNEL != None:
+		await cmd.broadcast(BROADCAST_CHANNEL, announcement)
+	else:
+		print("Broadcast Channel could not be found.")
+		timestamp()
 
 # implement basic log
 @client.command()
 @commands.is_owner()
 async def log(ctx):
-	OWNER = client.get_user(OWNER_ID)
 	logfile = []
 	for guild in client.guilds:
 		logfile.append(guild.name)

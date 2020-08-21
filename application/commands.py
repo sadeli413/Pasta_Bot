@@ -159,15 +159,11 @@ class Commands:
 			await Owoifier.yesMember(ctx, *members)
 
 	# send a broadcast message to all servers
-	async def broadcast(self, announcement):
+	async def broadcast(self, channel, announcement):
 		if len(announcement) > 0:
-			for guild in self.client.guilds:
-				try: 
-					await guild.system_channel.send(announcement)
-				except discord.Forbidden:
-					pass
+			await channel.send(announcement)
 				
-	async def giveError(self, ctx, error, OWNER_ID):
+	async def giveError(self, ctx, error, OWNER):
 		print()
 		print("******")
 		print(error)
@@ -185,7 +181,6 @@ class Commands:
 			guild = ctx.message.guild.name
 			channel = ctx.channel.name
 		err = "An error has occured at Guild **{guild}** in Channel **{channel}** from:```css\n{message}```"
-		OWNER = self.client.get_user(OWNER_ID)
 		await OWNER.send(err.format(guild=guild, channel=channel, message=ctx.message.content))
 
 	"""

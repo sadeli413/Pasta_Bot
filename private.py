@@ -21,3 +21,14 @@ def getID():
 	except:	
 		print("ID.txt not found")
 		exit(1)
+
+# get broadcast channel's ID
+def getBroadcastID():
+	try:
+		file = open("../BROADCAST.txt")
+		broadcast = file.read()
+		file.close()
+		return int(broadcast)
+	except:
+		print("BROADCAST.txt not found")
+		return None
