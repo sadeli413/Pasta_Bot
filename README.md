@@ -138,11 +138,12 @@ Made with [discord.py](https://discordpy.readthedocs.io/en/latest/)
 ```
 git clone https://github.com/sadeli413/Pasta_Bot.git
 ```
-4. Outside of the Pasta_Bot/ folder, create a text file **ID.txt** and **TOKEN.txt**
-5. Put your discord ID inside of **ID.txt** and your bot token inside of **TOKEN.txt**
+4. Outside of the Pasta_Bot/ folder, create 3 text files **ID.txt**, **TOKEN.txt**, and **BROADCAST.txt**. **BROADCAST.txt** is optional.
+5. Put your discord ID inside of **ID.txt**, your bot token inside of **TOKEN.txt**, and your discord broadcast channel's ID inside of **BROADCAST.txt**.
 
 Your tree should look something like this:
 ```
+|BROADCAST.txt
 |ID.txt
 |TOKEN.txt
 |Pasta_Bot/
