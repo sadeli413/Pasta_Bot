@@ -1,6 +1,6 @@
 # Pasta_Bot
 A NSFW Discord bot made by Sadeli.
-- Pasta_Bot is free and open source https://github.com/sadeli413/Pasta_Bot.git
+- Pasta_Bot is free and open source. [Click here](https://github.com/sadeli413/Pasta_Bot.git) to learn about recursion, view source code, and read documentation.
 - [Add Pasta_Bot to your server](https://discord.com/api/oauth2/authorize?client_id=715018649588727859&permissions=2147483383&scope=bot)
 
 ---
