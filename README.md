@@ -94,7 +94,7 @@ No embed will be sent if the numbers returns a 404 status code. Unlike .search o
 These Pasta_Bot commands are only allowed to be executed by the bot owner.
 
 ### BROADCAST
-- DESCRIPTION: Send a message to EVERY GUILD the bot is a member of.
+- DESCRIPTION: Send a message to your broadcast channel. Your channel ID should go into BROADCAST.txt
 - USAGE: ```.broadcast [any message here]```
 
 ### LOG
