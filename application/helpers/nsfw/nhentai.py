@@ -19,6 +19,7 @@ edge debugging cases:
 import discord
 import requests
 from re import split
+from random import randint
 #custom packages
 import application.helpers.extrapasta as Extrapasta
 from application.helpers.nsfw.sauce import Sauce
@@ -34,7 +35,13 @@ class Nhentai:
 		if len(sauces) > 0:
 			# if there's more than 3, then tell them thats a lot
 			if len(sauces) > 3:
-				await message.channel.send(Extrapasta.tooMuchHentai())
+				# 1 in 6 chance for ubw pasta
+				flag = randint(1, 6)
+				if flag == 1:
+					cppasta = Extrapasta.ubw()
+				else:
+					cppasta = Extrapasta.tooMuchHentai()
+				await message.channel.send(cppasta)
 			# give all the sauce
 			for sauce in sauces:
 				await message.channel.send(embed=sauce)
@@ -51,7 +58,6 @@ class Nhentai:
 		content = message.content.lower()
 		self.illegals = 0
 		embeds = []
-		#if self.hasNumbers(content):
 		numbers = self.getNumbers(content)
 		if len(numbers) > 0:
 			# for every number in the content, make an embed if it's not 404
@@ -73,20 +79,14 @@ class Nhentai:
 			
 	# gets valid numbers in lowercase content
 	def getNumbers(self, content):
-		if not self.hasNumbers(content):
-			return []
-			
-		# split up numbers in between special characters
+		# split up numbers
 		words = split("[^0-9]", content)
 		# remove items that do not have numbers or arent five/six digits
 		for word in reversed(words):
 			isBadLength = len(word) < 5 or len(word) > 6
-			if (not self.hasNumbers(word)) or isBadLength:
+			if (not word.isdigit()) or isBadLength:
 				words.remove(word)
 		# remove duplicates
 		numbers = list(dict.fromkeys(words))
 
 		return numbers
-				
-	def hasNumbers(self, word):
-		return any(char.isdigit() for char in word)	
