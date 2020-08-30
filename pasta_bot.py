@@ -4,11 +4,7 @@ main method for pasta_bot, containing events and commands
 """
 
 """
-TODO asap:
-	- make a pasta_bot server to report bugs
-	- file i/o error handling
-	- BotMissingPermissions error handling
-TODO Long term:
+TODO next version:
 	- Use SQL/json to track user's favorite doujin and make recommendations
 		.save {numbers} [numbers] ...
 		.library
@@ -68,7 +64,7 @@ async def on_member_join(member):
 	greetings = [
 		"Welcome home, {member}! Would you like dinner? A bath? Or maybe... me?",
 		"Welcome to the guild, {member}! Don't worry, I'm not a pervert, or anyone suspicious. No suspicious people here. None at all.",
-		"Hello, {member}. My name is Pasta_Bot. My favorite food is sauce. Please don't forget me."
+		"Hello, {member}. My name is Pasta_Bot. My favorite food is rice with natto. Please don't forget me."
 	]
 	await member.guild.system_channel.send(choice(greetings).format(member = member.name))
 
@@ -77,9 +73,11 @@ async def on_member_join(member):
 async def on_command_error(ctx, error):
 	if isinstance(error, commands.CommandNotFound):
 		return
-	# not MissingPermissions, BadArgument, or MissingRequiredArgument
+	
 	elif (isinstance(error, commands.BotMissingPermissions)):
 		await ctx.send("Sorry, Pasta_Bot is missing misc permisisons")
+	
+	# not MissingPermissions, BadArgument, or MissingRequiredArgument
 	elif ((not isinstance(error, commands.MissingPermissions)) and (not isinstance(error, commands.BadArgument)) and (not isinstance(error, commands.MissingRequiredArgument))):
 		if isinstance(ctx.channel, discord.DMChannel):
 			guild = ctx.author.name + "'s DM channel."
@@ -204,7 +202,7 @@ async def broadcast(ctx, *, announcement):
 async def log(ctx):
 	logfile = []
 	for guild in client.guilds:
-		logfile.append(guild.name)
+		logfile.append(	guild.name)
 	await OWNER.send(", ".join(logfile))
 
 # shutdown

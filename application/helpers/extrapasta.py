@@ -42,6 +42,15 @@ except:
 	print("could not open/close fbiOpenUp.txt")
 	exit(1)
 
+# unlimited hentai works
+try:
+	ubwFile = open(THIS_FOLDER + "/pastas/extra/ubw.txt", "r")
+	UBW_TEXT = ubwFile.read()
+	ubwFile.close()
+except:
+	print("could not open/close ubw.txt")
+	exit(1)
+
 # display the tooMuchHentai message
 def tooMuchHentai():
 	return TOOMUCH_TEXT
@@ -49,6 +58,9 @@ def tooMuchHentai():
 # notify if there's loli or shota content
 def fbiOpenUp():
 	return FBI_TEXT
+
+def ubw():
+	return UBW_TEXT
 
 # navy seal response
 def sealResponse(content):

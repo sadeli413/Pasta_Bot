@@ -29,7 +29,7 @@ class Copypasta:
 		content = message.content.lower()
 		TRIGGERS = getTriggers() # you can actually edit the triggers while the bot is running
 		# copypasta the last trigger word in the content
-		reversedContent = reversed(split("[^a-z^A-Z^0-9]", content))
+		reversedContent = reversed(split("[^A-Za-z0-9]", content))
 		for word in reversedContent:
 			for trigger in TRIGGERS:
 				if trigger in word:
