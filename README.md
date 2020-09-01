@@ -1,7 +1,9 @@
 # Pasta_Bot
+Pasta_Bot v1.0.0\
 A NSFW Discord bot made by Sadeli.
+- Join the [Pasta_Bot server!](https://discord.gg/KhRBjpT)
+- [Invite Pasta_Bot](https://discord.com/api/oauth2/authorize?client_id=715018649588727859&permissions=2147483383&scope=bot) to your own server!
 - Pasta_Bot is free and open source. [Click here](https://github.com/sadeli413/Pasta_Bot.git) to learn about recursion, view source code, and read documentation.
-- [Add Pasta_Bot to your server](https://discord.com/api/oauth2/authorize?client_id=715018649588727859&permissions=2147483383&scope=bot)
 
 ---
 ## Table of Contents
@@ -25,8 +27,8 @@ A NSFW Discord bot made by Sadeli.
 ---
 
 ## Commands
-- [] means optional arguments
-- {} means required argument
+[] means optional arguments\
+{} means required argument
 
 ### HELP
 - DESCRIPTION: DM a help message
@@ -117,7 +119,7 @@ These Pasta_Bot commands are only allowed to be executed by the bot owner.
 ## Citations
 
 ### ICON
-I do not own the spaghetti-ahegao photo used for Pasta_Bot icon. The icon was taken from https://knowyourmeme.com/photos/1299418-ostagram-spaghetti-mashups
+I do not own the Araragi Tsukihi icon. Source is Monogatari Series.
 
 ### COPYPASTAS
 I did not create most of these copypastas. Most of these copypastas were taken from https://www.reddit.com/r/copypasta/
@@ -174,10 +176,10 @@ python pasta_bot.py
 
 - Pasta_Bot is not licensed, but that's subject to change.
 
-- This is a hobby project to improve my coding skills. If you see terrible code or bugs in Pasta_Bot, please let me know.
+- This is a hobby project to improve my coding skills. If you see terrible code or bugs in Pasta_Bot, please let me know on the [Pasta_Bot server](https://discord.gg/KhRBjpT).
 
 - I know, I know. I should implement cogs. When I find more time, I'll do that. It *does* seem like it would make the bot more organized.
 
 Thank you for using Pasta_Bot.
 
-\- by Thad Shinno (Sadeli)
+\- by Sadeli
