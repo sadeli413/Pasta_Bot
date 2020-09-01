@@ -43,7 +43,7 @@ EVENTS: on_ready, on_message, and on_member_join
 # when the bot starts, change statuses every 5 minutes
 @client.event
 async def on_ready():
-	print("Pasta_Bot version 0.0.0 by Sadeli")
+	print("Pasta_Bot version 1.0.0 by Sadeli")
 	timestamp()
 	changeStatus.start()
 	# get bot Owner
@@ -63,7 +63,7 @@ async def on_message(message):
 async def on_member_join(member):
 	greetings = [
 		"Welcome home, {member}! Would you like dinner? A bath? Or maybe... me?",
-		"Welcome to the guild, {member}! Don't worry, I'm not a pervert, or anyone suspicious. No suspicious people here. None at all.",
+		"Welcome to the guild, {member}! Don't worry, I'm not a pervert. I'm not anyone suspicious. No suspicious people here. None at all.",
 		"Hello, {member}. My name is Pasta_Bot. My favorite food is rice with natto. Please don't forget me."
 	]
 	await member.guild.system_channel.send(choice(greetings).format(member = member.name))
