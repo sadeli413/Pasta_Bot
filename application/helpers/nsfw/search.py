@@ -104,12 +104,10 @@ class Search:
 			amount = abs(int(first))
 			args.pop(0)
 			query = "".join(i + " " for i in args)[:-1] # delete the final space
-			# url sanitizer
-			# query = query.replace(" ", "+").replace(":", "%3A" )
 		return {
 			"sanitized": sanitized,
 			"amount": amount,
-			"query": query.replace(" ", "+").replace(":", "%3A" ),
+			"query": query.replace(" ", "+").replace(":", "%3A" ), # url sanitizer
 			"userquery": query
 		}
 

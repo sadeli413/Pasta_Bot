@@ -68,7 +68,6 @@ async def on_member_join(member):
 	]
 	await member.guild.system_channel.send(choice(greetings).format(member = member.name))
 
-"""
 # command not found error, and misc erorr
 @client.event
 async def on_command_error(ctx, error):
@@ -89,7 +88,6 @@ async def on_command_error(ctx, error):
 			
 		err = "A misc command error has occured in Guild **{guild}** in Channel **{channel}** from:```css\n{message}```".format(guild=guild, channel=channel, message=ctx.message.content)
 		await OWNER.send(err)
-"""
 
 # change status every 5 minutes
 @tasks.loop(minutes = 5)
@@ -131,7 +129,6 @@ async def search(ctx, *, criteria):
 	except discord.HTTPException:
 		await ctx.send("My wifi is garbage and can't run HTTP get requests. Pls try again")
 
-"""
 # error handling
 @search.error
 async def search_error(ctx, error):
@@ -139,7 +136,6 @@ async def search_error(ctx, error):
 		await ctx.send(".search [amount] {search criteria}\nGet some .help")
 	else:
 		await cmd.giveError(ctx, error, OWNER)
-"""
 
 # .random [amount] [search criteria] (get random hentai)
 # only works in nsfw channels
@@ -152,11 +148,9 @@ async def random(ctx, *, criteria=""):
 	except discord.HTTPException:
 		await ctx.send("My wifi is garbage and can't run HTTP get requests. Pls try again")
 
-"""
 @random.error
 async def random_error(ctx, error):
 	await cmd.giveError(ctx, error, OWNER)
-"""
 
 # .owo [@user_mention] [@user_mention] [...] (owoify messages)
 @client.command(aliases=["uwu"])
