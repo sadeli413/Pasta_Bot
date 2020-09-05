@@ -73,11 +73,11 @@ class Commands:
 		# search the criteria
 		if aq["amount"] > 0:
 			# kinkshame if searched for lolis
-			if self.isKinkshame(ctx, aq["query"]):
+			if self.isKinkshame(ctx, aq["userquery"]):
 				await ctx.send(Extrapasta.fbiOpenUp())
 				return
 			
-			await ctx.send("Searching{amount} for `{query}`...".format(amount = " x" + str(aq["amount"]) if aq["amount"] > 1 else "", query=aq["query"]))
+			await ctx.send("Searching{amount} for `{userquery}`...".format(amount = " x" + str(aq["amount"]) if aq["amount"] > 1 else "", userquery=aq["userquery"]))
 			await find.withArgs(ctx, "notrandom")
 			
 			timestamp()
@@ -112,11 +112,11 @@ class Commands:
 			# [amount] [criteria] args
 			if aq["amount"] > 0:
 				# kink shame if searched for minors
-				if self.isKinkshame(ctx, aq["query"]):
+				if self.isKinkshame(ctx, aq["userquery"]):
 					await ctx.send(Extrapasta.fbiOpenUp())
 					return
 						
-				await ctx.send("Random search{amount}{query}...".format(amount=" x" + str(aq["amount"]) if aq["amount"] > 1 else "", query =" for `" + aq["query"] + "`" if len(aq["query"]) > 0 else ""))
+				await ctx.send("Random search{amount}{userquery}...".format(amount=" x" + str(aq["amount"]) if aq["amount"] > 1 else "", userquery=" for `" + aq["userquery"] + "`" if len(aq["userquery"]) > 0 else ""))
 				await find.withArgs(ctx, "random")
 		timestamp()
 

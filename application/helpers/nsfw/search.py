@@ -10,8 +10,6 @@ from random import randint, choice
 # custom package
 from application.helpers.nsfw.sauce import Sauce
 
-
-
 class Search:
 	def __init__(self, criteria):
 		# search url
@@ -39,7 +37,7 @@ class Search:
 			for embed in embeds:
 				await ctx.send(embed=embed)
 		else:
-			await ctx.send("Could not find {query}".format(query=self.AQ["query"]))
+			await ctx.send("Could not find {userquery}".format(userquery=self.AQ["userquery"]))
 
 	# maximum 25
 	def getMultiSauce(self):
@@ -107,11 +105,13 @@ class Search:
 			args.pop(0)
 			query = "".join(i + " " for i in args)[:-1] # delete the final space
 			# url sanitizer
+			userquery = query
 			query = query.replace(" ", "+").replace(":", "%3A" )
 		return {
 			"sanitized": sanitized,
 			"amount": amount,
-			"query": query
+			"query": query,
+			"userquery": userquery
 		}
 
 	# remove multiple whitespace and special characters besides :"\s
