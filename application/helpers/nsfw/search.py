@@ -105,13 +105,12 @@ class Search:
 			args.pop(0)
 			query = "".join(i + " " for i in args)[:-1] # delete the final space
 			# url sanitizer
-			userquery = query
-			query = query.replace(" ", "+").replace(":", "%3A" )
+			# query = query.replace(" ", "+").replace(":", "%3A" )
 		return {
 			"sanitized": sanitized,
 			"amount": amount,
-			"query": query,
-			"userquery": userquery
+			"query": query.replace(" ", "+").replace(":", "%3A" ),
+			"userquery": query
 		}
 
 	# remove multiple whitespace and special characters besides :"\s
