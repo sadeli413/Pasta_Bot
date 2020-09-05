@@ -1,5 +1,5 @@
 # Pasta_Bot
-Pasta_Bot v1.0.0\
+Pasta_Bot v1.0.1\
 A NSFW Discord bot made by Sadeli.
 - Join the [Pasta_Bot server!](https://discord.gg/KhRBjpT)
 - [Invite Pasta_Bot](https://discord.com/api/oauth2/authorize?client_id=715018649588727859&permissions=2147483383&scope=bot) to your own server!
